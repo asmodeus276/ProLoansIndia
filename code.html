@@ -283,17 +283,17 @@
     <div class="w-full max-w-full overflow-hidden bg-[#1565C0] text-white shadow-inner border-t border-blue-400/20">
       <div class="w-full max-w-full mx-auto px-4 sm:px-6 lg:px-8 overflow-x-auto no-scrollbar py-2 flex lg:justify-center">
         <div class="flex items-center lg:justify-center gap-5 sm:gap-7 text-[12.5px] sm:text-[13.5px] font-semibold tracking-wide whitespace-nowrap min-w-max lg:min-w-0" id="subnav-container">
-          <!-- PRIORITY ORDER: Professional > Home > Personal > Business > LAP > Working Capital > CGT/MSME Loan > Car > Education > Machinery -->
+          <!-- PRIORITY ORDER: 1.Professional > 2.Home > 3.Personal > 4.Business > 5.Car > 6.Education > 7.Machinery > 8.Loan Against Property > 9.Working Capital > 10.CGT/MSME -->
           <button onclick="switchPage('professional-loan')" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Professional Loan</button>
           <button onclick="switchPage('home-loan')" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Home Loan</button>
           <button onclick="switchPage('personal-loan')" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Personal Loan</button>
           <button onclick="switchPage('business-loan')" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Business Loan</button>
-          <button onclick="switchPage('lap-loan')" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Loan Against Property</button>
-          <button onclick="switchPage('working-capital')" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Working Capital</button>
-          <button onclick="switchPage('od-facility')" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">CGT/MSME</button>
           <button onclick="switchPage('car-loan')" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Car Loan</button>
           <button onclick="switchPage('education-loan')" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Education Loan</button>
           <button onclick="switchPage('machinery-loan')" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Machinery Loan</button>
+          <button onclick="switchPage('lap-loan')" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Loan Against Property</button>
+          <button onclick="switchPage('working-capital')" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Working Capital</button>
+          <button onclick="switchPage('od-facility')" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">CGT/MSME</button>
         </div>
       </div>
     </div>
@@ -1068,7 +1068,6 @@
 
             <!-- Exactly 9 Service Tiles Horizontal Track in Requested Order -->
             <div id="coreLoansSlider" class="flex items-center gap-2 sm:gap-5 overflow-x-auto scroll-smooth no-scrollbar py-2 sm:py-3 px-0.5 sm:px-1 flex-1">
-              
               <!-- 1. Professional Loan (Doctor & CA) — FIRST -->
               <button onclick="switchPage('professional-loan')" class="flex flex-col items-center justify-center text-center p-1.5 xs:p-2 sm:p-4 rounded-xl sm:rounded-2xl bg-white text-[#0F2942] shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 border border-slate-100 group cursor-pointer shrink-0 w-[88px] xs:w-[98px] sm:w-[155px] md:w-[170px] h-[106px] xs:h-[116px] sm:h-[154px]">
                 <div class="w-8 h-8 xs:w-9 xs:h-9 sm:w-14 sm:h-14 rounded-lg sm:rounded-2xl bg-blue-50 group-hover:bg-[#1565C0] text-[#1565C0] group-hover:text-white flex items-center justify-center transition-colors mb-1 sm:mb-2.5 shadow-2xs">
@@ -1109,37 +1108,7 @@
                 </span>
               </button>
 
-              <!-- 5. Loan Against Property -->
-              <button onclick="switchPage('lap-loan')" class="flex flex-col items-center justify-center text-center p-1.5 xs:p-2 sm:p-4 rounded-xl sm:rounded-2xl bg-white text-[#0F2942] shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 border border-slate-100 group cursor-pointer shrink-0 w-[88px] xs:w-[98px] sm:w-[155px] md:w-[170px] h-[106px] xs:h-[116px] sm:h-[154px]">
-                <div class="w-8 h-8 xs:w-9 xs:h-9 sm:w-14 sm:h-14 rounded-lg sm:rounded-2xl bg-blue-50 group-hover:bg-[#1565C0] text-[#1565C0] group-hover:text-white flex items-center justify-center transition-colors mb-1 sm:mb-2.5 shadow-2xs">
-                  <span class="material-symbols-outlined text-xl sm:text-[34px]">domain</span>
-                </div>
-                <span class="text-[9.5px] xs:text-[10.5px] sm:text-[13px] font-extrabold text-[#0F2942] group-hover:text-[#1565C0] leading-tight transition-colors">
-                  Loan Against<br>Property
-                </span>
-              </button>
-
-              <!-- 6. Working Capital -->
-              <button onclick="switchPage('working-capital')" class="flex flex-col items-center justify-center text-center p-1.5 xs:p-2 sm:p-4 rounded-xl sm:rounded-2xl bg-white text-[#0F2942] shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 border border-slate-100 group cursor-pointer shrink-0 w-[88px] xs:w-[98px] sm:w-[155px] md:w-[170px] h-[106px] xs:h-[116px] sm:h-[154px]">
-                <div class="w-8 h-8 xs:w-9 xs:h-9 sm:w-14 sm:h-14 rounded-lg sm:rounded-2xl bg-blue-50 group-hover:bg-[#1565C0] text-[#1565C0] group-hover:text-white flex items-center justify-center transition-colors mb-1 sm:mb-2.5 shadow-2xs">
-                  <span class="material-symbols-outlined text-xl sm:text-[34px]">currency_rupee</span>
-                </div>
-                <span class="text-[9.5px] xs:text-[10.5px] sm:text-[13px] font-extrabold text-[#0F2942] group-hover:text-[#1565C0] leading-tight transition-colors">
-                  Working<br>Capital
-                </span>
-              </button>
-
-              <!-- 7. CGT/MSME Loan -->
-              <button onclick="switchPage('od-facility')" class="flex flex-col items-center justify-center text-center p-1.5 xs:p-2 sm:p-4 rounded-xl sm:rounded-2xl bg-white text-[#0F2942] shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 border border-slate-100 group cursor-pointer shrink-0 w-[88px] xs:w-[98px] sm:w-[155px] md:w-[170px] h-[106px] xs:h-[116px] sm:h-[154px]">
-                <div class="w-8 h-8 xs:w-9 xs:h-9 sm:w-14 sm:h-14 rounded-lg sm:rounded-2xl bg-blue-50 group-hover:bg-[#1565C0] text-[#1565C0] group-hover:text-white flex items-center justify-center transition-colors mb-1 sm:mb-2.5 shadow-2xs">
-                  <span class="material-symbols-outlined text-xl sm:text-[34px]">assured_workload</span>
-                </div>
-                <span class="text-[9.5px] xs:text-[10.5px] sm:text-[13px] font-extrabold text-[#0F2942] group-hover:text-[#1565C0] leading-tight transition-colors">
-                  CGT/MSME<br>Loan
-                </span>
-              </button>
-
-              <!-- 8. Car Loan -->
+              <!-- 5. Car Loan -->
               <button onclick="switchPage('car-loan')" class="flex flex-col items-center justify-center text-center p-1.5 xs:p-2 sm:p-4 rounded-xl sm:rounded-2xl bg-white text-[#0F2942] shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 border border-slate-100 group cursor-pointer shrink-0 w-[88px] xs:w-[98px] sm:w-[155px] md:w-[170px] h-[106px] xs:h-[116px] sm:h-[154px]">
                 <div class="w-8 h-8 xs:w-9 xs:h-9 sm:w-14 sm:h-14 rounded-lg sm:rounded-2xl bg-blue-50 group-hover:bg-[#1565C0] text-[#1565C0] group-hover:text-white flex items-center justify-center transition-colors mb-1 sm:mb-2.5 shadow-2xs">
                   <span class="material-symbols-outlined text-xl sm:text-[34px]">directions_car</span>
@@ -1149,7 +1118,7 @@
                 </span>
               </button>
 
-              <!-- 9. Education Loan -->
+              <!-- 6. Education Loan -->
               <button onclick="switchPage('education-loan')" class="flex flex-col items-center justify-center text-center p-1.5 xs:p-2 sm:p-4 rounded-xl sm:rounded-2xl bg-white text-[#0F2942] shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 border border-slate-100 group cursor-pointer shrink-0 w-[88px] xs:w-[98px] sm:w-[155px] md:w-[170px] h-[106px] xs:h-[116px] sm:h-[154px]">
                 <div class="w-8 h-8 xs:w-9 xs:h-9 sm:w-14 sm:h-14 rounded-lg sm:rounded-2xl bg-blue-50 group-hover:bg-[#1565C0] text-[#1565C0] group-hover:text-white flex items-center justify-center transition-colors mb-1 sm:mb-2.5 shadow-2xs">
                   <span class="material-symbols-outlined text-xl sm:text-[34px]">school</span>
@@ -1159,13 +1128,43 @@
                 </span>
               </button>
 
-              <!-- 10. Machinery Loan -->
+              <!-- 7. Machinery Loan -->
               <button onclick="switchPage('machinery-loan')" class="flex flex-col items-center justify-center text-center p-1.5 xs:p-2 sm:p-4 rounded-xl sm:rounded-2xl bg-white text-[#0F2942] shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 border border-slate-100 group cursor-pointer shrink-0 w-[88px] xs:w-[98px] sm:w-[155px] md:w-[170px] h-[106px] xs:h-[116px] sm:h-[154px]">
                 <div class="w-8 h-8 xs:w-9 xs:h-9 sm:w-14 sm:h-14 rounded-lg sm:rounded-2xl bg-blue-50 group-hover:bg-[#1565C0] text-[#1565C0] group-hover:text-white flex items-center justify-center transition-colors mb-1 sm:mb-2.5 shadow-2xs">
                   <span class="material-symbols-outlined text-xl sm:text-[34px]">precision_manufacturing</span>
                 </div>
                 <span class="text-[9.5px] xs:text-[10.5px] sm:text-[13px] font-extrabold text-[#0F2942] group-hover:text-[#1565C0] leading-tight transition-colors">
                   Machinery<br>Loan
+                </span>
+              </button>
+
+              <!-- 8. Loan Against Property -->
+              <button onclick="switchPage('lap-loan')" class="flex flex-col items-center justify-center text-center p-1.5 xs:p-2 sm:p-4 rounded-xl sm:rounded-2xl bg-white text-[#0F2942] shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 border border-slate-100 group cursor-pointer shrink-0 w-[88px] xs:w-[98px] sm:w-[155px] md:w-[170px] h-[106px] xs:h-[116px] sm:h-[154px]">
+                <div class="w-8 h-8 xs:w-9 xs:h-9 sm:w-14 sm:h-14 rounded-lg sm:rounded-2xl bg-blue-50 group-hover:bg-[#1565C0] text-[#1565C0] group-hover:text-white flex items-center justify-center transition-colors mb-1 sm:mb-2.5 shadow-2xs">
+                  <span class="material-symbols-outlined text-xl sm:text-[34px]">domain</span>
+                </div>
+                <span class="text-[9.5px] xs:text-[10.5px] sm:text-[13px] font-extrabold text-[#0F2942] group-hover:text-[#1565C0] leading-tight transition-colors">
+                  Loan Against<br>Property
+                </span>
+              </button>
+
+              <!-- 9. Working Capital -->
+              <button onclick="switchPage('working-capital')" class="flex flex-col items-center justify-center text-center p-1.5 xs:p-2 sm:p-4 rounded-xl sm:rounded-2xl bg-white text-[#0F2942] shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 border border-slate-100 group cursor-pointer shrink-0 w-[88px] xs:w-[98px] sm:w-[155px] md:w-[170px] h-[106px] xs:h-[116px] sm:h-[154px]">
+                <div class="w-8 h-8 xs:w-9 xs:h-9 sm:w-14 sm:h-14 rounded-lg sm:rounded-2xl bg-blue-50 group-hover:bg-[#1565C0] text-[#1565C0] group-hover:text-white flex items-center justify-center transition-colors mb-1 sm:mb-2.5 shadow-2xs">
+                  <span class="material-symbols-outlined text-xl sm:text-[34px]">currency_rupee</span>
+                </div>
+                <span class="text-[9.5px] xs:text-[10.5px] sm:text-[13px] font-extrabold text-[#0F2942] group-hover:text-[#1565C0] leading-tight transition-colors">
+                  Working<br>Capital
+                </span>
+              </button>
+
+              <!-- 10. CGT/MSME Loan -->
+              <button onclick="switchPage('od-facility')" class="flex flex-col items-center justify-center text-center p-1.5 xs:p-2 sm:p-4 rounded-xl sm:rounded-2xl bg-white text-[#0F2942] shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 border border-slate-100 group cursor-pointer shrink-0 w-[88px] xs:w-[98px] sm:w-[155px] md:w-[170px] h-[106px] xs:h-[116px] sm:h-[154px]">
+                <div class="w-8 h-8 xs:w-9 xs:h-9 sm:w-14 sm:h-14 rounded-lg sm:rounded-2xl bg-blue-50 group-hover:bg-[#1565C0] text-[#1565C0] group-hover:text-white flex items-center justify-center transition-colors mb-1 sm:mb-2.5 shadow-2xs">
+                  <span class="material-symbols-outlined text-xl sm:text-[34px]">assured_workload</span>
+                </div>
+                <span class="text-[9.5px] xs:text-[10.5px] sm:text-[13px] font-extrabold text-[#0F2942] group-hover:text-[#1565C0] leading-tight transition-colors">
+                  CGT/MSME<br>Loan
                 </span>
               </button>
 
@@ -14778,24 +14777,6 @@
               </a>
             </li>
             <li>
-              <a class="flex items-center justify-between py-1 px-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition-all cursor-pointer group" onclick="switchPage('lap-loan')">
-                <span class="flex items-center gap-2"><span class="text-slate-500 group-hover:text-[#F26522] transition-colors">›</span> Loan Against Property (LAP)</span>
-                <span class="text-[10px] text-amber-400/80 font-semibold opacity-0 group-hover:opacity-100 transition-opacity">High LTV</span>
-              </a>
-            </li>
-            <li>
-              <a class="flex items-center justify-between py-1 px-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition-all cursor-pointer group" onclick="switchPage('working-capital')">
-                <span class="flex items-center gap-2"><span class="text-slate-500 group-hover:text-[#F26522] transition-colors">›</span> Working Capital (CC / Limit)</span>
-                <span class="text-[10px] text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity">Flexible</span>
-              </a>
-            </li>
-            <li>
-              <a class="flex items-center justify-between py-1 px-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition-all cursor-pointer group" onclick="switchPage('od-facility')">
-                <span class="flex items-center gap-2"><span class="text-slate-500 group-hover:text-[#F26522] transition-colors">›</span> CGT/MSME Loan</span>
-                <span class="text-[10px] text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity">Drop-Line</span>
-              </a>
-            </li>
-            <li>
               <a class="flex items-center justify-between py-1 px-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition-all cursor-pointer group" onclick="switchPage('car-loan')">
                 <span class="flex items-center gap-2"><span class="text-slate-500 group-hover:text-[#F26522] transition-colors">›</span> Car Loan (New &amp; Pre-Owned)</span>
                 <span class="text-[10px] text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity">100% On-Road</span>
@@ -14811,6 +14792,24 @@
               <a class="flex items-center justify-between py-1 px-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition-all cursor-pointer group" onclick="switchPage('machinery-loan')">
                 <span class="flex items-center gap-2"><span class="text-slate-500 group-hover:text-[#F26522] transition-colors">›</span> Machinery Loan (Capex Funding)</span>
                 <span class="text-[10px] text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity">Equipment</span>
+              </a>
+            </li>
+            <li>
+              <a class="flex items-center justify-between py-1 px-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition-all cursor-pointer group" onclick="switchPage('lap-loan')">
+                <span class="flex items-center gap-2"><span class="text-slate-500 group-hover:text-[#F26522] transition-colors">›</span> Loan Against Property (LAP)</span>
+                <span class="text-[10px] text-amber-400/80 font-semibold opacity-0 group-hover:opacity-100 transition-opacity">High LTV</span>
+              </a>
+            </li>
+            <li>
+              <a class="flex items-center justify-between py-1 px-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition-all cursor-pointer group" onclick="switchPage('working-capital')">
+                <span class="flex items-center gap-2"><span class="text-slate-500 group-hover:text-[#F26522] transition-colors">›</span> Working Capital (CC / Limit)</span>
+                <span class="text-[10px] text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity">Flexible</span>
+              </a>
+            </li>
+            <li>
+              <a class="flex items-center justify-between py-1 px-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition-all cursor-pointer group" onclick="switchPage('od-facility')">
+                <span class="flex items-center gap-2"><span class="text-slate-500 group-hover:text-[#F26522] transition-colors">›</span> CGT/MSME Loan</span>
+                <span class="text-[10px] text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity">Drop-Line</span>
               </a>
             </li>
           </ul>
@@ -18281,7 +18280,7 @@ function handleModalSubmit(e) {
         <div>
           <div class="text-[11px] font-black uppercase tracking-wider text-slate-400 mb-2 px-1">Loan Products</div>
           <div class="grid grid-cols-2 gap-2">
-            <!-- PRIORITY ORDER: Professional > Home > Personal > Business > LAP > Working Capital > CGT/MSME Loan > Car > Education > Machinery -->
+            <!-- PRIORITY ORDER: 1.Professional > 2.Home > 3.Personal > 4.Business > 5.Car > 6.Education > 7.Machinery > 8.Loan Against Property > 9.Working Capital > 10.CGT/MSME -->
 
             <!-- 1. Professional Loan — FIRST -->
             <button onclick="switchPage('professional-loan'); toggleMobileNav();" class="group p-2.5 rounded-xl bg-white hover:bg-teal-50/50 active:scale-[0.98] border border-slate-200/80 hover:border-teal-300 text-left transition-all shadow-2xs flex flex-col justify-between">
@@ -18339,49 +18338,7 @@ function handleModalSubmit(e) {
               </div>
             </button>
 
-            <!-- 5. Property Loan (LAP) -->
-            <button onclick="switchPage('lap-loan'); toggleMobileNav();" class="group p-2.5 rounded-xl bg-white hover:bg-emerald-50/50 active:scale-[0.98] border border-slate-200/80 hover:border-emerald-300 text-left transition-all shadow-2xs flex flex-col justify-between">
-              <div class="flex items-center justify-between w-full mb-1.5">
-                <span class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:scale-105 transition-transform">
-                  <span class="material-symbols-outlined text-lg">apartment</span>
-                </span>
-                <span class="text-[9px] font-extrabold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">High Value</span>
-              </div>
-              <div class="min-w-0 w-full">
-                <span class="text-xs font-black text-slate-800 group-hover:text-emerald-700 block truncate leading-tight">Property (LAP)</span>
-                <span class="text-[10px] text-slate-400 font-medium block truncate mt-0.5">Up to ₹25 Crore</span>
-              </div>
-            </button>
-
-            <!-- 6. Working Capital -->
-            <button onclick="switchPage('working-capital'); toggleMobileNav();" class="group p-2.5 rounded-xl bg-white hover:bg-indigo-50/50 active:scale-[0.98] border border-slate-200/80 hover:border-indigo-300 text-left transition-all shadow-2xs flex flex-col justify-between">
-              <div class="flex items-center justify-between w-full mb-1.5">
-                <span class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:scale-105 transition-transform">
-                  <span class="material-symbols-outlined text-lg">account_balance_wallet</span>
-                </span>
-                <span class="text-[9px] font-extrabold text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded">OD / CC</span>
-              </div>
-              <div class="min-w-0 w-full">
-                <span class="text-xs font-black text-slate-800 group-hover:text-indigo-700 block truncate leading-tight">Working Capital</span>
-                <span class="text-[10px] text-slate-400 font-medium block truncate mt-0.5">Business cashflow</span>
-              </div>
-            </button>
-
-            <!-- 7. CGT/MSME Loan -->
-            <button onclick="switchPage('od-facility'); toggleMobileNav();" class="group p-2.5 rounded-xl bg-white hover:bg-sky-50/50 active:scale-[0.98] border border-slate-200/80 hover:border-sky-300 text-left transition-all shadow-2xs flex flex-col justify-between">
-              <div class="flex items-center justify-between w-full mb-1.5">
-                <span class="w-8 h-8 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center group-hover:scale-105 transition-transform">
-                  <span class="material-symbols-outlined text-lg">assured_workload</span>
-                </span>
-                <span class="text-[9px] font-extrabold text-sky-600 bg-sky-50 px-1.5 py-0.5 rounded">Govt Scheme</span>
-              </div>
-              <div class="min-w-0 w-full">
-                <span class="text-xs font-black text-slate-800 group-hover:text-sky-700 block truncate leading-tight">CGT/MSME Loan</span>
-                <span class="text-[10px] text-slate-400 font-medium block truncate mt-0.5">Collateral-free credit</span>
-              </div>
-            </button>
-
-            <!-- 8. Car Loan -->
+            <!-- 5. Car Loan -->
             <button onclick="switchPage('car-loan'); toggleMobileNav();" class="group p-2.5 rounded-xl bg-white hover:bg-rose-50/50 active:scale-[0.98] border border-slate-200/80 hover:border-rose-300 text-left transition-all shadow-2xs flex flex-col justify-between">
               <div class="flex items-center justify-between w-full mb-1.5">
                 <span class="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center group-hover:scale-105 transition-transform">
@@ -18395,7 +18352,7 @@ function handleModalSubmit(e) {
               </div>
             </button>
 
-            <!-- 9. Education Loan -->
+            <!-- 6. Education Loan -->
             <button onclick="switchPage('education-loan'); toggleMobileNav();" class="group p-2.5 rounded-xl bg-white hover:bg-amber-50/50 active:scale-[0.98] border border-slate-200/80 hover:border-amber-300 text-left transition-all shadow-2xs flex flex-col justify-between">
               <div class="flex items-center justify-between w-full mb-1.5">
                 <span class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center group-hover:scale-105 transition-transform">
@@ -18409,7 +18366,7 @@ function handleModalSubmit(e) {
               </div>
             </button>
 
-            <!-- 10. Machinery Loan -->
+            <!-- 7. Machinery Loan -->
             <button onclick="switchPage('machinery-loan'); toggleMobileNav();" class="group p-2.5 rounded-xl bg-white hover:bg-cyan-50/50 active:scale-[0.98] border border-slate-200/80 hover:border-cyan-300 text-left transition-all shadow-2xs flex flex-col justify-between">
               <div class="flex items-center justify-between w-full mb-1.5">
                 <span class="w-8 h-8 rounded-lg bg-cyan-50 text-cyan-600 flex items-center justify-center group-hover:scale-105 transition-transform">
@@ -18420,6 +18377,48 @@ function handleModalSubmit(e) {
               <div class="min-w-0 w-full">
                 <span class="text-xs font-black text-slate-800 group-hover:text-cyan-700 block truncate leading-tight">Machinery Loan</span>
                 <span class="text-[10px] text-slate-400 font-medium block truncate mt-0.5">Plant &amp; equipment</span>
+              </div>
+            </button>
+
+            <!-- 8. Property Loan (LAP) -->
+            <button onclick="switchPage('lap-loan'); toggleMobileNav();" class="group p-2.5 rounded-xl bg-white hover:bg-emerald-50/50 active:scale-[0.98] border border-slate-200/80 hover:border-emerald-300 text-left transition-all shadow-2xs flex flex-col justify-between">
+              <div class="flex items-center justify-between w-full mb-1.5">
+                <span class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <span class="material-symbols-outlined text-lg">apartment</span>
+                </span>
+                <span class="text-[9px] font-extrabold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">High Value</span>
+              </div>
+              <div class="min-w-0 w-full">
+                <span class="text-xs font-black text-slate-800 group-hover:text-emerald-700 block truncate leading-tight">Property (LAP)</span>
+                <span class="text-[10px] text-slate-400 font-medium block truncate mt-0.5">Up to ₹25 Crore</span>
+              </div>
+            </button>
+
+            <!-- 9. Working Capital -->
+            <button onclick="switchPage('working-capital'); toggleMobileNav();" class="group p-2.5 rounded-xl bg-white hover:bg-indigo-50/50 active:scale-[0.98] border border-slate-200/80 hover:border-indigo-300 text-left transition-all shadow-2xs flex flex-col justify-between">
+              <div class="flex items-center justify-between w-full mb-1.5">
+                <span class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <span class="material-symbols-outlined text-lg">account_balance_wallet</span>
+                </span>
+                <span class="text-[9px] font-extrabold text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded">OD / CC</span>
+              </div>
+              <div class="min-w-0 w-full">
+                <span class="text-xs font-black text-slate-800 group-hover:text-indigo-700 block truncate leading-tight">Working Capital</span>
+                <span class="text-[10px] text-slate-400 font-medium block truncate mt-0.5">Business cashflow</span>
+              </div>
+            </button>
+
+            <!-- 10. CGT/MSME Loan -->
+            <button onclick="switchPage('od-facility'); toggleMobileNav();" class="group p-2.5 rounded-xl bg-white hover:bg-sky-50/50 active:scale-[0.98] border border-slate-200/80 hover:border-sky-300 text-left transition-all shadow-2xs flex flex-col justify-between">
+              <div class="flex items-center justify-between w-full mb-1.5">
+                <span class="w-8 h-8 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <span class="material-symbols-outlined text-lg">assured_workload</span>
+                </span>
+                <span class="text-[9px] font-extrabold text-sky-600 bg-sky-50 px-1.5 py-0.5 rounded">Govt Scheme</span>
+              </div>
+              <div class="min-w-0 w-full">
+                <span class="text-xs font-black text-slate-800 group-hover:text-sky-700 block truncate leading-tight">CGT/MSME Loan</span>
+                <span class="text-[10px] text-slate-400 font-medium block truncate mt-0.5">Collateral-free credit</span>
               </div>
             </button>
 
