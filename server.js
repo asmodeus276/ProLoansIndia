@@ -1,0 +1,118 @@
+/**
+ * ============================================================
+ *  PROLOAN INDIA — Backend Lead Notification Server
+ *  Express + Nodemailer via Gmail SMTP
+ * ============================================================
+ */
+
+const express = require('express');
+const nodemailer = require('nodemailer');
+const cors = require('cors');
+const path = require('path');
+const fs = require('fs');
+
+// Auto-load .env file if present
+const envPath = path.join(__dirname, '.env');
+if (fs.existsSync(envPath)) {
+  const envContent = fs.readFileSync(envPath, 'utf8');
+  envContent.split(/\r?\n/).forEach(line => {
+    const trimmed = line.trim();
+    if (trimmed && !trimmed.startsWith('#')) {
+      const match = trimmed.match(/^([^=]+)=(.*)$/);
+      if (match) {
+        const key = match[1].trim();
+        const val = match[2].trim().replace(/^['"]|['"]$/g, '');
+        if (!process.env[key]) process.env[key] = val;
+      }
+    }
+  });
+}
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Gmail SMTP Configuration from environment
+const GMAIL_USER = process.env.GMAIL_USER || 'vaibhav.thakur2719@gmail.com';
+const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD || '';
+const LEAD_RECIPIENT = process.env.LEAD_RECIPIENT || 'proloansforsardar@gmail.com';
+
+// Nodemailer Transporter
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: GMAIL_USER,
+    pass: GMAIL_APP_PASSWORD
+  }
+});
+
+transporter.verify(function (error, success) {
+  if (error) {
+    console.error('Gmail SMTP connection failed:', error.message);
+  } else {
+    console.log('Gmail SMTP ready - leads will be sent to', LEAD_RECIPIENT);
+  }
+});
+
+// Middleware
+app.use(cors());
+app.use(express.json({ limit: '5mb' }));
+app.use(express.urlencoded({ extended: true, limit: '5mb' }));
+app.use(express.static(path.join(__dirname)));
+
+// Staff Portal Route
+app.get('/portal', (req, res) => {
+  res.sendFile(path.join(__dirname, 'portal.html'));
+});
+
+// Helper: Build HTML table row
+let rowCount = 0;
+function buildRow(label, value) {
+  const bg = rowCount++ % 2 === 0 ? '#f9fafb' : '#ffffff';
+  return `<tr style="background:${bg};"><td style="padding:10px 12px;color:#374151;font-size:13px;font-weight:600;width:42%;border-bottom:1px solid #f3f4f6;">${label}</td><td style="padding:10px 12px;color:#111827;font-size:13px;border-bottom:1px solid #f3f4f6;">${value || 'Not Provided'}</td></tr>`;
+}
+
+// Lead Email Endpoint
+app.post('/api/send-lead', async (req, res) => {
+  try {
+    rowCount = 0;
+    const data = req.body;
+    if (!data) return res.status(400).json({ success: false, message: 'Invalid lead data' });
+
+    const leadTitle = data['Requested Loan Product'] || 'Loan Inquiry';
+    const applicant = data['Applicant Legal Name'] || 'Borrower';
+    const refId     = data['Application Reference ID'] || 'N/A';
+    const subject   = `NEW LEAD: ${leadTitle} - ${applicant} | Ref: ${refId}`;
+
+    const htmlBody = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/></head><body style="margin:0;padding:0;background:#f4f7fb;font-family:'Segoe UI',Arial,sans-serif;"><table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f7fb;padding:30px 0;"><tr><td align="center"><table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);"><tr><td style="background:linear-gradient(135deg,#1a3c6e 0%,#2563eb 100%);padding:32px 40px;text-align:center;"><h1 style="margin:0;color:#ffffff;font-size:26px;font-weight:700;">Proloan India</h1><p style="margin:6px 0 0;color:#93c5fd;font-size:13px;letter-spacing:1px;text-transform:uppercase;">New Lead Notification</p></td></tr><tr><td style="background:#fef3c7;border-left:4px solid #f59e0b;padding:14px 40px;"><p style="margin:0;color:#92400e;font-size:14px;font-weight:600;">A new lead has been submitted via the Proloan India website.</p></td></tr><tr><td style="padding:32px 40px;"><h2 style="margin:0 0 20px;color:#1e3a5f;font-size:18px;font-weight:700;border-bottom:2px solid #e5e7eb;padding-bottom:10px;">Lead Details</h2><table width="100%" cellpadding="0" cellspacing="0">${buildRow('Lead Category', data['Lead Category'])}${buildRow('Application Ref ID', data['Application Reference ID'])}${buildRow('Applicant Name', data['Applicant Legal Name'])}${buildRow('Contact Number', data['Contact Mobile Number'])}${buildRow('Loan Product', data['Requested Loan Product'])}${buildRow('Loan Amount', data['Requested Loan Amount'])}${buildRow('City / Location', data['City / Location'])}${buildRow('Monthly Income', data['Monthly Income / Tier'])}${buildRow('PAN / Tax ID', data['PAN Card / Tax ID'])}${buildRow('CIBIL / Notes', data['Verification / CIBIL Note'])}${buildRow('Submitted At', data['Timestamp'])}</table></td></tr><tr><td style="background:#f8fafc;padding:20px 40px;border-top:1px solid #e5e7eb;text-align:center;"><p style="margin:0;color:#6b7280;font-size:12px;">This email was automatically generated by the Proloan India Lead System. Please follow up with the applicant promptly.</p></td></tr></table></td></tr></table></body></html>`;
+
+    await transporter.sendMail({
+      from: `"Proloan India Leads" <${GMAIL_USER}>`,
+      to: LEAD_RECIPIENT,
+      subject: subject,
+      html: htmlBody
+    });
+
+    console.log(`Lead sent - ${refId} | ${applicant} | ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`);
+    return res.json({ success: true, message: 'Lead notification sent successfully.' });
+
+  } catch (err) {
+    console.error('Failed to send lead email:', err.message);
+    return res.status(500).json({ success: false, message: 'Email delivery failed. Lead saved locally.' });
+  }
+});
+
+// Health Check
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', service: 'Proloan India Lead Server', timestamp: new Date().toISOString() });
+});
+
+// Start Server
+app.listen(PORT, () => {
+  console.log('');
+  console.log('==============================================');
+  console.log('  PROLOAN INDIA - Lead Server Running');
+  console.log('  http://localhost:' + PORT);
+  console.log('  Nodemailer -> Gmail SMTP Active');
+  console.log('==============================================');
+  console.log('');
+});

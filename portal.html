@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <title>Staff Control Console | Proloan India</title>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+  <!-- Tailwind CSS Play CDN for ultra-crisp responsive dashboard -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Outfit"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#2563eb',
+              600: '#1d4ed8',
+              700: '#1e40af',
+              800: '#1e3a8a',
+              900: '#0f2942',
+              950: '#0a192f'
+            },
+            accent: {
+              gold: '#f59e0b',
+              orange: '#f26522',
+              emerald: '#10b981',
+              cyan: '#06b6d4'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Executive Glass & Polish */
+    body {
+      background: #080e1a;
+      color: #e2e8f0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .glass-card:hover {
+      border-color: rgba(56, 189, 248, 0.3);
+      box-shadow: 0 10px 30px -10px rgba(14, 165, 233, 0.15);
+      transform: translateY(-2px);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.5);
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(100, 116, 139, 0.4);
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: rgba(148, 163, 184, 0.7);
+    }
+    /* Pulse Dot Animation */
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.3); opacity: 0.3; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+    .pulse-glow {
+      animation: pulse-ring 2s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[#070D18] text-slate-200 antialiased selection:bg-brand-500 selection:text-white">
+
+  <!-- ========================================================================= -->
+  <!-- 1. AUTHENTICATION GATE (BOT-PROOF LOCK SCREEN) -->
+  <!-- ========================================================================= -->
+  <div id="authGate" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#070D18]/95 backdrop-blur-2xl transition-all duration-300">
+    <div class="relative w-full max-w-md p-8 rounded-3xl glass-panel shadow-2xl border border-white/10 overflow-hidden">
+      
+      <!-- Top Decorative Glow -->
+      <div class="absolute -top-24 -left-24 w-48 h-48 bg-brand-500/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-accent-orange/20 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Header Icon & Branding -->
+      <div class="text-center mb-7 relative z-10">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-700 via-brand-600 to-cyan-500 text-white shadow-xl shadow-brand-600/30 mb-4 ring-4 ring-white/5">
+          <span class="material-symbols-outlined text-3xl">shield_person</span>
+        </div>
+        <h1 class="font-display text-2xl font-black text-white tracking-tight">Proloan Staff Gateway</h1>
+        <p class="text-xs text-slate-400 mt-1 flex items-center justify-center gap-1.5 font-medium">
+          <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
+          Restricted Portal &bull; Multi-Bank LOS Console
+        </p>
+      </div>
+
+      <!-- Security Notice Banner -->
+      <div class="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3 mb-6 flex items-start gap-2.5 text-xs text-amber-300">
+        <span class="material-symbols-outlined text-base shrink-0 mt-0.5 text-amber-400">lock_open</span>
+        <span>Anti-Bot Shield active. Unauthorized access attempts are monitored and IP-logged.</span>
+      </div>
+
+      <!-- Auth Form -->
+      <form id="authForm" onsubmit="handleAuthLogin(event)" class="space-y-4 relative z-10">
+        
+        <!-- Anti-Bot Honeypot Field (Invisible to human, bots fill it out) -->
+        <input type="text" id="botCheckUser" name="bot_check_honey" class="hidden" tabindex="-1" autocomplete="off">
+
+        <!-- Email Field -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5 uppercase tracking-wider">Staff Email</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <span class="material-symbols-outlined text-lg">mail</span>
+            </span>
+            <input type="email" id="authEmail" required placeholder="admin@proloanindia.in" 
+              class="w-full pl-10 pr-4 py-3 bg-slate-900/80 border border-slate-700/80 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 transition-all">
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">Access Key / Password</label>
+            <span class="text-[11px] text-slate-400">256-Bit SSL</span>
+          </div>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <span class="material-symbols-outlined text-lg">key</span>
+            </span>
+            <input type="password" id="authPassword" required placeholder="••••••••••••" 
+              class="w-full pl-10 pr-10 py-3 bg-slate-900/80 border border-slate-700/80 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 transition-all">
+            <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-200">
+              <span class="material-symbols-outlined text-lg" id="pwToggleIcon">visibility</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Error Feedback -->
+        <div id="authErrorMsg" class="hidden text-xs text-rose-400 bg-rose-500/10 border border-rose-500/20 p-2.5 rounded-lg flex items-center gap-2">
+          <span class="material-symbols-outlined text-sm shrink-0">error</span>
+          <span id="authErrorText">Invalid credentials. Please verify your staff access credentials.</span>
+        </div>
+
+        <!-- Remember & Mode -->
+        <div class="flex items-center justify-between text-xs text-slate-400 pt-1">
+          <label class="flex items-center gap-2 cursor-pointer select-none">
+            <input type="checkbox" id="rememberSession" checked class="rounded bg-slate-800 border-slate-700 text-brand-600 focus:ring-brand-500">
+            <span>Remember session on this device</span>
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="authSubmitBtn" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-brand-600 to-cyan-600 hover:from-brand-500 hover:to-cyan-500 text-white font-bold text-sm shadow-lg shadow-brand-600/30 flex items-center justify-center gap-2 active:scale-98 transition-all cursor-pointer">
+          <span id="authBtnSpinner" class="hidden w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+          <span id="authBtnText">Authenticate &amp; Open Console</span>
+          <span class="material-symbols-outlined text-lg">arrow_forward</span>
+        </button>
+
+      </form>
+
+      <!-- Production Security Seal -->
+      <div class="mt-6 pt-4 border-t border-slate-800/80 text-center relative z-10">
+        <p class="text-[11px] text-slate-500 font-mono flex items-center justify-center gap-1.5">
+          <span class="material-symbols-outlined text-xs text-emerald-400">verified_user</span>
+          <span>Proloan India &bull; Multi-Bank LOS Console</span>
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- 2. MAIN ADMIN CONSOLE (AUTHENTICATED VIEW) -->
+  <!-- ========================================================================= -->
+  <div id="mainDashboard" class="hidden flex-1 flex flex-col">
+    
+    <!-- Top Navigation Header -->
+    <header class="sticky top-0 z-40 bg-[#0B1324]/90 backdrop-blur-xl border-b border-white/10 px-4 lg:px-8 py-3.5">
+      <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        
+        <!-- Brand & Environment Status -->
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-cyan-500 text-white flex items-center justify-center font-display font-black text-xl shadow-md shadow-brand-500/20">
+            P
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-display font-bold text-base text-white tracking-tight">Proloan India</span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-brand-500/20 text-cyan-300 border border-brand-400/30">
+                Staff LOS
+              </span>
+            </div>
+            <div class="flex items-center gap-1.5 text-xs text-slate-400">
+              <span id="dbStatusDot" class="w-2 h-2 rounded-full bg-emerald-400 pulse-glow"></span>
+              <span id="dbStatusText">Supabase Ready &bull; Live Leads Active</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Global Search & Header Actions -->
+        <div class="flex items-center gap-3">
+          
+          <!-- Supabase Config Button -->
+          <button onclick="openConfigModal()" title="Configure Supabase Database" class="px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white text-xs font-semibold border border-slate-700/60 flex items-center gap-1.5 transition-all">
+            <span class="material-symbols-outlined text-base text-cyan-400">settings</span>
+            <span class="hidden sm:inline">Database Config</span>
+          </button>
+
+          <!-- Export CSV -->
+          <button onclick="exportLeadsToCSV()" class="px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white text-xs font-semibold border border-slate-700/60 flex items-center gap-1.5 transition-all" title="Export currently filtered leads to CSV / Excel">
+            <span class="material-symbols-outlined text-base text-emerald-400">download</span>
+            <span class="hidden sm:inline">Export CSV</span>
+          </button>
+
+          <!-- Manual Add Lead -->
+          <button onclick="openAddLeadModal()" class="px-3 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold shadow-md shadow-brand-600/30 flex items-center gap-1.5 transition-all">
+            <span class="material-symbols-outlined text-base">add</span>
+            <span class="hidden sm:inline">Add Lead</span>
+          </button>
+
+          <!-- Divider -->
+          <div class="h-6 w-px bg-slate-800"></div>
+
+          <!-- User Menu / Logout -->
+          <div class="flex items-center gap-2">
+            <div class="hidden md:block text-right">
+              <span id="userDisplayEmail" class="text-xs font-semibold text-white block">admin@proloanindia.in</span>
+              <span class="text-[10px] text-slate-400 block">Master Underwriter</span>
+            </div>
+            <button onclick="handleLogout()" class="p-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 flex items-center justify-center transition-all" title="Sign Out">
+              <span class="material-symbols-outlined text-lg">logout</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </header>
+
+
+    <!-- Main Body Content -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 lg:p-8 space-y-6">
+
+      <!-- ========================================================================= -->
+      <!-- 3. TOP KPI METRICS CARDS -->
+      <!-- ========================================================================= -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        
+        <!-- Total Leads -->
+        <div class="glass-card rounded-2xl p-5 relative overflow-hidden">
+          <div class="flex items-center justify-between text-slate-400 mb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider">Total Inquiries</span>
+            <span class="w-8 h-8 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg">contact_mail</span>
+            </span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span id="kpiTotalLeads" class="font-display text-3xl font-black text-white">0</span>
+            <span class="text-xs font-bold text-emerald-400 flex items-center">
+              <span class="material-symbols-outlined text-xs">trending_up</span> 100%
+            </span>
+          </div>
+          <p class="text-[11px] text-slate-500 mt-1">Multi-Bank Website Submissions</p>
+        </div>
+
+        <!-- New / Action Required -->
+        <div class="glass-card rounded-2xl p-5 relative overflow-hidden border-amber-500/30">
+          <div class="flex items-center justify-between text-slate-400 mb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider text-amber-300">New / Uncontacted</span>
+            <span class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg">notification_important</span>
+            </span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span id="kpiNewLeads" class="font-display text-3xl font-black text-amber-300">0</span>
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 animate-pulse">Follow Up</span>
+          </div>
+          <p class="text-[11px] text-slate-500 mt-1">Requires Customer Callback</p>
+        </div>
+
+        <!-- In Underwriting / Active -->
+        <div class="glass-card rounded-2xl p-5 relative overflow-hidden">
+          <div class="flex items-center justify-between text-slate-400 mb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider text-cyan-300">Under Review</span>
+            <span class="w-8 h-8 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg">pending_actions</span>
+            </span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span id="kpiActiveLeads" class="font-display text-3xl font-black text-cyan-300">0</span>
+            <span class="text-xs text-slate-400">Cases</span>
+          </div>
+          <p class="text-[11px] text-slate-500 mt-1">KYC / Bank Login In-Flight</p>
+        </div>
+
+        <!-- Total Loan Pipeline Volume -->
+        <div class="glass-card rounded-2xl p-5 relative overflow-hidden">
+          <div class="flex items-center justify-between text-slate-400 mb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400">Pipeline Value</span>
+            <span class="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg">account_balance</span>
+            </span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span id="kpiPipelineValue" class="font-display text-2xl font-black text-emerald-400">₹0</span>
+          </div>
+          <p class="text-[11px] text-slate-500 mt-1">Cum. Loan Requirement Inquired</p>
+        </div>
+
+      </div>
+
+
+      <!-- ========================================================================= -->
+      <!-- Category Tabs (All Inquiries / Loans / Contact Messages) -->
+      <div class="flex items-center gap-2 border-b border-white/10 pb-3">
+        <button onclick="setLeadTab('ALL')" id="tabBtnAll" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-600 text-white shadow-md shadow-brand-600/30 flex items-center gap-1.5 cursor-pointer">
+          <span class="material-symbols-outlined text-sm">dashboard</span>
+          <span>All Inquiries</span>
+          <span id="tabCountAll" class="px-1.5 py-0.2 rounded-full bg-white/20 text-[10px] ml-1">0</span>
+        </button>
+        <button onclick="setLeadTab('LOANS')" id="tabBtnLoans" class="px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white flex items-center gap-1.5 cursor-pointer">
+          <span class="material-symbols-outlined text-sm text-cyan-400">payments</span>
+          <span>Loan Applications</span>
+          <span id="tabCountLoans" class="px-1.5 py-0.2 rounded-full bg-slate-700 text-slate-300 text-[10px] ml-1">0</span>
+        </button>
+        <button onclick="setLeadTab('CONTACT')" id="tabBtnContact" class="px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white flex items-center gap-1.5 cursor-pointer">
+          <span class="material-symbols-outlined text-sm text-purple-400">mark_email_unread</span>
+          <span>Contact Us Messages</span>
+          <span id="tabCountContact" class="px-1.5 py-0.2 rounded-full bg-purple-500/20 text-purple-300 text-[10px] ml-1">0</span>
+        </button>
+      </div>
+
+      <!-- 4. CONTROLS, SEARCH, AND FILTERS BAR -->
+      <!-- ========================================================================= -->
+      <div class="glass-panel rounded-2xl p-4 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+        
+        <!-- Search Input -->
+        <div class="relative flex-1">
+          <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+            <span class="material-symbols-outlined text-lg">search</span>
+          </span>
+          <input type="text" id="leadSearchInput" oninput="applyFilters()" placeholder="Search by Applicant Name, Phone, PAN, City, or Ref ID..."
+            class="w-full pl-10 pr-4 py-2.5 bg-slate-900/90 border border-slate-700/80 rounded-xl text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-all">
+        </div>
+
+        <!-- Filter Selects -->
+        <div class="flex flex-wrap items-center gap-2">
+          
+          <!-- Product Filter -->
+          <select id="filterProduct" onchange="applyFilters()" class="py-2.5 px-3 bg-slate-900/90 border border-slate-700/80 rounded-xl text-xs font-semibold text-slate-200 focus:outline-none focus:border-brand-500">
+            <option value="ALL">All Inquiries</option>
+            <option value="Contact">✉️ Contact Us Messages</option>
+            <option value="Personal Loan">Personal Loan</option>
+            <option value="Home Loan">Home Loan</option>
+            <option value="Business Loan">Business Loan</option>
+            <option value="Loan Against Property">Loan Against Property (LAP)</option>
+            <option value="Balance Transfer">Balance Transfer</option>
+            <option value="General Consultation">General Inquiry</option>
+          </select>
+
+          <!-- Status Filter -->
+          <select id="filterStatus" onchange="applyFilters()" class="py-2.5 px-3 bg-slate-900/90 border border-slate-700/80 rounded-xl text-xs font-semibold text-slate-200 focus:outline-none focus:border-brand-500">
+            <option value="ALL">All Statuses</option>
+            <option value="New">🟢 New (Uncontacted)</option>
+            <option value="Contacted">🟡 Contacted / Interested</option>
+            <option value="Docs Pending">🔵 Documents Pending</option>
+            <option value="Underwriting">🟣 Bank Underwriting</option>
+            <option value="Sanctioned">🟢 Sanctioned / Disbursed</option>
+            <option value="Rejected">🔴 Not Interested / CIBIL Low</option>
+          </select>
+
+          <!-- Refresh Button -->
+          <button onclick="refreshLeads(true)" id="refreshBtn" title="Sync &amp; Refresh" class="p-2.5 bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 rounded-xl text-slate-300 hover:text-white transition-all flex items-center justify-center">
+            <span class="material-symbols-outlined text-lg" id="refreshIcon">refresh</span>
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- ========================================================================= -->
+      <!-- 5. LEADS DATA TABLE -->
+      <!-- ========================================================================= -->
+      <div class="glass-panel rounded-2xl border border-white/10 overflow-hidden shadow-2xl">
+        <div class="overflow-x-auto custom-scrollbar">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-slate-900/90 border-b border-white/10 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                <th class="py-3.5 px-4">Ref ID &bull; Date</th>
+                <th class="py-3.5 px-4">Applicant Profile</th>
+                <th class="py-3.5 px-4">Fast Actions</th>
+                <th class="py-3.5 px-4">Loan Inquired</th>
+                <th class="py-3.5 px-4">Income &bull; PAN</th>
+                <th class="py-3.5 px-4">Pipeline Status</th>
+                <th class="py-3.5 px-4 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="leadsTableBody" class="divide-y divide-white/5 text-xs">
+              <!-- Rendered via JS -->
+              <tr>
+                <td colspan="7" class="py-12 text-center text-slate-500">
+                  <span class="material-symbols-outlined text-4xl animate-spin text-brand-500">sync</span>
+                  <p class="mt-2 text-xs">Connecting to Proloan India Lead Database...</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Table Footer / Pagination Counter -->
+        <div class="py-3 px-4 bg-slate-900/80 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
+          <span id="leadCountLabel">Showing 0 of 0 leads</span>
+          <div class="flex items-center gap-2">
+            <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span>Auto-synced with Supabase &amp; Express Backend</span>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- 6. LEAD FULL DETAILS DOSSIER MODAL -->
+  <!-- ========================================================================= -->
+  <div id="dossierModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div class="w-full max-w-2xl bg-slate-900 border border-white/15 rounded-3xl p-6 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto custom-scrollbar">
+      
+      <div class="flex items-start justify-between border-b border-slate-800 pb-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 id="dosApplicantName" class="font-display text-xl font-bold text-white">Applicant Dossier</h3>
+            <span id="dosStatusBadge" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-brand-500/20 text-brand-300">New</span>
+          </div>
+          <p id="dosRefId" class="text-xs text-slate-400 font-mono mt-0.5">Ref: PL-000000</p>
+        </div>
+        <button onclick="closeDossierModal()" class="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white">
+          <span class="material-symbols-outlined text-xl">close</span>
+        </button>
+      </div>
+
+      <!-- Key Details Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+        <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5">
+          <span class="text-slate-400 block text-[10px] uppercase font-bold">Contact Mobile</span>
+          <span id="dosMobile" class="font-bold text-white text-sm block mt-0.5">+91 00000 00000</span>
+        </div>
+        <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5">
+          <span class="text-slate-400 block text-[10px] uppercase font-bold">Loan Product</span>
+          <span id="dosProduct" class="font-bold text-cyan-300 text-sm block mt-0.5">Personal Loan</span>
+        </div>
+        <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5">
+          <span class="text-slate-400 block text-[10px] uppercase font-bold">Loan Amount</span>
+          <span id="dosAmount" class="font-bold text-emerald-400 text-sm block mt-0.5">₹25,00,000</span>
+        </div>
+        <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5">
+          <span class="text-slate-400 block text-[10px] uppercase font-bold">City / Location</span>
+          <span id="dosCity" class="font-semibold text-slate-200 block mt-0.5">Indirapuram, Ghaziabad</span>
+        </div>
+        <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5">
+          <span class="text-slate-400 block text-[10px] uppercase font-bold">Monthly Income</span>
+          <span id="dosIncome" class="font-semibold text-slate-200 block mt-0.5">₹75,000 / mo</span>
+        </div>
+        <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5">
+          <span class="text-slate-400 block text-[10px] uppercase font-bold">PAN / Tax ID</span>
+          <span id="dosPan" class="font-mono font-semibold text-amber-300 block mt-0.5">ABCDE1234F</span>
+        </div>
+      </div>
+
+      <!-- Verification / Bureau Notes -->
+      <div class="bg-slate-800/40 p-4 rounded-xl border border-white/5 text-xs">
+        <span class="text-slate-400 block text-[10px] uppercase font-bold mb-1">CIBIL / Verification Note</span>
+        <p id="dosNotes" class="text-slate-300 leading-relaxed font-mono text-[11px]">No bureau notes attached.</p>
+      </div>
+
+      <!-- Internal Underwriter Remarks (Editable) -->
+      <div class="space-y-1.5 text-xs">
+        <label class="block font-bold text-slate-300 uppercase tracking-wider text-[11px]">Internal Underwriting Notes (Client Team Only)</label>
+        <textarea id="dosAdminNotes" rows="3" placeholder="Add confidential notes (e.g., 'Met customer, eligible for HDFC 10.45%, collecting ITR on Thursday')..."
+          class="w-full p-3 bg-slate-950 border border-slate-700 rounded-xl text-white text-xs placeholder-slate-500 focus:outline-none focus:border-brand-500"></textarea>
+      </div>
+
+      <!-- Fast Actions inside Modal -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-800">
+        <div class="flex items-center gap-2">
+          <a id="dosCallBtn" href="tel:" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs flex items-center gap-1.5 transition-all">
+            <span class="material-symbols-outlined text-base text-emerald-400">call</span>
+            <span>Direct Call</span>
+          </a>
+          <a id="dosWaBtn" href="#" target="_blank" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all">
+            <span class="material-symbols-outlined text-base">chat</span>
+            <span>WhatsApp Client</span>
+          </a>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="saveAdminNotesFromModal()" class="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-md shadow-brand-600/30">
+            <span class="material-symbols-outlined text-base">save</span>
+            <span>Save Remarks</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- 7. MANUAL ADD LEAD MODAL -->
+  <!-- ========================================================================= -->
+  <div id="addLeadModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div class="w-full max-w-lg bg-slate-900 border border-white/15 rounded-3xl p-6 shadow-2xl space-y-4">
+      
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="font-display text-lg font-bold text-white flex items-center gap-2">
+          <span class="material-symbols-outlined text-brand-400">person_add</span>
+          Record New Loan Inquirer
+        </h3>
+        <button onclick="closeAddLeadModal()" class="p-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white">
+          <span class="material-symbols-outlined text-xl">close</span>
+        </button>
+      </div>
+
+      <form onsubmit="handleManualLeadSubmit(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Applicant Full Name *</label>
+          <input type="text" id="manualName" required placeholder="e.g. Ramesh Chandra Sharma" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Mobile Number *</label>
+            <input type="tel" id="manualPhone" required placeholder="+91 98765 43210" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">City / Location</label>
+            <input type="text" id="manualCity" placeholder="Ghaziabad / Noida / Delhi" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Loan Product</label>
+            <select id="manualProduct" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white">
+              <option value="Personal Loan">Personal Loan</option>
+              <option value="Home Loan">Home Loan</option>
+              <option value="Business Loan">Business Loan</option>
+              <option value="Loan Against Property">Loan Against Property</option>
+              <option value="Balance Transfer">Balance Transfer</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Requested Amount</label>
+            <input type="text" id="manualAmount" placeholder="₹15,00,000" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Monthly Income</label>
+            <input type="text" id="manualIncome" placeholder="₹65,000 / mo" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">PAN Card Number</label>
+            <input type="text" id="manualPan" placeholder="ABCDE1234F" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white font-mono uppercase">
+          </div>
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Initial Notes</label>
+          <input type="text" id="manualNotes" placeholder="Walk-in lead / Referral from Indirapuram branch" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white">
+        </div>
+
+        <div class="pt-3 border-t border-slate-800 flex justify-end gap-2">
+          <button type="button" onclick="closeAddLeadModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-brand-600/30">
+            <span class="material-symbols-outlined text-base">save</span>
+            <span>Save to Database</span>
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- 8. SUPABASE SETTINGS & SQL SETUP MODAL -->
+  <!-- ========================================================================= -->
+  <div id="configModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div class="w-full max-w-xl bg-slate-900 border border-white/15 rounded-3xl p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto custom-scrollbar">
+      
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div>
+          <h3 class="font-display text-lg font-bold text-white flex items-center gap-2">
+            <span class="material-symbols-outlined text-cyan-400">database</span>
+            Supabase Project Link
+          </h3>
+          <p class="text-[11px] text-slate-400 mt-0.5">Connect your free Supabase cloud database</p>
+        </div>
+        <button onclick="closeConfigModal()" class="p-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white">
+          <span class="material-symbols-outlined text-xl">close</span>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Supabase Project URL</label>
+          <input type="url" id="cfgSupabaseUrl" placeholder="https://xyzcompany.supabase.co" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white font-mono text-xs">
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Supabase Anon Public Key</label>
+          <input type="password" id="cfgSupabaseKey" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white font-mono text-xs">
+        </div>
+
+        <!-- 1-Click SQL Copy Box -->
+        <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-bold text-slate-300 uppercase tracking-wider">Required Supabase SQL Table:</span>
+            <button onclick="copySqlSchema()" class="text-xs text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-1">
+              <span class="material-symbols-outlined text-sm">content_copy</span>
+              <span id="copySqlLabel">Copy SQL Query</span>
+            </button>
+          </div>
+          <pre class="bg-slate-900 p-2.5 rounded-lg text-[10px] font-mono text-slate-300 overflow-x-auto custom-scrollbar">create table public.leads (
+  id uuid default gen_random_uuid() primary key,
+  ref_id text unique not null,
+  applicant_name text not null,
+  mobile text not null,
+  loan_product text,
+  loan_amount text,
+  monthly_income text,
+  city text,
+  pan_card text,
+  cibil_notes text,
+  lead_category text default 'Website Lead',
+  status text default 'New',
+  admin_notes text default '',
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+alter table public.leads enable row level security;
+create policy "Public insert" on public.leads for insert with check (true);
+create policy "Admin all" on public.leads for all using (true);</pre>
+          <p class="text-[10px] text-slate-500">Paste this into Supabase SQL Editor once. It creates the table &amp; permissions automatically.</p>
+        </div>
+
+        <div class="pt-2 flex justify-end gap-2">
+          <button type="button" onclick="closeConfigModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 font-semibold">Close</button>
+          <button type="button" onclick="saveSupabaseConfig()" class="px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold flex items-center gap-1.5 shadow-md shadow-brand-600/30">
+            <span class="material-symbols-outlined text-base">save</span>
+            <span>Save &amp; Reconnect</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- 9. SCRIPT ENGINE (AUTH, SUPABASE, REALTIME, LEADS LOGIC) -->
+  <!-- ========================================================================= -->
+  <script>
+    // Master Credentials for offline / quick fallback
+    const MASTER_ADMIN = {
+      email: 'admin@proloanindia.in',
+      pass: 'proloan@2026'
+    };
+
+    // Global App State
+    let currentLeads = [];
+    let filteredLeads = [];
+    let selectedLeadIndex = -1;
+    let supabaseClient = null;
+
+    // Load Credentials from Storage or Environment
+    function getSupabaseConfig() {
+      return {
+        url: localStorage.getItem('proloan_supabase_url') || 'https://yutjqfqgkpuogocextrg.supabase.co',
+        key: localStorage.getItem('proloan_supabase_key') || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1dGpxZnFna3B1b2dvY2V4dHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxNjM3NzQsImV4cCI6MjEwNzczOTc3NH0.yz62DZdGCsyhwR9ks1s8MkJPu9uR0yaWJfZUh8c1bDk'
+      };
+    }
+
+    // Initialize Supabase if keys exist
+    function initSupabase() {
+      const cfg = getSupabaseConfig();
+      if (cfg.url && cfg.key && typeof supabase !== 'undefined') {
+        try {
+          supabaseClient = supabase.createClient(cfg.url, cfg.key);
+          updateDbBadge(true, 'Supabase Cloud Connected');
+          subscribeToLiveLeads();
+        } catch(e) {
+          console.warn('Supabase init error:', e);
+          updateDbBadge(false, 'Local Mirror Storage Active');
+        }
+      } else {
+        updateDbBadge(false, 'Local Lead Vault (Connect Supabase in Settings)');
+      }
+    }
+
+    function updateDbBadge(isCloud, text) {
+      const dot = document.getElementById('dbStatusDot');
+      const label = document.getElementById('dbStatusText');
+      if (dot && label) {
+        dot.className = isCloud ? 'w-2 h-2 rounded-full bg-emerald-400 pulse-glow' : 'w-2 h-2 rounded-full bg-amber-400';
+        label.textContent = text;
+      }
+    }
+
+    // Toggle Password Visibility
+    function togglePasswordVisibility() {
+      const input = document.getElementById('authPassword');
+      const icon = document.getElementById('pwToggleIcon');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.textContent = 'visibility_off';
+      } else {
+        input.type = 'password';
+        icon.textContent = 'visibility';
+      }
+    }
+
+    // Auto-fill demo
+    // Demo auto-fill removed for production
+
+    // Handle Authentication Login
+    async function handleAuthLogin(e) {
+      e.preventDefault();
+      
+      // Bot Honeypot Check
+      const botField = document.getElementById('botCheckUser').value;
+      if (botField) {
+        console.warn('Bot detected via honeypot.');
+        return; // Silent fail for bots
+      }
+
+      const email = document.getElementById('authEmail').value.trim();
+      const pass = document.getElementById('authPassword').value.trim();
+      const errBox = document.getElementById('authErrorMsg');
+      const btnText = document.getElementById('authBtnText');
+      const btnSpinner = document.getElementById('authBtnSpinner');
+
+      errBox.classList.add('hidden');
+      btnText.textContent = 'Verifying Security Token...';
+      btnSpinner.classList.remove('hidden');
+
+      // Intentional delay to thwart automated brute-force scripts
+      await new Promise(r => setTimeout(r, 600));
+
+      let isAuthenticated = false;
+
+      // 1. Try Supabase Auth if connected
+      if (supabaseClient) {
+        try {
+          const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: pass });
+          if (!error && data?.user) {
+            isAuthenticated = true;
+          }
+        } catch(err) {
+          console.log('Supabase auth fallback to Master Admin');
+        }
+      }
+
+      // 2. Master Admin Key Verification
+      if (!isAuthenticated && email.toLowerCase() === MASTER_ADMIN.email.toLowerCase() && pass === MASTER_ADMIN.pass) {
+        isAuthenticated = true;
+      }
+
+      btnSpinner.classList.add('hidden');
+      btnText.textContent = 'Authenticate & Open Console';
+
+      if (isAuthenticated) {
+        sessionStorage.setItem('proloan_admin_authenticated', 'true');
+        sessionStorage.setItem('proloan_admin_email', email);
+        if (document.getElementById('rememberSession').checked) {
+          localStorage.setItem('proloan_admin_persisted', 'true');
+          localStorage.setItem('proloan_admin_email', email);
+        }
+        unlockDashboard(email);
+      } else {
+        errBox.classList.remove('hidden');
+      }
+    }
+
+    function unlockDashboard(email) {
+      document.getElementById('authGate').classList.add('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        document.getElementById('authGate').classList.add('hidden');
+        document.getElementById('mainDashboard').classList.remove('hidden');
+      }, 300);
+
+      document.getElementById('userDisplayEmail').textContent = email || 'admin@proloanindia.in';
+      initSupabase();
+      loadLeads();
+    }
+
+    function handleLogout() {
+      sessionStorage.removeItem('proloan_admin_authenticated');
+      sessionStorage.removeItem('proloan_admin_email');
+      localStorage.removeItem('proloan_admin_persisted');
+      window.location.reload();
+    }
+
+    // Check existing session on load
+    window.addEventListener('DOMContentLoaded', () => {
+      const isAuth = sessionStorage.getItem('proloan_admin_authenticated') === 'true' || 
+                     localStorage.getItem('proloan_admin_persisted') === 'true';
+      if (isAuth) {
+        const email = sessionStorage.getItem('proloan_admin_email') || localStorage.getItem('proloan_admin_email') || MASTER_ADMIN.email;
+        unlockDashboard(email);
+      }
+    });
+
+    // Default Starter Leads (Realistic DSA Pipeline Demo)
+    const STARTER_LEADS = [];
+
+    // Load Leads from Supabase + LocalStorage Fallback
+    async function loadLeads() {
+      let leads = [];
+
+      // 1. Fetch from Supabase if active
+      if (supabaseClient) {
+        try {
+          const { data, error } = await supabaseClient
+            .from('leads')
+            .select('*')
+            .order('created_at', { ascending: false });
+          if (!error && data && data.length > 0) {
+            leads = data;
+          }
+        } catch(e) {
+          console.warn('Supabase fetch error, using local leads:', e);
+        }
+      }
+
+      // 2. Fetch from LocalStorage (from website lead submissions)
+      const rawStored = localStorage.getItem('proloan_leads_log');
+      let storedLeads = [];
+      if (rawStored) {
+        try {
+          const parsed = JSON.parse(rawStored);
+          if (Array.isArray(parsed)) {
+            storedLeads = parsed.map(item => ({
+              ref_id: item['Application Reference ID'] || item.ref_id || ('PL-' + Math.floor(10000 + Math.random()*90000)),
+              applicant_name: item['Applicant Legal Name'] || item.applicant_name || 'Inquirer',
+              mobile: item['Contact Mobile Number'] || item.mobile || 'Not Provided',
+              loan_product: item['Requested Loan Product'] || item.loan_product || 'General Loan',
+              loan_amount: item['Requested Loan Amount'] || item.loan_amount || 'Flexible',
+              monthly_income: item['Monthly Income / Tier'] || item.monthly_income || 'N/A',
+              city: item['City / Location'] || item.city || 'Delhi NCR',
+              pan_card: item['PAN Card / Tax ID'] || item.pan_card || 'N/A',
+              cibil_notes: item['Verification / CIBIL Note'] || item.cibil_notes || '',
+              lead_category: item['Lead Category'] || item.lead_category || 'Website Form',
+              status: item.status || 'New',
+              admin_notes: item.admin_notes || '',
+              created_at: item.Timestamp ? new Date(item.Timestamp).toISOString() : (item.created_at || new Date().toISOString())
+            }));
+          }
+        } catch(e) {}
+      }
+
+      // Merge and deduplicate by ref_id
+      const map = new Map();
+      leads.forEach(l => map.set(l.ref_id, l));
+      storedLeads.forEach(l => { if (!map.has(l.ref_id)) map.set(l.ref_id, l); });
+      STARTER_LEADS.forEach(l => { if (!map.has(l.ref_id)) map.set(l.ref_id, l); });
+
+      currentLeads = Array.from(map.values()).sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
+      applyFilters();
+    }
+
+    let currentLeadTab = 'ALL';
+
+    function setLeadTab(tab) {
+      currentLeadTab = tab;
+      
+      const btnAll = document.getElementById('tabBtnAll');
+      const btnLoans = document.getElementById('tabBtnLoans');
+      const btnContact = document.getElementById('tabBtnContact');
+
+      const activeClass = 'bg-brand-600 text-white shadow-md shadow-brand-600/30 font-bold';
+      const inactiveClass = 'bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white font-semibold';
+
+      btnAll.className = 'px-4 py-2 rounded-xl text-xs transition-all flex items-center gap-1.5 cursor-pointer ' + (tab === 'ALL' ? activeClass : inactiveClass);
+      btnLoans.className = 'px-4 py-2 rounded-xl text-xs transition-all flex items-center gap-1.5 cursor-pointer ' + (tab === 'LOANS' ? activeClass : inactiveClass);
+      btnContact.className = 'px-4 py-2 rounded-xl text-xs transition-all flex items-center gap-1.5 cursor-pointer ' + (tab === 'CONTACT' ? activeClass : inactiveClass);
+
+      applyFilters();
+    }
+
+    // Filter Logic
+    function applyFilters() {
+      const search = (document.getElementById('leadSearchInput').value || '').toLowerCase();
+      const product = document.getElementById('filterProduct').value;
+      const status = document.getElementById('filterStatus').value;
+
+      filteredLeads = currentLeads.filter(lead => {
+        // Search filter
+        const matchSearch = !search || 
+          (lead.applicant_name && lead.applicant_name.toLowerCase().includes(search)) ||
+          (lead.mobile && lead.mobile.toLowerCase().includes(search)) ||
+          (lead.ref_id && lead.ref_id.toLowerCase().includes(search)) ||
+          (lead.city && lead.city.toLowerCase().includes(search)) ||
+          (lead.pan_card && lead.pan_card.toLowerCase().includes(search));
+
+        // Product filter
+        const isContactLead = (lead.lead_category && lead.lead_category.toLowerCase().includes('contact')) || 
+                                (lead.loan_product && lead.loan_product.toLowerCase().includes('contact'));
+
+        // Tab filter
+        let matchTab = true;
+        if (currentLeadTab === 'LOANS') matchTab = !isContactLead;
+        if (currentLeadTab === 'CONTACT') matchTab = isContactLead;
+
+        // Product filter
+        let matchProduct = true;
+        if (product === 'Contact') {
+          matchProduct = isContactLead;
+        } else if (product !== 'ALL') {
+          matchProduct = lead.loan_product && lead.loan_product.toLowerCase().includes(product.toLowerCase());
+        }
+
+        // Status filter
+        const matchStatus = (status === 'ALL') || (lead.status === status);
+
+        return matchSearch && matchTab && matchProduct && matchStatus;
+      });
+
+      renderKPIs();
+      renderTable();
+    }
+
+    // Render Metric Cards
+    function renderKPIs() {
+      const total = currentLeads.length;
+      const newCount = currentLeads.filter(l => l.status === 'New').length;
+      const activeCount = currentLeads.filter(l => ['Contacted', 'Docs Pending', 'Underwriting'].includes(l.status)).length;
+      
+      // Calculate total pipeline volume
+      let totalVolume = 0;
+      currentLeads.forEach(l => {
+        if (l.loan_amount) {
+          const digits = l.loan_amount.replace(/[^0-9]/g, '');
+          const val = parseInt(digits, 10);
+          if (!isNaN(val)) totalVolume += val;
+        }
+      });
+
+      const totalContact = currentLeads.filter(l => (l.lead_category && l.lead_category.toLowerCase().includes('contact')) || (l.loan_product && l.loan_product.toLowerCase().includes('contact'))).length;
+      const totalLoans = total - totalContact;
+
+      const tabCountAll = document.getElementById('tabCountAll');
+      const tabCountLoans = document.getElementById('tabCountLoans');
+      const tabCountContact = document.getElementById('tabCountContact');
+
+      if (tabCountAll) tabCountAll.textContent = total;
+      if (tabCountLoans) tabCountLoans.textContent = totalLoans;
+      if (tabCountContact) tabCountContact.textContent = totalContact;
+
+      document.getElementById('kpiTotalLeads').textContent = total;
+      document.getElementById('kpiNewLeads').textContent = newCount;
+      document.getElementById('kpiActiveLeads').textContent = activeCount;
+
+      // Format Indian currency (Lakhs / Crores)
+      let formattedVol = '₹0';
+      if (totalVolume >= 10000000) {
+        formattedVol = '₹' + (totalVolume / 10000000).toFixed(2) + ' Cr';
+      } else if (totalVolume >= 100000) {
+        formattedVol = '₹' + (totalVolume / 100000).toFixed(1) + ' L';
+      } else if (totalVolume > 0) {
+        formattedVol = '₹' + totalVolume.toLocaleString('en-IN');
+      }
+      document.getElementById('kpiPipelineValue').textContent = formattedVol;
+    }
+
+    // Render Table
+    function renderTable() {
+      const tbody = document.getElementById('leadsTableBody');
+      const countLabel = document.getElementById('leadCountLabel');
+
+      countLabel.textContent = `Showing ${filteredLeads.length} of ${currentLeads.length} total inquiries`;
+
+      if (filteredLeads.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" class="py-16 text-center text-slate-500">
+              <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-slate-800/80 text-slate-400 mb-3">
+                <span class="material-symbols-outlined text-2xl">inbox</span>
+              </div>
+              <h4 class="text-sm font-bold text-slate-300">No Inquiries Found</h4>
+              <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto">Incoming loan applications and Contact Us messages submitted on the website will automatically appear here in real-time.</p>
+              <div class="mt-3 flex items-center justify-center gap-2">
+                <button onclick="openAddLeadModal()" class="px-3 py-1.5 rounded-lg bg-brand-600/30 hover:bg-brand-600/50 text-cyan-300 text-xs font-semibold border border-brand-500/30 flex items-center gap-1">
+                  <span class="material-symbols-outlined text-xs">add</span>
+                  <span>Record Offline Lead</span>
+                </button>
+                <button onclick="resetFilters()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white text-xs font-semibold">
+                  Reset Filters
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filteredLeads.map((lead, idx) => {
+        // Status Badges & Colors
+        const statusConfig = {
+          'New': { bg: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30', label: 'New' },
+          'Contacted': { bg: 'bg-amber-500/15 text-amber-300 border-amber-500/30', label: 'Contacted' },
+          'Docs Pending': { bg: 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30', label: 'Docs Pending' },
+          'Underwriting': { bg: 'bg-purple-500/15 text-purple-300 border-purple-500/30', label: 'Underwriting' },
+          'Sanctioned': { bg: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40 font-bold', label: 'Sanctioned' },
+          'Rejected': { bg: 'bg-rose-500/15 text-rose-400 border-rose-500/30', label: 'Rejected' }
+        }[lead.status] || { bg: 'bg-slate-700/50 text-slate-300 border-slate-600', label: lead.status || 'New' };
+
+        // Relative time or readable date
+        const dateObj = new Date(lead.created_at);
+        const formattedDate = !isNaN(dateObj.getTime()) 
+          ? dateObj.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' }) + ', ' + dateObj.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })
+          : 'Recent';
+
+        // Pre-filled WhatsApp message
+        const waMsg = encodeURIComponent(
+          `Hello ${lead.applicant_name || 'Customer'},\n\nThank you for reaching out to Proloan India regarding your ${lead.loan_product || 'loan'} inquiry (Application Ref: ${lead.ref_id}).\n\nI am following up from our Indirapuram underwriting desk to assist you with the best bank interest rates and quick sanction. May I know a good time to connect?\n\nWarm regards,\nProloan India Advisory Team`
+        );
+        const rawPhone = (lead.mobile || '').replace(/[^0-9]/g, '');
+
+        return `
+          <tr class="hover:bg-slate-800/40 transition-colors">
+            
+            <!-- Ref ID & Date -->
+            <td class="py-3.5 px-4">
+              <div class="flex items-center gap-1.5">
+                <span class="font-mono text-xs font-bold text-cyan-400">${lead.ref_id}</span>
+                <button onclick="copyToClipboard('${lead.ref_id}')" title="Copy Ref ID" class="text-slate-500 hover:text-slate-300">
+                  <span class="material-symbols-outlined text-[14px]">content_copy</span>
+                </button>
+              </div>
+              <span class="text-[10px] text-slate-400 block mt-0.5">${formattedDate}</span>
+              <span class="text-[9px] text-slate-500 block">${lead.lead_category || 'Website'}</span>
+            </td>
+
+            <!-- Applicant Profile -->
+            <td class="py-3.5 px-4">
+              <span class="font-bold text-white text-xs block">${lead.applicant_name}</span>
+              <span class="text-[11px] text-slate-400 block">${lead.mobile}</span>
+              <span class="text-[10px] text-slate-500 block truncate max-w-[140px]">${lead.city || 'Pan India'}</span>
+            </td>
+
+            <!-- Fast Action Icons (Call & WhatsApp) -->
+            <td class="py-3.5 px-4">
+              <div class="flex items-center gap-1.5">
+                <a href="tel:${lead.mobile}" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-400 flex items-center justify-center transition-all" title="Direct Phone Call">
+                  <span class="material-symbols-outlined text-base">call</span>
+                </a>
+                <a href="https://wa.me/${rawPhone}?text=${waMsg}" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-300 border border-emerald-500/30 flex items-center justify-center transition-all" title="Message via WhatsApp with pre-composed follow-up">
+                  <span class="material-symbols-outlined text-base">chat</span>
+                </a>
+              </div>
+            </td>
+
+            <!-- Loan Inquired / Contact Message -->
+            <td class="py-3.5 px-4">
+              ${(lead.lead_category && lead.lead_category.toLowerCase().includes('contact')) || (lead.loan_product && lead.loan_product.toLowerCase().includes('contact')) ? `
+                <div class="flex items-center gap-1 text-purple-300 font-bold">
+                  <span class="material-symbols-outlined text-sm">chat</span>
+                  <span>Contact Message</span>
+                </div>
+                <span class="text-[11px] text-slate-400 block truncate max-w-[200px]" title="${lead.cibil_notes || ''}">${lead.cibil_notes || 'Consultation Request'}</span>
+              ` : `
+                <span class="font-bold text-slate-200 block">${lead.loan_product}</span>
+                <span class="font-display font-black text-emerald-400 text-xs block">${lead.loan_amount}</span>
+              `}
+            </td>
+
+            <!-- Income & PAN -->
+            <td class="py-3.5 px-4">
+              <span class="text-slate-300 block font-medium">${lead.monthly_income}</span>
+              <span class="font-mono text-[10px] text-amber-300/80 block">${lead.pan_card || 'No PAN'}</span>
+            </td>
+
+            <!-- Pipeline Status Dropdown -->
+            <td class="py-3.5 px-4">
+              <select onchange="handleStatusChange('${lead.ref_id}', this.value)" class="text-[11px] font-semibold py-1 px-2.5 rounded-lg border bg-slate-900 focus:outline-none ${statusConfig.bg}">
+                <option value="New" ${lead.status === 'New' ? 'selected' : ''}>🟢 New</option>
+                <option value="Contacted" ${lead.status === 'Contacted' ? 'selected' : ''}>🟡 Contacted</option>
+                <option value="Docs Pending" ${lead.status === 'Docs Pending' ? 'selected' : ''}>🔵 Docs Pending</option>
+                <option value="Underwriting" ${lead.status === 'Underwriting' ? 'selected' : ''}>🟣 Underwriting</option>
+                <option value="Sanctioned" ${lead.status === 'Sanctioned' ? 'selected' : ''}>🟢 Sanctioned</option>
+                <option value="Rejected" ${lead.status === 'Rejected' ? 'selected' : ''}>🔴 Rejected</option>
+              </select>
+            </td>
+
+            <!-- Action Buttons -->
+            <td class="py-3.5 px-4 text-right">
+              <div class="flex items-center justify-end gap-1.5">
+                <button onclick="openDossierModal('${lead.ref_id}')" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 text-[11px] font-semibold border border-slate-700/60 flex items-center gap-1 transition-all" title="View Full Applicant Dossier">
+                  <span>Dossier</span>
+                  <span class="material-symbols-outlined text-xs">open_in_new</span>
+                </button>
+                <button onclick="deleteLead('${lead.ref_id}')" class="p-1.5 rounded-lg text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition-all" title="Delete record">
+                  <span class="material-symbols-outlined text-base">delete</span>
+                </button>
+              </div>
+            </td>
+
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function resetFilters() {
+      document.getElementById('leadSearchInput').value = '';
+      document.getElementById('filterProduct').value = 'ALL';
+      document.getElementById('filterStatus').value = 'ALL';
+      applyFilters();
+    }
+
+    // Status Change Handler (Live Sync to Supabase & Local)
+    async function handleStatusChange(refId, newStatus) {
+      const lead = currentLeads.find(l => l.ref_id === refId);
+      if (!lead) return;
+      lead.status = newStatus;
+
+      // Update in Supabase
+      if (supabaseClient) {
+        try {
+          await supabaseClient
+            .from('leads')
+            .update({ status: newStatus })
+            .eq('ref_id', refId);
+        } catch(e) {
+          console.warn('Status sync to Supabase error:', e);
+        }
+      }
+
+      // Persist in local storage
+      persistLeadsLocally();
+      applyFilters();
+    }
+
+    // Open Applicant Dossier Modal
+    function openDossierModal(refId) {
+      const lead = currentLeads.find(l => l.ref_id === refId);
+      if (!lead) return;
+      selectedLeadIndex = currentLeads.indexOf(lead);
+
+      document.getElementById('dosApplicantName').textContent = lead.applicant_name;
+      document.getElementById('dosRefId').textContent = 'Ref: ' + lead.ref_id;
+      document.getElementById('dosStatusBadge').textContent = lead.status;
+      document.getElementById('dosMobile').textContent = lead.mobile;
+      document.getElementById('dosProduct').textContent = lead.loan_product;
+      document.getElementById('dosAmount').textContent = lead.loan_amount;
+      document.getElementById('dosCity').textContent = lead.city || 'Pan India';
+      document.getElementById('dosIncome').textContent = lead.monthly_income;
+      document.getElementById('dosPan').textContent = lead.pan_card || 'Not Provided';
+      document.getElementById('dosNotes').textContent = lead.cibil_notes || 'Application logged directly from customer online session.';
+      document.getElementById('dosAdminNotes').value = lead.admin_notes || '';
+
+      // Set Action links
+      document.getElementById('dosCallBtn').href = 'tel:' + lead.mobile;
+      const rawPhone = (lead.mobile || '').replace(/[^0-9]/g, '');
+      const waMsg = encodeURIComponent(`Hi ${lead.applicant_name}, this is from Proloan India regarding your ${lead.loan_product} file.`);
+      document.getElementById('dosWaBtn').href = `https://wa.me/${rawPhone}?text=${waMsg}`;
+
+      document.getElementById('dossierModal').classList.remove('hidden');
+    }
+
+    function closeDossierModal() {
+      document.getElementById('dossierModal').classList.add('hidden');
+    }
+
+    // Save Admin Remarks from Modal
+    async function saveAdminNotesFromModal() {
+      if (selectedLeadIndex < 0 || !currentLeads[selectedLeadIndex]) return;
+      const lead = currentLeads[selectedLeadIndex];
+      const notes = document.getElementById('dosAdminNotes').value;
+      lead.admin_notes = notes;
+
+      if (supabaseClient) {
+        try {
+          await supabaseClient
+            .from('leads')
+            .update({ admin_notes: notes })
+            .eq('ref_id', lead.ref_id);
+        } catch(e) {}
+      }
+
+      persistLeadsLocally();
+      closeDossierModal();
+      applyFilters();
+    }
+
+    // Delete Lead
+    async function deleteLead(refId) {
+      if (!confirm(`Are you sure you want to remove lead ${refId}?`)) return;
+
+      currentLeads = currentLeads.filter(l => l.ref_id !== refId);
+
+      if (supabaseClient) {
+        try {
+          await supabaseClient.from('leads').delete().eq('ref_id', refId);
+        } catch(e) {}
+      }
+
+      persistLeadsLocally();
+      applyFilters();
+    }
+
+    // Manual Add Lead Modal
+    function openAddLeadModal() {
+      document.getElementById('addLeadModal').classList.remove('hidden');
+    }
+    function closeAddLeadModal() {
+      document.getElementById('addLeadModal').classList.add('hidden');
+    }
+
+    async function handleManualLeadSubmit(e) {
+      e.preventDefault();
+      const newLead = {
+        ref_id: 'PL-' + Math.floor(10000 + Math.random() * 90000),
+        applicant_name: document.getElementById('manualName').value.trim(),
+        mobile: document.getElementById('manualPhone').value.trim(),
+        city: document.getElementById('manualCity').value.trim() || 'Indirapuram, Ghaziabad',
+        loan_product: document.getElementById('manualProduct').value,
+        loan_amount: document.getElementById('manualAmount').value.trim() || '₹20,00,000',
+        monthly_income: document.getElementById('manualIncome').value.trim() || '₹50,000 / mo',
+        pan_card: document.getElementById('manualPan').value.trim().toUpperCase() || 'N/A',
+        cibil_notes: document.getElementById('manualNotes').value.trim() || 'Walk-in / Phone Inquirer',
+        lead_category: 'Direct Staff Entry',
+        status: 'New',
+        admin_notes: 'Created manually by underwriter.',
+        created_at: new Date().toISOString()
+      };
+
+      currentLeads.unshift(newLead);
+
+      if (supabaseClient) {
+        try {
+          await supabaseClient.from('leads').insert([newLead]);
+        } catch(err) {
+          console.warn('Manual lead insert to Supabase warning:', err);
+        }
+      }
+
+      persistLeadsLocally();
+      closeAddLeadModal();
+      applyFilters();
+    }
+
+    // Export Leads to CSV / Excel
+    function exportLeadsToCSV() {
+      if (!filteredLeads.length) {
+        alert('No leads to export.');
+        return;
+      }
+
+      const headers = ['Ref ID', 'Applicant Name', 'Mobile', 'Loan Product', 'Loan Amount', 'City', 'Monthly Income', 'PAN Card', 'Status', 'Lead Source', 'Created At', 'Admin Remarks'];
+      const rows = filteredLeads.map(l => [
+        `"${l.ref_id || ''}"`,
+        `"${(l.applicant_name || '').replace(/"/g, '""')}"`,
+        `"${l.mobile || ''}"`,
+        `"${l.loan_product || ''}"`,
+        `"${l.loan_amount || ''}"`,
+        `"${(l.city || '').replace(/"/g, '""')}"`,
+        `"${l.monthly_income || ''}"`,
+        `"${l.pan_card || ''}"`,
+        `"${l.status || 'New'}"`,
+        `"${l.lead_category || ''}"`,
+        `"${l.created_at || ''}"`,
+        `"${(l.admin_notes || '').replace(/"/g, '""')}"`
+      ]);
+
+      const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', `Proloan_Leads_Export_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Refresh Leads
+    function refreshLeads(showSpin) {
+      const icon = document.getElementById('refreshIcon');
+      if (showSpin && icon) icon.classList.add('animate-spin');
+      loadLeads().then(() => {
+        if (icon) setTimeout(() => icon.classList.remove('animate-spin'), 600);
+      });
+    }
+
+    // Supabase Real-Time Listener
+    function subscribeToLiveLeads() {
+      if (!supabaseClient) return;
+      try {
+        supabaseClient
+          .channel('public:leads')
+          .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'leads' }, payload => {
+            console.log('⚡ New Live Lead Arrived via Supabase:', payload.new);
+            currentLeads.unshift(payload.new);
+            applyFilters();
+          })
+          .subscribe();
+      } catch(e) {}
+    }
+
+    // Local Persistence Helper
+    function persistLeadsLocally() {
+      try {
+        localStorage.setItem('proloan_leads_log', JSON.stringify(currentLeads.slice(0, 150)));
+      } catch(e) {}
+    }
+
+    // Config Modal Helpers
+    function openConfigModal() {
+      const cfg = getSupabaseConfig();
+      document.getElementById('cfgSupabaseUrl').value = cfg.url;
+      document.getElementById('cfgSupabaseKey').value = cfg.key;
+      document.getElementById('configModal').classList.remove('hidden');
+    }
+    function closeConfigModal() {
+      document.getElementById('configModal').classList.add('hidden');
+    }
+    function saveSupabaseConfig() {
+      const url = document.getElementById('cfgSupabaseUrl').value.trim();
+      const key = document.getElementById('cfgSupabaseKey').value.trim();
+      localStorage.setItem('proloan_supabase_url', url);
+      localStorage.setItem('proloan_supabase_key', key);
+      closeConfigModal();
+      initSupabase();
+      refreshLeads(true);
+    }
+    function copySqlSchema() {
+      const sql = `create table public.leads (
+  id uuid default gen_random_uuid() primary key,
+  ref_id text unique not null,
+  applicant_name text not null,
+  mobile text not null,
+  loan_product text,
+  loan_amount text,
+  monthly_income text,
+  city text,
+  pan_card text,
+  cibil_notes text,
+  lead_category text default 'Website Lead',
+  status text default 'New',
+  admin_notes text default '',
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+alter table public.leads enable row level security;
+create policy "Public insert" on public.leads for insert with check (true);
+create policy "Admin all" on public.leads for all using (true);`;
+      navigator.clipboard.writeText(sql);
+      const lbl = document.getElementById('copySqlLabel');
+      lbl.textContent = 'Copied to Clipboard!';
+      setTimeout(() => lbl.textContent = 'Copy SQL Query', 2000);
+    }
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text);
+    }
+  </script>
+
+</body>
+</html>

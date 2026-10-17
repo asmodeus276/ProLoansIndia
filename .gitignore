@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Environment Secrets
+.env
+.env.local
+
+# Backups
+*.bak
+*.bak_*
+*.tmp
+*.log
+
+# Scratch and internal tests
+scratch/
+
+# Root test images & verification screenshots
+*.png
+!assets/**
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
