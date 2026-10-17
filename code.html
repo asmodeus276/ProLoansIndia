@@ -10764,27 +10764,43 @@
       <section class="relative w-full bg-slate-100 overflow-hidden border-b border-slate-200">
         <div class="relative w-full h-[260px] xs:h-[280px] sm:h-[380px] md:h-[440px] lg:h-[460px] flex items-center bg-white overflow-hidden border-b border-slate-200">
 
-          <!-- Background gradient -->
-          <div class="absolute inset-0 bg-gradient-to-br from-[#0F2942] via-[#1565C0] to-[#0F3876] z-0"></div>
-          <!-- Decorative circles -->
-          <div class="absolute -right-32 -top-32 w-[500px] h-[500px] rounded-full bg-white/5 pointer-events-none z-0"></div>
-          <div class="absolute -left-16 bottom-0 w-72 h-72 rounded-full bg-[#F26522]/10 pointer-events-none z-0"></div>
+          <!-- RIGHT HALF — Banner photo (desktop only) -->
+          <div class="absolute inset-y-0 right-0 w-[45%] hidden sm:block pointer-events-none z-0">
+            <img src="assets/banners/partners-clean.jpg" alt="Careers at Proloan India" class="w-full h-full object-cover object-center" loading="eager" />
+            <!-- Gradient overlay blending photo into left navy gradient -->
+            <div class="absolute inset-0 bg-gradient-to-r from-[#0F2942] via-[#1565C0]/60 to-transparent"></div>
+          </div>
 
-          <!-- MOBILE VIEW -->
-          <div class="relative z-10 w-full h-full flex flex-col justify-end p-4 pb-4.5 sm:hidden">
-            <div class="space-y-1">
-              <h1 class="text-xl xs:text-2xl font-black text-white tracking-tight leading-tight drop-shadow-md font-heading">
-                Build Your Career at Proloan India
-              </h1>
-              <p class="text-xs xs:text-[13px] text-white/95 font-medium drop-shadow-sm line-clamp-1">
-                Join Delhi NCR's Fastest-Growing Financial Consultancy
-              </p>
+          <!-- LEFT HALF — Navy gradient background -->
+          <div class="absolute inset-0 bg-gradient-to-r from-[#0F2942] via-[#0F2942] to-transparent z-0"></div>
+
+          <!-- MOBILE — full-width image with overlay -->
+          <div class="absolute inset-0 sm:hidden z-0">
+            <img src="assets/banners/partners-clean.jpg" alt="Careers at Proloan India" class="w-full h-full object-cover object-top" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0F2942]/95 via-[#0F2942]/70 to-transparent"></div>
+          </div>
+
+          <!-- MOBILE — text overlay at bottom -->
+          <div class="relative z-10 w-full h-full flex flex-col justify-end p-4 pb-5 sm:hidden">
+            <div class="inline-flex items-center gap-1 mb-1.5 px-2.5 py-1 rounded-full bg-white/10 border border-white/20 w-fit">
+              <span class="material-symbols-outlined text-[#F26522] text-[13px]">work_history</span>
+              <span class="text-white text-[10px] font-black uppercase tracking-wider">NOW HIRING</span>
             </div>
+            <h1 class="text-xl xs:text-2xl font-black text-white tracking-tight leading-tight drop-shadow-md font-heading">
+              Build Your Career at Proloan India
+            </h1>
+            <p class="text-xs xs:text-[13px] text-white/90 font-medium drop-shadow-sm mt-1">
+              Join Delhi NCR's Fastest-Growing Financial Consultancy
+            </p>
+            <a href="mailto:info@proloanindia.com" class="mt-2.5 inline-flex items-center gap-1.5 text-[11px] font-bold text-white/90">
+              <span class="material-symbols-outlined text-[#F26522] text-[14px]">mail</span>
+              info@proloanindia.com
+            </a>
           </div>
 
           <!-- DESKTOP VIEW -->
           <div class="hidden sm:block relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-6 sm:py-10">
-            <div class="w-full sm:max-w-lg md:max-w-2xl text-left space-y-3 sm:space-y-4">
+            <div class="w-full sm:max-w-lg md:max-w-xl text-left space-y-3 sm:space-y-4">
               <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white text-xs font-bold uppercase tracking-wider">
                 <span class="material-symbols-outlined text-[15px] text-[#F26522]">work_history</span>
                 <span>WE ARE HIRING — DELHI NCR</span>
@@ -10800,9 +10816,9 @@
                   <span>View Open Positions</span>
                   <span class="material-symbols-outlined text-base">arrow_forward</span>
                 </a>
-                <a href="mailto:careers@proloanindia.com" class="inline-flex px-3.5 sm:px-5 py-2.5 sm:py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm border border-white/20 items-center gap-1.5 transition-all">
+                <a href="mailto:info@proloanindia.com" class="inline-flex px-3.5 sm:px-5 py-2.5 sm:py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm border border-white/20 items-center gap-1.5 transition-all">
                   <span class="material-symbols-outlined text-base text-[#F26522]">mail</span>
-                  <span>careers@proloanindia.com</span>
+                  <span>info@proloanindia.com</span>
                 </a>
               </div>
             </div>
@@ -10882,28 +10898,28 @@
               </button>
             </div>
 
-            <!-- Job 2: Credit Manager -->
+            <!-- Job 2: Loan Collections & Recovery Manager -->
             <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col p-6 group">
               <div class="flex items-start justify-between gap-3 mb-4">
                 <div class="w-11 h-11 rounded-xl bg-orange-50 text-[#F26522] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                  <span class="material-symbols-outlined text-2xl">manage_accounts</span>
+                  <span class="material-symbols-outlined text-2xl">account_balance_wallet</span>
                 </div>
                 <div class="flex flex-col items-end gap-1.5">
                   <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase tracking-wider border border-emerald-100">Full-Time</span>
                   <span class="px-2.5 py-0.5 rounded-full bg-orange-50 text-orange-700 text-[10px] font-bold border border-orange-100">Indirapuram, NCR</span>
                 </div>
               </div>
-              <h3 class="text-base font-black text-[#0F2942] font-heading leading-snug mb-1">Credit &amp; Risk Analyst</h3>
-              <p class="text-[11px] text-slate-500 font-semibold mb-3">File Underwriting · Bureau Analysis · Bank Liaison</p>
+              <h3 class="text-base font-black text-[#0F2942] font-heading leading-snug mb-1">Collections &amp; Recovery Manager</h3>
+              <p class="text-[11px] text-slate-500 font-semibold mb-3">NPA Recovery · Borrower Follow-Up · Bank Coordination</p>
               <p class="text-xs text-slate-600 leading-relaxed flex-1">
-                Evaluate loan applications, analyse bureau reports, prepare CAM (Credit Appraisal Memos), and liaise with bank credit heads for special approval cases.
+                Manage post-disbursal EMI collection, coordinate with banks on NPA accounts, conduct structured borrower follow-ups, and handle legal recovery proceedings when required.
               </p>
               <ul class="mt-4 space-y-1.5 text-xs text-slate-600">
-                <li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>₹5L–₹10L CTC</li>
-                <li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>Min. 2 Years in Credit/Underwriting</li>
-                <li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>Graduate · IRDA/BFSI Certification Preferred</li>
+                <li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>₹4.5L–₹9L CTC + Recovery Incentives</li>
+                <li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>Min. 2 Years in Collections / NPA Recovery</li>
+                <li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>Experience with SARFAESI / DRT Preferred</li>
               </ul>
-              <button onclick="document.getElementById('careers-apply-form').scrollIntoView({behavior:'smooth'}); document.getElementById('career-role-select').value='Credit & Risk Analyst';" class="mt-5 w-full py-2.5 bg-[#F26522] hover:bg-[#D94E0E] text-white font-extrabold text-xs rounded-xl tracking-wide transition-all cursor-pointer flex items-center justify-center gap-1.5">
+              <button onclick="document.getElementById('careers-apply-form').scrollIntoView({behavior:'smooth'}); document.getElementById('career-role-select').value='Collections & Recovery Manager';" class="mt-5 w-full py-2.5 bg-[#F26522] hover:bg-[#D94E0E] text-white font-extrabold text-xs rounded-xl tracking-wide transition-all cursor-pointer flex items-center justify-center gap-1.5">
                 <span class="material-symbols-outlined text-base">send</span>
                 <span>Apply for This Role</span>
               </button>
@@ -11198,7 +11214,7 @@
                     <select id="career-role-select" required class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl py-3 pl-10 pr-4 text-slate-800 font-semibold focus:ring-2 focus:ring-[#1565C0] focus:bg-white focus:outline-none transition-all">
                       <option value="">-- Select a Role --</option>
                       <option value="Loan Sales Officer">Loan Sales Officer</option>
-                      <option value="Credit & Risk Analyst">Credit &amp; Risk Analyst</option>
+                      <option value="Collections & Recovery Manager">Collections &amp; Recovery Manager</option>
                       <option value="DSA / Channel Partner">DSA / Channel Partner</option>
                       <option value="Loan Operations Executive">Loan Operations Executive</option>
                       <option value="Digital Marketing Executive">Digital Marketing Executive</option>
@@ -11233,6 +11249,23 @@
                 </div>
               </div>
 
+              <!-- Resume Upload -->
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Upload Resume / CV <span class="text-red-500">*</span></label>
+                <div class="relative">
+                  <label for="career-resume" class="flex items-center gap-3 w-full cursor-pointer bg-slate-50 border-2 border-dashed border-slate-300 hover:border-[#1565C0] hover:bg-blue-50/40 rounded-xl py-3 px-4 transition-all group">
+                    <span class="w-9 h-9 rounded-lg bg-blue-100 text-[#1565C0] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                      <span class="material-symbols-outlined text-xl">upload_file</span>
+                    </span>
+                    <div class="min-w-0 flex-1">
+                      <p id="career-resume-label" class="text-xs font-semibold text-slate-600 truncate">Click to upload PDF, DOC, or DOCX</p>
+                      <p class="text-[10px] text-slate-400 mt-0.5">Max 5 MB · PDF preferred</p>
+                    </div>
+                    <input id="career-resume" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required class="sr-only" onchange="document.getElementById('career-resume-label').textContent = this.files[0]?.name || 'Click to upload PDF, DOC, or DOCX'">
+                  </label>
+                </div>
+              </div>
+
               <!-- Cover Note -->
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Brief Cover Note / Why Proloan India? <span class="text-xs font-normal text-slate-400">(Optional)</span></label>
@@ -11262,7 +11295,7 @@
                 <span class="text-base font-black text-emerald-900 font-heading">Application Submitted!</span>
               </div>
               <p class="text-xs text-emerald-800 leading-relaxed">
-                Thank you for your interest in joining Proloan India. Our HR team will review your application and reach out within <strong>24–48 hours</strong>. You can also email us directly at <strong>careers@proloanindia.com</strong>.
+                Thank you for your interest in joining Proloan India. Our HR team will review your application and reach out within <strong>24–48 hours</strong>. You can also email us directly at <strong>info@proloanindia.com</strong>.
               </p>
             </div>
           </div>
@@ -17784,18 +17817,23 @@ function handleModalSubmit(e) {
     function handleCareersSubmit(e) {
       e.preventDefault();
 
-      const name    = (document.getElementById('career-name')?.value || '').trim();
-      const mobile  = (document.getElementById('career-mobile')?.value || '').trim();
-      const email   = (document.getElementById('career-email')?.value || '').trim();
-      const role    = (document.getElementById('career-role-select')?.value || '');
-      const exp     = (document.getElementById('career-experience')?.value || '');
-      const city    = (document.getElementById('career-city')?.value || '').trim();
-      const note    = (document.getElementById('career-note')?.value || '').trim();
+      const name     = (document.getElementById('career-name')?.value || '').trim();
+      const mobile   = (document.getElementById('career-mobile')?.value || '').trim();
+      const email    = (document.getElementById('career-email')?.value || '').trim();
+      const role     = (document.getElementById('career-role-select')?.value || '');
+      const exp      = (document.getElementById('career-experience')?.value || '');
+      const city     = (document.getElementById('career-city')?.value || '').trim();
+      const note     = (document.getElementById('career-note')?.value || '').trim();
+      const resumeEl = document.getElementById('career-resume');
+      const resumeFile = resumeEl && resumeEl.files && resumeEl.files[0] ? resumeEl.files[0] : null;
+      const resumeName = resumeFile ? resumeFile.name : 'Not Uploaded';
 
       if (!name || name.length < 2) { alert('Please enter your full name.'); return; }
       if (!/^\d{10}$/.test(mobile)) { alert('Please enter a valid 10-digit mobile number.'); return; }
       if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('Please enter a valid email address.'); return; }
       if (!role) { alert('Please select the role you are applying for.'); return; }
+      if (!resumeFile) { alert('Please upload your resume (PDF, DOC, or DOCX).'); return; }
+      if (resumeFile.size > 5 * 1024 * 1024) { alert('Resume file size must be under 5 MB.'); return; }
 
       const btn = document.getElementById('careers-submit-btn');
       if (btn) {
@@ -17803,29 +17841,123 @@ function handleModalSubmit(e) {
         btn.innerHTML = '<span class="material-symbols-outlined text-base animate-spin">progress_activity</span><span>Submitting...</span>';
       }
 
-      // Build WhatsApp message for HR team
+      // Generate unique Application ID
+      const appId = 'CA-' + Math.floor(10000 + Math.random() * 90000);
+      const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
+      // 1. Build payload for Gmail / Nodemailer / Admin Panel
+      const payload = {
+        _subject: '📋 [CAREER APPLICATION] ' + role + ' — ' + name,
+        _template: 'table',
+        _captcha: 'false',
+        'Application ID': appId,
+        'Lead Category': 'Career Application',
+        'Applicant Name': name,
+        'Mobile': mobile,
+        'Email': email,
+        'Role Applied For': role,
+        'Experience': exp,
+        'Location': city,
+        'Resume File': resumeName,
+        'Cover Note': note || 'N/A',
+        'Submitted At': timestamp
+      };
+
+      // 2. Send via Nodemailer backend → info@proloanindia.com
+      try {
+        fetch('/api/send-lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).then(function(res) {
+          return res.json();
+        }).then(function(data) {
+          if (data && data.success) {
+            console.log('✅ Career application emailed via Nodemailer:', data.message);
+          } else {
+            console.warn('⚠️ Career email dispatch warning:', data && data.message);
+          }
+        }).catch(function(err) {
+          console.warn('⚠️ Career email network error:', err);
+        });
+      } catch(e) {}
+
+      // 3. Save to localStorage lead log (visible in admin portal)
+      try {
+        var rawLog = localStorage.getItem('proloan_leads_log') || '[]';
+        var log = JSON.parse(rawLog);
+        if (!Array.isArray(log)) log = [];
+        log.unshift(payload);
+        localStorage.setItem('proloan_leads_log', JSON.stringify(log.slice(0, 100)));
+      } catch(e) {}
+
+      // 4. Sync to Supabase (shows in admin dashboard live table)
+      try {
+        var sbUrl = localStorage.getItem('proloan_supabase_url') || 'https://yutjqfqgkpuogocextrg.supabase.co';
+        var sbKey = localStorage.getItem('proloan_supabase_key') || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1dGpxZnFna3B1b2dvY2V4dHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxNjM3NzQsImV4cCI6MjEwNzczOTc3NH0.yz62DZdGCsyhwR9ks1s8MkJPu9uR0yaWJfZUh8c1bDk';
+        if (sbUrl && sbKey) {
+          fetch(sbUrl.replace(/\/+$/, '') + '/rest/v1/leads', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'apikey': sbKey,
+              'Authorization': 'Bearer ' + sbKey,
+              'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify({
+              ref_id: appId,
+              applicant_name: name,
+              mobile: mobile,
+              loan_product: 'Career Application — ' + role,
+              loan_amount: 'N/A',
+              city: city,
+              monthly_income: exp,
+              pan_card: email,
+              cibil_notes: 'Resume: ' + resumeName + (note ? ' | Note: ' + note : ''),
+              lead_category: 'Career Application',
+              status: 'New'
+            })
+          }).catch(function(err) { console.warn('Supabase career push warning:', err); });
+        }
+      } catch(e) {}
+
+      // 5. Also dispatch via dispatchLeadToGmail (realtime Gmail ping to info@proloanindia.com)
+      try {
+        dispatchLeadToGmail({
+          source: 'Careers Page — ' + role,
+          id: appId,
+          name: name,
+          phone: mobile,
+          product: 'Career Application — ' + role,
+          amount: 'Resume: ' + resumeName,
+          city: city,
+          income: exp,
+          notes: 'Email: ' + email + (note ? ' | Note: ' + note : '')
+        });
+      } catch(e) {}
+
+      // 6. WhatsApp ping to HR
       const waMsg = encodeURIComponent(
-        `🧑‍💼 *CAREER APPLICATION — Proloan India*\n\n` +
-        `*Name:* ${name}\n` +
-        `*Mobile:* ${mobile}\n` +
-        `*Email:* ${email}\n` +
-        `*Role:* ${role}\n` +
-        `*Experience:* ${exp}\n` +
-        `*Location:* ${city}\n` +
-        `${note ? `*Cover Note:* ${note}\n` : ''}` +
-        `\n_Submitted via proloanindia.com/careers_`
+        '📋 *CAREER APPLICATION — Proloan India*\n\n' +
+        '*App ID:* ' + appId + '\n' +
+        '*Name:* ' + name + '\n' +
+        '*Mobile:* ' + mobile + '\n' +
+        '*Email:* ' + email + '\n' +
+        '*Role:* ' + role + '\n' +
+        '*Experience:* ' + exp + '\n' +
+        '*Location:* ' + city + '\n' +
+        '*Resume:* ' + resumeName + '\n' +
+        (note ? '*Note:* ' + note + '\n' : '') +
+        '\n_Submitted via proloanindia.com/careers_'
       );
 
-      // Open WhatsApp for HR
       setTimeout(function() {
-        window.open(`https://wa.me/918368426125?text=${waMsg}`, '_blank');
-
-        // Show success message
+        window.open('https://wa.me/918368426125?text=' + waMsg, '_blank');
         const form = document.getElementById('careers-application-form');
         const success = document.getElementById('careers-success-msg');
         if (form) form.classList.add('hidden');
         if (success) success.classList.remove('hidden');
-      }, 600);
+      }, 700);
     }
 
     function handleCreditScoreSubmit(e) {
