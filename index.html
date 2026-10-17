@@ -246,7 +246,7 @@
         <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-[14.5px] font-semibold text-slate-700 shrink-0">
           <a class="hover:text-[#1565C0] transition-colors cursor-pointer py-1" onclick="switchPage('home')">Home</a>
           <a class="hover:text-[#1565C0] transition-colors cursor-pointer py-1" onclick="switchPage('about')">About Us</a>
-          <a class="hover:text-[#1565C0] transition-colors cursor-pointer py-1" onclick="switchPage('credit-score')">Credit Score</a>
+          <a class="hover:text-[#1565C0] transition-colors cursor-pointer py-1" onclick="switchPage('careers')">Careers</a>
           <a class="text-[#1565C0] hover:text-[#0D47A1] font-bold transition-colors cursor-pointer py-1 flex items-center gap-1.5" onclick="switchPage('track')">
             <span class="material-symbols-outlined text-base text-[#F26522] animate-pulse">radar</span>
             <span>Track Status</span>
@@ -1407,9 +1407,9 @@
                   </div>
 
                   <div class="pt-4 flex flex-wrap items-center gap-4">
-                    <button onclick="switchPage('credit-score')" class="px-6 py-3.5 bg-[#F26522] hover:bg-[#D94E0E] text-white font-extrabold text-xs sm:text-sm tracking-wide rounded-xl shadow-md hover:shadow-lg transition-all flex items-center gap-2 cursor-pointer group">
-                      <span>Understand Your Credit Score</span>
-                      <span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">trending_up</span>
+                    <button onclick="switchPage('careers')" class="px-6 py-3.5 bg-[#F26522] hover:bg-[#D94E0E] text-white font-extrabold text-xs sm:text-sm tracking-wide rounded-xl shadow-md hover:shadow-lg transition-all flex items-center gap-2 cursor-pointer group">
+                      <span>Join Our Team — View Openings</span>
+                      <span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">work</span>
                     </button>
                     <button onclick="openApplyModal('CIBIL Special Assistance Consultation')" class="px-5 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm rounded-xl transition-all flex items-center gap-2 cursor-pointer">
                       <span class="material-symbols-outlined text-base text-amber-600">contact_support</span>
@@ -10755,7 +10755,526 @@
 
     
 
-    <div id="page-credit-score" class="page-section">
+    <!-- ##################################################################### -->
+    <!-- PAGE: CAREERS -->
+    <!-- ##################################################################### -->
+    <div id="page-careers" class="page-section">
+
+      <!-- HERO BANNER -->
+      <section class="relative w-full bg-slate-100 overflow-hidden border-b border-slate-200">
+        <div class="relative w-full h-[260px] xs:h-[280px] sm:h-[380px] md:h-[440px] lg:h-[460px] flex items-center bg-white overflow-hidden border-b border-slate-200">
+
+          <!-- Background gradient -->
+          <div class="absolute inset-0 bg-gradient-to-br from-[#0F2942] via-[#1565C0] to-[#0F3876] z-0"></div>
+          <!-- Decorative circles -->
+          <div class="absolute -right-32 -top-32 w-[500px] h-[500px] rounded-full bg-white/5 pointer-events-none z-0"></div>
+          <div class="absolute -left-16 bottom-0 w-72 h-72 rounded-full bg-[#F26522]/10 pointer-events-none z-0"></div>
+
+          <!-- MOBILE VIEW -->
+          <div class="relative z-10 w-full h-full flex flex-col justify-end p-4 pb-4.5 sm:hidden">
+            <div class="space-y-1">
+              <h1 class="text-xl xs:text-2xl font-black text-white tracking-tight leading-tight drop-shadow-md font-heading">
+                Build Your Career at Proloan India
+              </h1>
+              <p class="text-xs xs:text-[13px] text-white/95 font-medium drop-shadow-sm line-clamp-1">
+                Join Delhi NCR's Fastest-Growing Financial Consultancy
+              </p>
+            </div>
+          </div>
+
+          <!-- DESKTOP VIEW -->
+          <div class="hidden sm:block relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-6 sm:py-10">
+            <div class="w-full sm:max-w-lg md:max-w-2xl text-left space-y-3 sm:space-y-4">
+              <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white text-xs font-bold uppercase tracking-wider">
+                <span class="material-symbols-outlined text-[15px] text-[#F26522]">work_history</span>
+                <span>WE ARE HIRING — DELHI NCR</span>
+              </div>
+              <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight leading-[1.12] font-heading">
+                Build Your Career<br/><span class="text-[#F26522]">at Proloan India</span>
+              </h1>
+              <p class="text-xs sm:text-sm md:text-base text-blue-100 font-semibold tracking-normal max-w-lg leading-relaxed">
+                Join a team of 50+ banking professionals, loan advisors, and DSA partners shaping the future of financial services in Delhi NCR. Competitive incentives, fast growth, and real impact.
+              </p>
+              <div class="pt-2 flex flex-wrap items-center gap-3">
+                <a href="#careers-openings" onclick="document.getElementById('careers-openings').scrollIntoView({behavior:'smooth'})" class="px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-xl bg-[#F26522] hover:bg-[#D94E0E] text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-md shadow-orange-500/25 transition-all flex items-center gap-1.5 cursor-pointer active:scale-95">
+                  <span>View Open Positions</span>
+                  <span class="material-symbols-outlined text-base">arrow_forward</span>
+                </a>
+                <a href="mailto:careers@proloanindia.com" class="inline-flex px-3.5 sm:px-5 py-2.5 sm:py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm border border-white/20 items-center gap-1.5 transition-all">
+                  <span class="material-symbols-outlined text-base text-[#F26522]">mail</span>
+                  <span>careers@proloanindia.com</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- WHY JOIN US — STATS BAR -->
+      <section class="py-8 sm:py-10 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+            <div class="text-center p-4 rounded-2xl bg-blue-50 border border-blue-100">
+              <div class="text-2xl sm:text-3xl font-black text-[#1565C0] font-heading">50+</div>
+              <div class="text-xs font-bold text-slate-600 mt-1">Team Members</div>
+            </div>
+            <div class="text-center p-4 rounded-2xl bg-orange-50 border border-orange-100">
+              <div class="text-2xl sm:text-3xl font-black text-[#F26522] font-heading">₹8L+</div>
+              <div class="text-xs font-bold text-slate-600 mt-1">Avg Annual CTC</div>
+            </div>
+            <div class="text-center p-4 rounded-2xl bg-emerald-50 border border-emerald-100">
+              <div class="text-2xl sm:text-3xl font-black text-[#16A34A] font-heading">10+</div>
+              <div class="text-xs font-bold text-slate-600 mt-1">Years in Business</div>
+            </div>
+            <div class="text-center p-4 rounded-2xl bg-purple-50 border border-purple-100">
+              <div class="text-2xl sm:text-3xl font-black text-purple-700 font-heading">50+</div>
+              <div class="text-xs font-bold text-slate-600 mt-1">Partner Banks</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- OPEN POSITIONS -->
+      <section id="careers-openings" class="py-12 sm:py-16 bg-slate-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          <div class="text-center max-w-3xl mx-auto mb-10">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-50 border border-orange-200 text-[#F26522] text-xs font-black uppercase tracking-wider mb-2">
+              <span class="material-symbols-outlined text-sm">work</span>
+              <span>Current Openings — October 2026</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0F2942] tracking-tight font-heading">
+              Join Delhi NCR's Premier Loan DSA
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-600 mt-2 max-w-2xl mx-auto leading-relaxed">
+              We're looking for driven, ambitious professionals ready to grow in the fast-paced world of financial services. All roles are based out of Indirapuram / Ghaziabad, Delhi NCR.
+            </p>
+          </div>
+
+          <!-- Job Cards Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+
+            <!-- Job 1: Loan Officer -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col p-6 group">
+              <div class="flex items-start justify-between gap-3 mb-4">
+                <div class="w-11 h-11 rounded-xl bg-blue-50 text-[#1565C0] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                  <span class="material-symbols-outlined text-2xl">account_balance</span>
+                </div>
+                <div class="flex flex-col items-end gap-1.5">
+                  <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase tracking-wider border border-emerald-100">Full-Time</span>
+                  <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-[#1565C0] text-[10px] font-bold border border-blue-100">Indirapuram, NCR</span>
+                </div>
+              </div>
+              <h3 class="text-base font-black text-[#0F2942] font-heading leading-snug mb-1">Loan Sales Officer</h3>
+              <p class="text-[11px] text-slate-500 font-semibold mb-3">Home Loans · Business Loans · Professional Loans</p>
+              <p class="text-xs text-slate-600 leading-relaxed flex-1">
+                Source, profile, and close loan applications across 50+ partner banks. Manage end-to-end disbursal pipeline from lead generation to sanction letter.
+              </p>
+              <ul class="mt-4 space-y-1.5 text-xs text-slate-600">
+                <li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>₹4L–₹8L CTC + Uncapped Incentives</li>
+                <li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>Min. 1 Year Experience (Banking/DSA/NBFC)</li>
+                <li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>Graduate + Strong Communication</li>
+              </ul>
+              <button onclick="document.getElementById('careers-apply-form').scrollIntoView({behavior:'smooth'}); document.getElementById('career-role-select').value='Loan Sales Officer';" class="mt-5 w-full py-2.5 bg-[#1565C0] hover:bg-[#0F4FA8] text-white font-extrabold text-xs rounded-xl tracking-wide transition-all cursor-pointer flex items-center justify-center gap-1.5">
+                <span class="material-symbols-outlined text-base">send</span>
+                <span>Apply for This Role</span>
+              </button>
+            </div>
+
+            <!-- Job 2: Credit Manager -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col p-6 group">
+              <div class="flex items-start justify-between gap-3 mb-4">
+                <div class="w-11 h-11 rounded-xl bg-orange-50 text-[#F26522] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                  <span class="material-symbols-outlined text-2xl">manage_accounts</span>
+                </div>
+                <div class="flex flex-col items-end gap-1.5">
+                  <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase tracking-wider border border-emerald-100">Full-Time</span>
+                  <span class="px-2.5 py-0.5 rounded-full bg-orange-50 text-orange-700 text-[10px] font-bold border border-orange-100">Indirapuram, NCR</span>
+                </div>
+              </div>
+              <h3 class="text-base font-black text-[#0F2942] font-heading leading-snug mb-1">Credit &amp; Risk Analyst</h3>
+              <p class="text-[11px] text-slate-500 font-semibold mb-3">File Underwriting · Bureau Analysis · Bank Liaison</p>
+              <p class="text-xs text-slate-600 leading-relaxed flex-1">
+                Evaluate loan applications, analyse bureau reports, prepare CAM (Credit Appraisal Memos), and liaise with bank credit heads for special approval cases.
+              </p>
+              <ul class="mt-4 space-y-1.5 text-xs text-slate-600">
+                <li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>₹5L–₹10L CTC</li>
+                <li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>Min. 2 Years in Credit/Underwriting</li>
+                <li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>Graduate · IRDA/BFSI Certification Preferred</li>
+              </ul>
+              <button onclick="document.getElementById('careers-apply-form').scrollIntoView({behavior:'smooth'}); document.getElementById('career-role-select').value='Credit & Risk Analyst';" class="mt-5 w-full py-2.5 bg-[#F26522] hover:bg-[#D94E0E] text-white font-extrabold text-xs rounded-xl tracking-wide transition-all cursor-pointer flex items-center justify-center gap-1.5">
+                <span class="material-symbols-outlined text-base">send</span>
+                <span>Apply for This Role</span>
+              </button>
+            </div>
+
+            <!-- Job 3: DSA / Channel Partner -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col p-6 group">
+              <div class="flex items-start justify-between gap-3 mb-4">
+                <div class="w-11 h-11 rounded-xl bg-emerald-50 text-[#16A34A] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                  <span class="material-symbols-outlined text-2xl">handshake</span>
+                </div>
+                <div class="flex flex-col items-end gap-1.5">
+                  <span class="px-2.5 py-0.5 rounded-full bg-purple-50 text-purple-700 text-[10px] font-black uppercase tracking-wider border border-purple-100">Freelance/DSA</span>
+                  <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold border border-emerald-100">Pan Delhi NCR</span>
+                </div>
+              </div>
+              <h3 class="text-base font-black text-[#0F2942] font-heading leading-snug mb-1">DSA / Channel Partner</h3>
+              <p class="text-[11px] text-slate-500 font-semibold mb-3">Commission-Based · Home Loans · MSME Loans</p>
+              <p class="text-xs text-slate-600 leading-relaxed flex-1">
+                Become a Direct Selling Agent (DSA) partner with Proloan India. Refer qualified borrowers and earn industry-leading payout commissions on every disbursed loan — no cap.
+              </p>
+              <ul class="mt-4 space-y-1.5 text-xs text-slate-600">
+                <li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>Up to 1% Commission on Disbursal</li>
+                <li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>Dedicated Relationship Manager</li>
+                <li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>Monthly Payout + Performance Bonus</li>
+              </ul>
+              <button onclick="document.getElementById('careers-apply-form').scrollIntoView({behavior:'smooth'}); document.getElementById('career-role-select').value='DSA / Channel Partner';" class="mt-5 w-full py-2.5 bg-[#16A34A] hover:bg-[#15803D] text-white font-extrabold text-xs rounded-xl tracking-wide transition-all cursor-pointer flex items-center justify-center gap-1.5">
+                <span class="material-symbols-outlined text-base">send</span>
+                <span>Apply for This Role</span>
+              </button>
+            </div>
+
+            <!-- Job 4: Operations Executive -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col p-6 group">
+              <div class="flex items-start justify-between gap-3 mb-4">
+                <div class="w-11 h-11 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                  <span class="material-symbols-outlined text-2xl">task_alt</span>
+                </div>
+                <div class="flex flex-col items-end gap-1.5">
+                  <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase tracking-wider border border-emerald-100">Full-Time</span>
+                  <span class="px-2.5 py-0.5 rounded-full bg-purple-50 text-purple-700 text-[10px] font-bold border border-purple-100">Indirapuram, NCR</span>
+                </div>
+              </div>
+              <h3 class="text-base font-black text-[#0F2942] font-heading leading-snug mb-1">Loan Operations Executive</h3>
+              <p class="text-[11px] text-slate-500 font-semibold mb-3">Documentation · Disbursals · Bank Coordination</p>
+              <p class="text-xs text-slate-600 leading-relaxed flex-1">
+                Manage loan file documentation, KYC coordination, technical legal report (TLR) processing, and post-sanction disbursal formalities across multiple bank portals.
+              </p>
+              <ul class="mt-4 space-y-1.5 text-xs text-slate-600">
+                <li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>₹3L–₹5.5L CTC</li>
+                <li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>Min. 6 Months Banking/NBFC Experience</li>
+                <li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>Strong in MS Excel &amp; Documentation</li>
+              </ul>
+              <button onclick="document.getElementById('careers-apply-form').scrollIntoView({behavior:'smooth'}); document.getElementById('career-role-select').value='Loan Operations Executive';" class="mt-5 w-full py-2.5 bg-purple-700 hover:bg-purple-800 text-white font-extrabold text-xs rounded-xl tracking-wide transition-all cursor-pointer flex items-center justify-center gap-1.5">
+                <span class="material-symbols-outlined text-base">send</span>
+                <span>Apply for This Role</span>
+              </button>
+            </div>
+
+            <!-- Job 5: Digital Marketing Executive -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col p-6 group">
+              <div class="flex items-start justify-between gap-3 mb-4">
+                <div class="w-11 h-11 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                  <span class="material-symbols-outlined text-2xl">campaign</span>
+                </div>
+                <div class="flex flex-col items-end gap-1.5">
+                  <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase tracking-wider border border-emerald-100">Full-Time</span>
+                  <span class="px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-600 text-[10px] font-bold border border-rose-100">Indirapuram / Remote</span>
+                </div>
+              </div>
+              <h3 class="text-base font-black text-[#0F2942] font-heading leading-snug mb-1">Digital Marketing Executive</h3>
+              <p class="text-[11px] text-slate-500 font-semibold mb-3">Lead Gen · Meta Ads · SEO · Content</p>
+              <p class="text-xs text-slate-600 leading-relaxed flex-1">
+                Drive qualified loan lead generation through Meta Ads, Google Ads, SEO content strategy, and WhatsApp marketing campaigns for our 50+ bank loan products.
+              </p>
+              <ul class="mt-4 space-y-1.5 text-xs text-slate-600">
+                <li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>₹3.5L–₹6L CTC + Lead Bonus</li>
+                <li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>Proficiency in Meta Business Suite &amp; GA4</li>
+                <li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>BFSI/Fintech Marketing Experience Preferred</li>
+              </ul>
+              <button onclick="document.getElementById('careers-apply-form').scrollIntoView({behavior:'smooth'}); document.getElementById('career-role-select').value='Digital Marketing Executive';" class="mt-5 w-full py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs rounded-xl tracking-wide transition-all cursor-pointer flex items-center justify-center gap-1.5">
+                <span class="material-symbols-outlined text-base">send</span>
+                <span>Apply for This Role</span>
+              </button>
+            </div>
+
+            <!-- Job 6: Relationship Manager -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col p-6 group">
+              <div class="flex items-start justify-between gap-3 mb-4">
+                <div class="w-11 h-11 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                  <span class="material-symbols-outlined text-2xl">support_agent</span>
+                </div>
+                <div class="flex flex-col items-end gap-1.5">
+                  <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase tracking-wider border border-emerald-100">Full-Time</span>
+                  <span class="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 text-[10px] font-bold border border-amber-100">Delhi NCR</span>
+                </div>
+              </div>
+              <h3 class="text-base font-black text-[#0F2942] font-heading leading-snug mb-1">Relationship Manager — Banks</h3>
+              <p class="text-[11px] text-slate-500 font-semibold mb-3">Bank Liaison · TAT Management · Escalations</p>
+              <p class="text-xs text-slate-600 leading-relaxed flex-1">
+                Build and maintain strong relationships with processing managers, credit heads, and branch banking officials across our 50+ partner banks. Own disbursal TAT and escalation resolution.
+              </p>
+              <ul class="mt-4 space-y-1.5 text-xs text-slate-600">
+                <li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>₹5L–₹9L CTC + Bank Performance Bonus</li>
+                <li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>Min. 2 Years in Bank/NBFC RM Role</li>
+                <li class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>Strong Delhi NCR Banking Network</li>
+              </ul>
+              <button onclick="document.getElementById('careers-apply-form').scrollIntoView({behavior:'smooth'}); document.getElementById('career-role-select').value='Relationship Manager - Banks';" class="mt-5 w-full py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-extrabold text-xs rounded-xl tracking-wide transition-all cursor-pointer flex items-center justify-center gap-1.5">
+                <span class="material-symbols-outlined text-base">send</span>
+                <span>Apply for This Role</span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- EMPLOYEE BENEFITS & CULTURE -->
+      <section class="py-12 sm:py-16 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+
+            <!-- Left: Culture Text -->
+            <div class="space-y-5">
+              <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-[#1565C0] text-xs font-black uppercase tracking-wider">
+                <span class="material-symbols-outlined text-sm">groups</span>
+                <span>Life at Proloan India</span>
+              </div>
+              <h2 class="text-2xl sm:text-3xl font-black text-[#0F2942] tracking-tight font-heading leading-snug">
+                A Culture Built on<br/><span class="text-[#1565C0]">Growth, Impact &amp; Trust</span>
+              </h2>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                At Proloan India, we believe our people are our biggest asset. We invest in training, mentorship, and rapid career development for every team member — from fresher DSA associates to senior credit managers.
+              </p>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                <div class="flex items-start gap-3 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                  <span class="w-9 h-9 rounded-lg bg-blue-100 text-[#1565C0] flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-lg">trending_up</span></span>
+                  <div>
+                    <div class="text-sm font-black text-slate-800">Fast Promotions</div>
+                    <div class="text-xs text-slate-500 mt-0.5">Performance-based growth every 6 months</div>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                  <span class="w-9 h-9 rounded-lg bg-orange-100 text-[#F26522] flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-lg">payments</span></span>
+                  <div>
+                    <div class="text-sm font-black text-slate-800">Uncapped Incentives</div>
+                    <div class="text-xs text-slate-500 mt-0.5">Top performers earn ₹2L+/month bonuses</div>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                  <span class="w-9 h-9 rounded-lg bg-emerald-100 text-[#16A34A] flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-lg">school</span></span>
+                  <div>
+                    <div class="text-sm font-black text-slate-800">Expert Training</div>
+                    <div class="text-xs text-slate-500 mt-0.5">Hands-on bank product &amp; sales masterclasses</div>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                  <span class="w-9 h-9 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-lg">health_and_safety</span></span>
+                  <div>
+                    <div class="text-sm font-black text-slate-800">Health &amp; Insurance</div>
+                    <div class="text-xs text-slate-500 mt-0.5">Group medical cover for you &amp; family</div>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                  <span class="w-9 h-9 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-lg">celebration</span></span>
+                  <div>
+                    <div class="text-sm font-black text-slate-800">Monthly Rewards</div>
+                    <div class="text-xs text-slate-500 mt-0.5">Star performer awards &amp; team celebrations</div>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                  <span class="w-9 h-9 rounded-lg bg-cyan-100 text-cyan-600 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-lg">work_history</span></span>
+                  <div>
+                    <div class="text-sm font-black text-slate-800">Flexible Timings</div>
+                    <div class="text-xs text-slate-500 mt-0.5">Field roles with hybrid work options</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Dark Banner CTA Card -->
+            <div class="bg-gradient-to-br from-[#0F2942] via-[#123962] to-[#1565C0] rounded-3xl p-7 sm:p-10 text-white space-y-6 shadow-xl relative overflow-hidden">
+              <div class="absolute -right-10 -bottom-10 w-52 h-52 rounded-full bg-white/5 blur-3xl pointer-events-none"></div>
+              <div class="relative z-10">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/20 text-[#F26522] font-black text-xs border border-orange-400/30 mb-3">
+                  <span class="material-symbols-outlined text-sm">emoji_events</span>
+                  Earn While You Learn
+                </span>
+                <h3 class="text-xl sm:text-2xl font-black font-heading leading-snug">
+                  No Experience?<br/>Start as a<br/><span class="text-[#F26522]">DSA Associate</span>
+                </h3>
+                <p class="text-xs sm:text-sm text-blue-100 leading-relaxed mt-3">
+                  Even fresh graduates can start earning from Day 1 as DSA Associates. We provide full product training, bank access, and a dedicated senior mentor.
+                </p>
+                <ul class="mt-4 space-y-2 text-xs text-blue-100">
+                  <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[#F26522] text-base">check_circle</span>No investment required</li>
+                  <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[#F26522] text-base">check_circle</span>Earn commission from first disbursal</li>
+                  <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[#F26522] text-base">check_circle</span>Dedicated training for 2 weeks</li>
+                  <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[#F26522] text-base">check_circle</span>Marketing material &amp; lead support provided</li>
+                </ul>
+                <button onclick="document.getElementById('careers-apply-form').scrollIntoView({behavior:'smooth'}); document.getElementById('career-role-select').value='DSA / Channel Partner';" class="mt-6 w-full py-3 bg-[#F26522] hover:bg-[#D94E0E] text-white font-extrabold text-xs rounded-xl uppercase tracking-wider shadow-sm transition-all cursor-pointer flex items-center justify-center gap-2">
+                  <span class="material-symbols-outlined text-base">handshake</span>
+                  Become a DSA Partner
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- HIRING PROCESS STEPS -->
+      <section class="py-12 sm:py-16 bg-slate-50 border-b border-slate-200">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center mb-10">
+            <h2 class="text-2xl sm:text-3xl font-black text-[#0F2942] font-heading">Our Hiring Process</h2>
+            <p class="text-xs sm:text-sm text-slate-500 mt-2">Simple, fast, and transparent — typically completed within 5–7 working days.</p>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm text-center space-y-3 relative">
+              <div class="w-10 h-10 rounded-full bg-[#1565C0] text-white flex items-center justify-center font-black text-sm mx-auto">1</div>
+              <h4 class="text-sm font-black text-slate-800 font-heading">Submit Application</h4>
+              <p class="text-xs text-slate-500 leading-relaxed">Fill out the simple form below with your details and preferred role.</p>
+            </div>
+            <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm text-center space-y-3">
+              <div class="w-10 h-10 rounded-full bg-[#F26522] text-white flex items-center justify-center font-black text-sm mx-auto">2</div>
+              <h4 class="text-sm font-black text-slate-800 font-heading">HR Screening Call</h4>
+              <p class="text-xs text-slate-500 leading-relaxed">A 15-minute call from our HR team within 48 hours of application.</p>
+            </div>
+            <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm text-center space-y-3">
+              <div class="w-10 h-10 rounded-full bg-[#16A34A] text-white flex items-center justify-center font-black text-sm mx-auto">3</div>
+              <h4 class="text-sm font-black text-slate-800 font-heading">Ops/Credit Interview</h4>
+              <p class="text-xs text-slate-500 leading-relaxed">Domain-specific interview with our senior underwriting or operations team.</p>
+            </div>
+            <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm text-center space-y-3">
+              <div class="w-10 h-10 rounded-full bg-purple-700 text-white flex items-center justify-center font-black text-sm mx-auto">4</div>
+              <h4 class="text-sm font-black text-slate-800 font-heading">Offer &amp; Onboarding</h4>
+              <p class="text-xs text-slate-500 leading-relaxed">Receive your offer letter and begin structured onboarding training.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- JOB APPLICATION FORM -->
+      <section id="careers-apply-form" class="py-12 sm:py-16 bg-white border-b border-slate-200">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          <div class="text-center mb-8">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-50 border border-orange-200 text-[#F26522] text-xs font-black uppercase tracking-wider mb-2">
+              <span class="material-symbols-outlined text-sm">edit_document</span>
+              <span>Apply Now — It Takes 2 Minutes</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-black text-[#0F2942] font-heading">Submit Your Application</h2>
+            <p class="text-xs sm:text-sm text-slate-500 mt-2">Our HR team will reach out within 24–48 hours of your submission.</p>
+          </div>
+
+          <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xl">
+            <form id="careers-application-form" onsubmit="handleCareersSubmit(event)" class="space-y-4">
+
+              <!-- Name + Phone -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Full Name <span class="text-red-500">*</span></label>
+                  <div class="relative">
+                    <span class="absolute left-3.5 top-3 text-slate-400 material-symbols-outlined text-lg">badge</span>
+                    <input id="career-name" type="text" placeholder="e.g. Ravi Kumar Sharma" required class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl py-3 pl-10 pr-4 text-slate-800 font-medium focus:ring-2 focus:ring-[#1565C0] focus:bg-white focus:outline-none transition-all">
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Mobile Number <span class="text-red-500">*</span></label>
+                  <div class="relative">
+                    <span class="absolute left-3.5 top-3 text-slate-400 material-symbols-outlined text-lg">call</span>
+                    <input id="career-mobile" type="tel" maxlength="10" placeholder="10-digit mobile number" required class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl py-3 pl-10 pr-4 text-slate-800 font-medium focus:ring-2 focus:ring-[#1565C0] focus:bg-white focus:outline-none transition-all">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Email + Role -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Email Address <span class="text-red-500">*</span></label>
+                  <div class="relative">
+                    <span class="absolute left-3.5 top-3 text-slate-400 material-symbols-outlined text-lg">mail</span>
+                    <input id="career-email" type="email" placeholder="your@email.com" required class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl py-3 pl-10 pr-4 text-slate-800 font-medium focus:ring-2 focus:ring-[#1565C0] focus:bg-white focus:outline-none transition-all">
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Role Applying For <span class="text-red-500">*</span></label>
+                  <div class="relative">
+                    <span class="absolute left-3.5 top-3 text-slate-400 material-symbols-outlined text-lg">work</span>
+                    <select id="career-role-select" required class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl py-3 pl-10 pr-4 text-slate-800 font-semibold focus:ring-2 focus:ring-[#1565C0] focus:bg-white focus:outline-none transition-all">
+                      <option value="">-- Select a Role --</option>
+                      <option value="Loan Sales Officer">Loan Sales Officer</option>
+                      <option value="Credit & Risk Analyst">Credit &amp; Risk Analyst</option>
+                      <option value="DSA / Channel Partner">DSA / Channel Partner</option>
+                      <option value="Loan Operations Executive">Loan Operations Executive</option>
+                      <option value="Digital Marketing Executive">Digital Marketing Executive</option>
+                      <option value="Relationship Manager - Banks">Relationship Manager — Banks</option>
+                      <option value="Other / Open Application">Other / Open Application</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Experience + Current City -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Total Work Experience</label>
+                  <div class="relative">
+                    <span class="absolute left-3.5 top-3 text-slate-400 material-symbols-outlined text-lg">history_edu</span>
+                    <select id="career-experience" class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl py-3 pl-10 pr-4 text-slate-800 font-semibold focus:ring-2 focus:ring-[#1565C0] focus:bg-white focus:outline-none transition-all">
+                      <option value="Fresher (0-6 months)">Fresher (0–6 months)</option>
+                      <option value="6 months - 1 year">6 months – 1 year</option>
+                      <option value="1-3 years">1–3 years</option>
+                      <option value="3-5 years">3–5 years</option>
+                      <option value="5+ years">5+ years</option>
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Current City / Location</label>
+                  <div class="relative">
+                    <span class="absolute left-3.5 top-3 text-slate-400 material-symbols-outlined text-lg">location_on</span>
+                    <input id="career-city" type="text" placeholder="e.g. Indirapuram, Ghaziabad" value="Delhi NCR" class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl py-3 pl-10 pr-4 text-slate-800 font-medium focus:ring-2 focus:ring-[#1565C0] focus:bg-white focus:outline-none transition-all">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Cover Note -->
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Brief Cover Note / Why Proloan India? <span class="text-xs font-normal text-slate-400">(Optional)</span></label>
+                <textarea id="career-note" rows="3" placeholder="Tell us briefly about your background, why you want to join, and what you bring to the team..." class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 text-slate-800 font-medium focus:ring-2 focus:ring-[#1565C0] focus:bg-white focus:outline-none transition-all resize-none"></textarea>
+              </div>
+
+              <!-- Consent -->
+              <div class="flex items-start gap-2.5 pt-1">
+                <input type="checkbox" id="career-consent" required checked class="mt-0.5 rounded text-[#1565C0] focus:ring-[#1565C0] cursor-pointer">
+                <label for="career-consent" class="text-[11px] text-slate-500 leading-relaxed cursor-pointer select-none">
+                  I authorize Proloan India to contact me for this application and any future relevant career opportunities. My information will be kept strictly confidential.
+                </label>
+              </div>
+
+              <!-- Submit -->
+              <button type="submit" id="careers-submit-btn" class="w-full py-4 bg-gradient-to-r from-[#1565C0] to-[#0F3876] hover:from-[#0F4FA8] hover:to-[#0C2F60] text-white font-extrabold rounded-xl text-xs sm:text-sm uppercase tracking-wider shadow-md hover:shadow-xl hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-base">send</span>
+                <span>Submit My Application</span>
+              </button>
+
+            </form>
+
+            <!-- Success State (hidden by default) -->
+            <div id="careers-success-msg" class="hidden mt-4 p-5 rounded-2xl bg-emerald-50 border border-emerald-200 text-left space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-emerald-600 text-2xl">check_circle</span>
+                <span class="text-base font-black text-emerald-900 font-heading">Application Submitted!</span>
+              </div>
+              <p class="text-xs text-emerald-800 leading-relaxed">
+                Thank you for your interest in joining Proloan India. Our HR team will review your application and reach out within <strong>24–48 hours</strong>. You can also email us directly at <strong>careers@proloanindia.com</strong>.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+    <!-- END: CAREERS PAGE -->
+
+
+    <div id="page-credit-score" class="page-section hidden">
             <!-- HERO BANNER (Signature Spacious Layout with Clean Right-Half Photography) -->
             <!-- HERO BANNER (Clean, Professional 2-Column Banking Layout) -->
             <!-- HERO BANNER (Clean 2-Column Layout, Face Fully Visible, Minimal High-Impact Copy) -->
@@ -14825,7 +15344,7 @@
             </span>
             <ul class="space-y-1.5 text-xs text-slate-400 font-medium">
               <li><a class="hover:text-[#F26522] transition-colors cursor-pointer flex items-center gap-1.5" onclick="switchPage('track')"><span class="material-symbols-outlined text-sm text-[#1565C0]">travel_explore</span> Track Loan Status</a></li>
-              <li><a class="hover:text-[#F26522] transition-colors cursor-pointer flex items-center gap-1.5" onclick="switchPage('credit-score')"><span class="material-symbols-outlined text-sm text-[#F26522]">speed</span> Free Credit Score</a></li>
+              <li><a class="hover:text-[#F26522] transition-colors cursor-pointer flex items-center gap-1.5" onclick="switchPage('careers')"><span class="material-symbols-outlined text-sm text-[#F26522]">work</span> Careers</a></li>
               <li><a class="hover:text-[#F26522] transition-colors cursor-pointer flex items-center gap-1.5" onclick="switchPage('about')"><span class="material-symbols-outlined text-sm text-slate-400">corporate_fare</span> About ProLoan India</a></li>
               <li><a class="hover:text-[#F26522] transition-colors cursor-pointer flex items-center gap-1.5" onclick="switchPage('blog')"><span class="material-symbols-outlined text-sm text-slate-400">article</span> Financial Insights</a></li>
               <li><a class="hover:text-[#F26522] transition-colors cursor-pointer flex items-center gap-1.5" onclick="switchPage('contact')"><span class="material-symbols-outlined text-sm text-slate-400">support_agent</span> Contact Us</a></li>
@@ -17259,7 +17778,58 @@ function handleModalSubmit(e) {
       if (preview) preview.classList.add('hidden');
     }
 
+    // ============================
+    // CAREERS APPLICATION HANDLER
+    // ============================
+    function handleCareersSubmit(e) {
+      e.preventDefault();
+
+      const name    = (document.getElementById('career-name')?.value || '').trim();
+      const mobile  = (document.getElementById('career-mobile')?.value || '').trim();
+      const email   = (document.getElementById('career-email')?.value || '').trim();
+      const role    = (document.getElementById('career-role-select')?.value || '');
+      const exp     = (document.getElementById('career-experience')?.value || '');
+      const city    = (document.getElementById('career-city')?.value || '').trim();
+      const note    = (document.getElementById('career-note')?.value || '').trim();
+
+      if (!name || name.length < 2) { alert('Please enter your full name.'); return; }
+      if (!/^\d{10}$/.test(mobile)) { alert('Please enter a valid 10-digit mobile number.'); return; }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('Please enter a valid email address.'); return; }
+      if (!role) { alert('Please select the role you are applying for.'); return; }
+
+      const btn = document.getElementById('careers-submit-btn');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="material-symbols-outlined text-base animate-spin">progress_activity</span><span>Submitting...</span>';
+      }
+
+      // Build WhatsApp message for HR team
+      const waMsg = encodeURIComponent(
+        `🧑‍💼 *CAREER APPLICATION — Proloan India*\n\n` +
+        `*Name:* ${name}\n` +
+        `*Mobile:* ${mobile}\n` +
+        `*Email:* ${email}\n` +
+        `*Role:* ${role}\n` +
+        `*Experience:* ${exp}\n` +
+        `*Location:* ${city}\n` +
+        `${note ? `*Cover Note:* ${note}\n` : ''}` +
+        `\n_Submitted via proloanindia.com/careers_`
+      );
+
+      // Open WhatsApp for HR
+      setTimeout(function() {
+        window.open(`https://wa.me/918368426125?text=${waMsg}`, '_blank');
+
+        // Show success message
+        const form = document.getElementById('careers-application-form');
+        const success = document.getElementById('careers-success-msg');
+        if (form) form.classList.add('hidden');
+        if (success) success.classList.remove('hidden');
+      }, 600);
+    }
+
     function handleCreditScoreSubmit(e) {
+
       e.preventDefault();
 
       const nameInput = document.getElementById('cs-name');
@@ -18236,9 +18806,9 @@ function handleModalSubmit(e) {
               <span class="material-symbols-outlined text-[#1565C0] text-xl mb-0.5">info</span>
               <span class="text-[11px] font-black text-slate-800 leading-tight">About Us</span>
             </button>
-            <button onclick="switchPage('credit-score'); toggleMobileNav();" class="p-2.5 rounded-xl bg-slate-50/90 hover:bg-emerald-50 active:scale-95 border border-slate-200/80 text-center flex flex-col items-center justify-center transition-all cursor-pointer">
-              <span class="material-symbols-outlined text-emerald-600 text-xl mb-0.5">speed</span>
-              <span class="text-[11px] font-black text-slate-800 leading-tight">Credit Score</span>
+            <button onclick="switchPage('careers'); toggleMobileNav();" class="p-2.5 rounded-xl bg-slate-50/90 hover:bg-orange-50 active:scale-95 border border-slate-200/80 text-center flex flex-col items-center justify-center transition-all cursor-pointer">
+              <span class="material-symbols-outlined text-[#F26522] text-xl mb-0.5">work</span>
+              <span class="text-[11px] font-black text-slate-800 leading-tight">Careers</span>
             </button>
             <button onclick="switchPage('track'); toggleMobileNav();" class="p-2.5 rounded-xl bg-slate-50/90 hover:bg-orange-50 active:scale-95 border border-slate-200/80 text-center flex flex-col items-center justify-center transition-all cursor-pointer">
               <span class="material-symbols-outlined text-[#F26522] text-xl mb-0.5">radar</span>
@@ -18444,14 +19014,14 @@ function handleModalSubmit(e) {
           <span class="text-[11px] font-black uppercase tracking-wider text-slate-400 px-1 block">Smart Financial Tools</span>
           <div class="grid grid-cols-2 gap-2">
             
-            <!-- Credit Score -->
-            <button onclick="switchPage('credit-score'); toggleMobileNav();" class="p-2.5 rounded-xl bg-slate-50/90 hover:bg-emerald-50/70 border border-slate-200/70 text-left flex items-center gap-2 active:scale-98 transition-all">
-              <span class="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-base">speed</span>
+            <!-- Careers -->
+            <button onclick="switchPage('careers'); toggleMobileNav();" class="p-2.5 rounded-xl bg-slate-50/90 hover:bg-orange-50/70 border border-slate-200/70 text-left flex items-center gap-2 active:scale-98 transition-all">
+              <span class="w-7 h-7 rounded-lg bg-orange-100 text-[#F26522] flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-base">work</span>
               </span>
               <div class="min-w-0">
-                <span class="text-xs font-bold text-slate-800 block truncate leading-tight">Credit Score</span>
-                <span class="text-[9px] text-slate-400 font-medium block truncate">Free CIBIL check</span>
+                <span class="text-xs font-bold text-slate-800 block truncate leading-tight">Careers</span>
+                <span class="text-[9px] text-slate-400 font-medium block truncate">Join our team</span>
               </div>
             </button>
 
