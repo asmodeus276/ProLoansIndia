@@ -16660,6 +16660,18 @@
         'Timestamp': new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
       };
 
+      // ── CHANNEL 1: FormSubmit.co ── works on GitHub Pages / any static host
+      try {
+        fetch('https://formsubmit.co/ajax/infoproloanindia@gmail.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload)
+        }).then(function(r){ return r.json(); })
+          .then(function(d){ if(d && d.success === 'true') console.log('Lead sent via FormSubmit.co'); else console.warn('FormSubmit.co warning:', d && d.message); })
+          .catch(function(e){ console.warn('FormSubmit.co error:', e); });
+      } catch(e){}
+
+      // ── CHANNEL 2: Nodemailer backend ── works when local server.js is running
       // 1. Dispatch via Nodemailer backend (Express /api/send-lead)
       try {
         fetch('/api/send-lead', {
