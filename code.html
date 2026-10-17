@@ -16078,7 +16078,7 @@
         // ==============================================================
     // REAL-TIME CLIENT GMAIL LEAD NOTIFICATION ENGINE
     // ==============================================================
-    var PROLOAN_CLIENT_GMAIL = localStorage.getItem('proloan_client_gmail') || 'proloansforsardar@gmail.com';
+    var PROLOAN_CLIENT_GMAIL = localStorage.getItem('proloan_client_gmail') || 'Proloansforce@gmail.com';
 
     function setClientLeadGmail(email) {
       if (email && email.includes('@')) {
@@ -16095,7 +16095,7 @@
     }
 
     function dispatchLeadToGmail(leadData) {
-      var recipient = window.PROLOAN_CLIENT_GMAIL || localStorage.getItem('proloan_client_gmail') || 'proloansforsardar@gmail.com';
+      var recipient = window.PROLOAN_CLIENT_GMAIL || localStorage.getItem('proloan_client_gmail') || 'Proloansforce@gmail.com';
       if (!leadData) return;
 
       var leadTitle = leadData.product || leadData.type || 'Loan Inquiry';

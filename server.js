@@ -34,7 +34,7 @@ const PORT = process.env.PORT || 3000;
 // Gmail SMTP Configuration from environment
 const GMAIL_USER = process.env.GMAIL_USER || 'vaibhav.thakur2719@gmail.com';
 const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD || '';
-const LEAD_RECIPIENT = process.env.LEAD_RECIPIENT || 'proloansforsardar@gmail.com';
+const LEAD_RECIPIENT = process.env.LEAD_RECIPIENT || 'Proloansforce@gmail.com';
 
 // Nodemailer Transporter
 const transporter = nodemailer.createTransport({
