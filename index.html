@@ -17847,45 +17847,50 @@ function handleModalSubmit(e) {
       const appId = 'CA-' + Math.floor(10000 + Math.random() * 90000);
       const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
 
-      // 1. Build payload for Gmail / Nodemailer / Admin Panel
-      const payload = {
-        _subject: '📋 [CAREER APPLICATION] ' + role + ' — ' + name,
-        _template: 'table',
-        _captcha: 'false',
-        'Application ID': appId,
-        'Lead Category': 'Career Application',
-        'Applicant Name': name,
-        'Mobile': mobile,
-        'Email': email,
-        'Role Applied For': role,
-        'Experience': exp,
-        'Location': city,
-        'Resume File': resumeName,
-        'Cover Note': note || 'N/A',
-        'Submitted At': timestamp
-      };
+      // ── 1. Build FormData with the actual resume file ──
+      //    POST to /api/career-apply (Express + Multer + Nodemailer → PDF attached in email)
+      const formData = new FormData();
+      formData.append('appId',      appId);
+      formData.append('name',       name);
+      formData.append('mobile',     mobile);
+      formData.append('email',      email);
+      formData.append('role',       role);
+      formData.append('experience', exp);
+      formData.append('city',       city);
+      formData.append('note',       note);
+      formData.append('resume',     resumeFile, resumeFile.name);
 
-      // 2. Send via Nodemailer backend → info@proloanindia.com
-      try {
-        fetch('/api/send-lead', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        }).then(function(res) {
-          return res.json();
-        }).then(function(data) {
-          if (data && data.success) {
-            console.log('✅ Career application emailed via Nodemailer:', data.message);
-          } else {
-            console.warn('⚠️ Career email dispatch warning:', data && data.message);
-          }
-        }).catch(function(err) {
-          console.warn('⚠️ Career email network error:', err);
-        });
-      } catch(e) {}
+      fetch('/api/career-apply', {
+        method: 'POST',
+        body: formData   // ← DO NOT set Content-Type; browser sets multipart boundary automatically
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data && data.success) {
+          console.log('✅ Career application + resume PDF sent via Nodemailer. App ID:', data.appId);
+        } else {
+          console.warn('⚠️ Career API warning:', data && data.message);
+        }
+      })
+      .catch(function(err) {
+        console.warn('⚠️ Career application network error:', err);
+      });
 
-      // 3. Save to localStorage lead log (visible in admin portal)
+      // ── 2. Save lightweight record to localStorage (admin portal fallback) ──
       try {
+        var payload = {
+          'Application ID': appId,
+          'Lead Category': 'Career Application',
+          'Applicant Name': name,
+          'Mobile': mobile,
+          'Email': email,
+          'Role Applied For': role,
+          'Experience': exp,
+          'Location': city,
+          'Resume File': resumeName,
+          'Cover Note': note || 'N/A',
+          'Submitted At': timestamp
+        };
         var rawLog = localStorage.getItem('proloan_leads_log') || '[]';
         var log = JSON.parse(rawLog);
         if (!Array.isArray(log)) log = [];
@@ -17893,7 +17898,7 @@ function handleModalSubmit(e) {
         localStorage.setItem('proloan_leads_log', JSON.stringify(log.slice(0, 100)));
       } catch(e) {}
 
-      // 4. Sync to Supabase (shows in admin dashboard live table)
+      // ── 3. Sync to Supabase (shows in admin dashboard live table) ──
       try {
         var sbUrl = localStorage.getItem('proloan_supabase_url') || 'https://yutjqfqgkpuogocextrg.supabase.co';
         var sbKey = localStorage.getItem('proloan_supabase_key') || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1dGpxZnFna3B1b2dvY2V4dHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxNjM3NzQsImV4cCI6MjEwNzczOTc3NH0.yz62DZdGCsyhwR9ks1s8MkJPu9uR0yaWJfZUh8c1bDk';
@@ -17923,22 +17928,7 @@ function handleModalSubmit(e) {
         }
       } catch(e) {}
 
-      // 5. Also dispatch via dispatchLeadToGmail (realtime Gmail ping to info@proloanindia.com)
-      try {
-        dispatchLeadToGmail({
-          source: 'Careers Page — ' + role,
-          id: appId,
-          name: name,
-          phone: mobile,
-          product: 'Career Application — ' + role,
-          amount: 'Resume: ' + resumeName,
-          city: city,
-          income: exp,
-          notes: 'Email: ' + email + (note ? ' | Note: ' + note : '')
-        });
-      } catch(e) {}
-
-      // 6. WhatsApp ping to HR
+      // ── 4. WhatsApp ping to HR ──
       const waMsg = encodeURIComponent(
         '📋 *CAREER APPLICATION — Proloan India*\n\n' +
         '*App ID:* ' + appId + '\n' +
@@ -17950,7 +17940,8 @@ function handleModalSubmit(e) {
         '*Location:* ' + city + '\n' +
         '*Resume:* ' + resumeName + '\n' +
         (note ? '*Note:* ' + note + '\n' : '') +
-        '\n_Submitted via proloanindia.com/careers_'
+        '\n_Resume PDF sent to admin Gmail. Check inbox._\n' +
+        '_Submitted via proloanindia.com/careers_'
       );
 
       setTimeout(function() {
@@ -19292,7 +19283,7 @@ function handleModalSubmit(e) {
 
         <div>
           <label class="block text-[11px] font-semibold text-slate-300 uppercase tracking-wider mb-1">Staff Email</label>
-          <input type="email" id="secEmail" required placeholder="admin@proloanindia.in" class="w-full px-3 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-blue-500">
+          <input type="email" id="secEmail" required placeholder="infoproloanindia@gmail.com" class="w-full px-3 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-blue-500">
         </div>
 
         <div>
@@ -19352,7 +19343,7 @@ function handleModalSubmit(e) {
           m.classList.remove('hidden');
           var emailInput = document.getElementById('secEmail');
           if (emailInput) {
-            emailInput.value = localStorage.getItem('proloan_admin_email') || 'admin@proloanindia.in';
+            emailInput.value = localStorage.getItem('proloan_admin_email') || 'infoproloanindia@gmail.com';
             emailInput.focus();
           }
         }
@@ -19373,7 +19364,7 @@ function handleModalSubmit(e) {
         var err = document.getElementById('secError');
 
         // Master check or Supabase session
-        if (email === 'admin@proloanindia.in' && pass === 'proloan@2026') {
+        if ((email === 'infoproloanindia@gmail.com' || email === 'admin@proloanindia.in') && pass === 'proloan@2026') {
           sessionStorage.setItem('proloan_admin_authenticated', 'true');
           sessionStorage.setItem('proloan_admin_email', email);
           window.location.href = '/portal.html';
