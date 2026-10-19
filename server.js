@@ -11,6 +11,7 @@ const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
+const compression = require('compression');
 
 // Auto-load .env file if present
 const envPath = path.join(__dirname, '.env');
@@ -70,10 +71,25 @@ const upload = multer({
 const careerApplications = [];
 
 // Middleware
+app.use(compression({
+  threshold: 1024,
+  level: 6
+}));
 app.use(cors());
 app.use(express.json({ limit: '5mb' }));
 app.use(express.urlencoded({ extended: true, limit: '5mb' }));
-app.use(express.static(path.join(__dirname)));
+
+// Static files with HTTP caching for PageSpeed performance
+app.use(express.static(path.join(__dirname), {
+  maxAge: '7d',
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'public, max-age=3600');
+    } else if (/\.(jpg|jpeg|png|webp|avif|svg|gif|woff|woff2|ttf|css|js)$/i.test(filePath)) {
+      res.setHeader('Cache-Control', 'public, max-age=2592000, immutable');
+    }
+  }
+}));
 
 // Staff Portal Route
 app.get('/portal', (req, res) => {
