@@ -18,8 +18,15 @@ scratch/
 *.png
 !assets/**
 
+# Lighthouse Audits & Performance Traces
+lighthouse-*.json
+lh-trace*.json
+*.devtoolslog.json
+*.trace.json
+
 # OS & Editor
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
+

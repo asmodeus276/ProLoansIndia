@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@source "../index.html";
+@source "../portal.html";
+@source "../assets/*.js";
+
+@theme {
+  --color-brand-navy: #1565C0;
+  --color-brand-navy-dark: #0F2942;
+  --color-brand-navy-deep: #0F3876;
+  --color-brand-orange: #F26522;
+  --color-brand-orange-hover: #D94E0E;
+  --color-brand-orange-light: #FFEDD5;
+  --color-brand-crimson: #C5161D;
+  --color-brand-emerald: #16A34A;
+  --font-sans: 'Inter', sans-serif;
+  --font-manrope: 'Manrope', sans-serif;
+  --font-display: 'Manrope', sans-serif;
+}
