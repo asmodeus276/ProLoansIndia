@@ -7,11 +7,24 @@
   <meta name="description" content="Proloan India is Delhi NCR's premier multi-bank loan marketplace. Compare & access Doctor Loans, MSME Business Loans, Home Loans, LAP, Machinery & Personal Loans across Partner Banks with zero upfront fees.">
   <meta name="keywords" content="Doctor loan, doctor loan od, Doctor Loan Overdraft, business loan, bl, property loan, loan against property, lap, professional loan, ca loan, working capital loan, Proloan India, fast loan disbursal Delhi NCR">
   
+  <!-- Speed & PageSpeed Optimization: DNS Prefetch & Preconnect -->
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+
+  <!-- Preload Critical LCP Assets -->
+  <link rel="preload" as="image" href="assets/banners/home-clean.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/proloan-logo.png" fetchpriority="high">
+
   <!-- Google Fonts: Manrope & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+  </noscript>
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -227,8 +240,9 @@
         <a class="navbar-logo-link flex items-center gap-2 sm:gap-3 shrink-0 cursor-pointer group min-w-0" onclick="switchPage('home')">
           <img alt="Proloan India Logo"
             class="navbar-logo-img h-8 sm:h-10 w-auto object-contain transition-transform duration-200 group-hover:scale-[1.03]"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgLTENfV9qTI8A9WSHCDuC8nv701v0R0lEPYUZxX5d5ryrtWqWhwKFM_j01QPeHkdbf56u941vCpFCe6VRgMuv2NS-CqBiJpc_uvqNPD3PHxOTUl7IJ6ut7MUM5FZqgxXetoZNqFdsyTWC6AeRY2R-qjLkNgIocZsk9_IjNM9dGgOSnjyjlVYPcrcfuLyX3oH5rUXIwjtAbTuGKUnubO2YTsbIM_XmhDxA3A4_jScXqHPYO79nI8xIj9nyZaiBlITa7g"
-           loading="eager" decoding="async">
+            src="assets/proloan-logo.png"
+            width="168" height="40"
+            loading="eager" decoding="async">
           <div class="flex flex-col min-w-0">
             <!-- Brand wordmark: bold navy + vivid orange, tight leading -->
             <div class="text-[15px] xs:text-[17px] sm:text-[22px] md:text-[24px] font-black tracking-tight leading-none flex items-center font-heading">
@@ -333,7 +347,7 @@
               
               <!-- Full bleed background image on mobile, right 50% on desktop -->
               <div class="absolute inset-0 w-full sm:left-auto sm:right-0 sm:w-3/5 md:w-7/12 lg:w-1/2 h-full z-0 overflow-hidden pointer-events-none">
-                <img src="assets/banners/home-clean.jpg" alt="Home Loan" class="w-full h-full object-cover object-top xs:object-center sm:object-top select-none banner-photo-responsive" loading="lazy" decoding="async">
+                <img src="assets/banners/home-clean.jpg" alt="Home Loan" class="w-full h-full object-cover object-top xs:object-center sm:object-top select-none banner-photo-responsive" loading="eager" fetchpriority="high" decoding="async">
                 <!-- Mobile Dark Bottom Gradient: Leaves face/upper body 100% visible, text 100% readable -->
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/35 to-transparent sm:hidden"></div>
               </div>
@@ -537,7 +551,7 @@
               
               <!-- Full bleed background image on mobile, right 50% on desktop -->
               <div class="absolute inset-0 w-full sm:left-auto sm:right-0 sm:w-3/5 md:w-7/12 lg:w-1/2 h-full z-0 overflow-hidden pointer-events-none">
-                <img src="assets/banners/doctor-clean.jpg" alt="Professional Loan" class="w-full h-full object-cover object-top xs:object-center sm:object-top select-none banner-photo-responsive" loading="eager" decoding="async">
+                <img src="assets/banners/doctor-clean.jpg" alt="Professional Loan" class="w-full h-full object-cover object-top xs:object-center sm:object-top select-none banner-photo-responsive" loading="lazy" decoding="async">
                 <!-- Mobile Dark Bottom Gradient: Leaves face/upper body 100% visible, text 100% readable -->
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/35 to-transparent sm:hidden"></div>
               </div>
@@ -3191,7 +3205,7 @@
           
           <!-- Photographic Right Half (Visible on Right 50% on Desktop, Full Bleed on Mobile) -->
           <div class="absolute inset-0 w-full sm:left-auto sm:right-0 sm:w-3/5 md:w-7/12 lg:w-1/2 h-full z-0 overflow-hidden pointer-events-none">
-            <img src="assets/banners/doctor-clean.jpg" alt="Doctor Loan &amp; OD" class="w-full h-full object-cover object-top xs:object-center sm:object-top select-none banner-photo-responsive" loading="eager" decoding="async">
+            <img src="assets/banners/doctor-clean.jpg" alt="Doctor Loan &amp; OD" class="w-full h-full object-cover object-top xs:object-center sm:object-top select-none banner-photo-responsive" loading="lazy" decoding="async">
             <!-- Mobile Dark Bottom Gradient: Leaves face/upper body 100% visible, text 100% readable -->
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/35 to-transparent sm:hidden"></div>
           </div>
@@ -17079,6 +17093,9 @@
     }
 
     function switchPage(pageId) {
+      if (typeof pageId === 'string' && pageId.startsWith('page-')) {
+        pageId = pageId.replace(/^page-/, '');
+      }
       // Map aliases for professional loans and overdraft facility
       if (pageId === 'doctor-loan' || pageId === 'ca-loan') {
         pageId = 'professional-loan';
@@ -18430,45 +18447,50 @@ function handleModalSubmit(e) {
       const appId = 'CA-' + Math.floor(10000 + Math.random() * 90000);
       const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
 
-      // 1. Build payload for Gmail / Nodemailer / Admin Panel
-      const payload = {
-        _subject: '📋 [CAREER APPLICATION] ' + role + ' — ' + name,
-        _template: 'table',
-        _captcha: 'false',
-        'Application ID': appId,
-        'Lead Category': 'Career Application',
-        'Applicant Name': name,
-        'Mobile': mobile,
-        'Email': email,
-        'Role Applied For': role,
-        'Experience': exp,
-        'Location': city,
-        'Resume File': resumeName,
-        'Cover Note': note || 'N/A',
-        'Submitted At': timestamp
-      };
+      // ── 1. Build FormData with the actual resume file ──
+      //    POST to /api/career-apply (Express + Multer + Nodemailer → PDF attached in email)
+      const formData = new FormData();
+      formData.append('appId',      appId);
+      formData.append('name',       name);
+      formData.append('mobile',     mobile);
+      formData.append('email',      email);
+      formData.append('role',       role);
+      formData.append('experience', exp);
+      formData.append('city',       city);
+      formData.append('note',       note);
+      formData.append('resume',     resumeFile, resumeFile.name);
 
-      // 2. Send via Nodemailer backend → info@proloanindia.com
-      try {
-        fetch('/api/send-lead', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        }).then(function(res) {
-          return res.json();
-        }).then(function(data) {
-          if (data && data.success) {
-            console.log('✅ Career application emailed via Nodemailer:', data.message);
-          } else {
-            console.warn('⚠️ Career email dispatch warning:', data && data.message);
-          }
-        }).catch(function(err) {
-          console.warn('⚠️ Career email network error:', err);
-        });
-      } catch(e) {}
+      fetch('/api/career-apply', {
+        method: 'POST',
+        body: formData   // ← DO NOT set Content-Type; browser sets multipart boundary automatically
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data && data.success) {
+          console.log('✅ Career application + resume PDF sent via Nodemailer. App ID:', data.appId);
+        } else {
+          console.warn('⚠️ Career API warning:', data && data.message);
+        }
+      })
+      .catch(function(err) {
+        console.warn('⚠️ Career application network error:', err);
+      });
 
-      // 3. Save to localStorage lead log (visible in admin portal)
+      // ── 2. Save lightweight record to localStorage (admin portal fallback) ──
       try {
+        var payload = {
+          'Application ID': appId,
+          'Lead Category': 'Career Application',
+          'Applicant Name': name,
+          'Mobile': mobile,
+          'Email': email,
+          'Role Applied For': role,
+          'Experience': exp,
+          'Location': city,
+          'Resume File': resumeName,
+          'Cover Note': note || 'N/A',
+          'Submitted At': timestamp
+        };
         var rawLog = localStorage.getItem('proloan_leads_log') || '[]';
         var log = JSON.parse(rawLog);
         if (!Array.isArray(log)) log = [];
@@ -18476,7 +18498,7 @@ function handleModalSubmit(e) {
         localStorage.setItem('proloan_leads_log', JSON.stringify(log.slice(0, 100)));
       } catch(e) {}
 
-      // 4. Sync to Supabase (shows in admin dashboard live table)
+      // ── 3. Sync to Supabase (shows in admin dashboard live table) ──
       try {
         var sbUrl = localStorage.getItem('proloan_supabase_url') || 'https://yutjqfqgkpuogocextrg.supabase.co';
         var sbKey = localStorage.getItem('proloan_supabase_key') || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1dGpxZnFna3B1b2dvY2V4dHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxNjM3NzQsImV4cCI6MjEwNzczOTc3NH0.yz62DZdGCsyhwR9ks1s8MkJPu9uR0yaWJfZUh8c1bDk';
@@ -18506,22 +18528,7 @@ function handleModalSubmit(e) {
         }
       } catch(e) {}
 
-      // 5. Also dispatch via dispatchLeadToGmail (realtime Gmail ping to info@proloanindia.com)
-      try {
-        dispatchLeadToGmail({
-          source: 'Careers Page — ' + role,
-          id: appId,
-          name: name,
-          phone: mobile,
-          product: 'Career Application — ' + role,
-          amount: 'Resume: ' + resumeName,
-          city: city,
-          income: exp,
-          notes: 'Email: ' + email + (note ? ' | Note: ' + note : '')
-        });
-      } catch(e) {}
-
-      // 6. WhatsApp ping to HR
+      // ── 4. WhatsApp ping to HR ──
       const waMsg = encodeURIComponent(
         '📋 *CAREER APPLICATION — Proloan India*\n\n' +
         '*App ID:* ' + appId + '\n' +
@@ -18533,7 +18540,8 @@ function handleModalSubmit(e) {
         '*Location:* ' + city + '\n' +
         '*Resume:* ' + resumeName + '\n' +
         (note ? '*Note:* ' + note + '\n' : '') +
-        '\n_Submitted via proloanindia.com/careers_'
+        '\n_Resume PDF sent to admin Gmail. Check inbox._\n' +
+        '_Submitted via proloanindia.com/careers_'
       );
 
       setTimeout(function() {
@@ -18715,6 +18723,18 @@ function handleModalSubmit(e) {
         const urlParams = new URLSearchParams(window.location.search);
         const p = urlParams.get('page') || (window.location.hash ? window.location.hash.substring(1) : '');
         if (p && typeof switchPage === 'function') switchPage(p);
+      } catch (e) {}
+    });
+
+    window.addEventListener('hashchange', () => {
+      try {
+        const hash = window.location.hash.replace(/^#/, '');
+        if (hash && typeof switchPage === 'function') {
+          const target = document.getElementById('page-' + hash);
+          if (target && !target.classList.contains('active-page')) {
+            switchPage(hash);
+          }
+        }
       } catch (e) {}
     });
   
