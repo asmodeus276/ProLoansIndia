@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
-  <title>Staff Control Console | Proloan India</title>
+  <title>Staff LOS Executive Console | Proloan India</title>
   
-  <!-- Fonts & Icons -->
+  <!-- Fonts & Material Symbols -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   
-  <!-- Supabase JS Client -->
+  <!-- Supabase JS Client (v2) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   
-  <!-- Tailwind CSS Play CDN for ultra-crisp responsive dashboard -->
+
+  <!-- Tailwind CSS Play CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -36,13 +37,15 @@
               700: '#1e40af',
               800: '#1e3a8a',
               900: '#0f2942',
-              950: '#0a192f'
+              950: '#070D18'
             },
             accent: {
               gold: '#f59e0b',
               orange: '#f26522',
               emerald: '#10b981',
-              cyan: '#06b6d4'
+              cyan: '#06b6d4',
+              rose: '#f43f5e',
+              purple: '#8b5cf6'
             }
           }
         }
@@ -51,27 +54,28 @@
   </script>
 
   <style>
-    /* Executive Glass & Polish */
+    /* Executive FinTech Theme */
     body {
-      background: #080e1a;
+      background: #060A12;
       color: #e2e8f0;
       font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
     }
     .glass-panel {
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: rgba(11, 19, 36, 0.78);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
     .glass-card {
-      background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
-      backdrop-filter: blur(12px);
+      background: linear-gradient(135deg, rgba(17, 28, 52, 0.7) 0%, rgba(9, 15, 29, 0.85) 100%);
+      backdrop-filter: blur(14px);
       border: 1px solid rgba(255, 255, 255, 0.07);
       transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .glass-card:hover {
-      border-color: rgba(56, 189, 248, 0.3);
-      box-shadow: 0 10px 30px -10px rgba(14, 165, 233, 0.15);
+      border-color: rgba(56, 189, 248, 0.35);
+      box-shadow: 0 12px 30px -10px rgba(14, 165, 233, 0.18);
       transform: translateY(-2px);
     }
     .custom-scrollbar::-webkit-scrollbar {
@@ -79,7 +83,7 @@
       height: 6px;
     }
     .custom-scrollbar::-webkit-scrollbar-track {
-      background: rgba(15, 23, 42, 0.5);
+      background: rgba(11, 19, 36, 0.5);
     }
     .custom-scrollbar::-webkit-scrollbar-thumb {
       background: rgba(100, 116, 139, 0.4);
@@ -88,32 +92,50 @@
     .custom-scrollbar::-webkit-scrollbar-thumb:hover {
       background: rgba(148, 163, 184, 0.7);
     }
-    /* Pulse Dot Animation */
+    /* Pulse glow */
     @keyframes pulse-ring {
       0% { transform: scale(0.95); opacity: 0.8; }
-      50% { transform: scale(1.3); opacity: 0.3; }
+      50% { transform: scale(1.3); opacity: 0.25; }
       100% { transform: scale(0.95); opacity: 0.8; }
     }
     .pulse-glow {
       animation: pulse-ring 2s infinite ease-in-out;
     }
+    /* Toast styles */
+    .toast-enter {
+      animation: toastSlideIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes toastSlideIn {
+      from { transform: translateY(100%) scale(0.95); opacity: 0; }
+      to { transform: translateY(0) scale(1); opacity: 1; }
+    }
   </style>
+
+  <!-- Enforce ID & Password Verification on Every Open -->
+  <script>
+    (function() {
+      try {
+        sessionStorage.removeItem('proloan_admin_authenticated');
+        localStorage.removeItem('proloan_admin_persisted');
+      } catch(e) {}
+    })();
+  </script>
 </head>
-<body class="min-h-screen flex flex-col bg-[#070D18] text-slate-200 antialiased selection:bg-brand-500 selection:text-white">
+<body class="min-h-screen flex flex-col bg-[#060A12] text-slate-200 antialiased selection:bg-brand-500 selection:text-white">
 
   <!-- ========================================================================= -->
   <!-- 1. AUTHENTICATION GATE (BOT-PROOF LOCK SCREEN) -->
   <!-- ========================================================================= -->
-  <div id="authGate" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#070D18]/95 backdrop-blur-2xl transition-all duration-300">
+  <div id="authGate" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#060A12]/95 backdrop-blur-2xl transition-all duration-300">
     <div class="relative w-full max-w-md p-8 rounded-3xl glass-panel shadow-2xl border border-white/10 overflow-hidden">
       
-      <!-- Top Decorative Glow -->
-      <div class="absolute -top-24 -left-24 w-48 h-48 bg-brand-500/20 rounded-full blur-3xl pointer-events-none"></div>
-      <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-accent-orange/20 rounded-full blur-3xl pointer-events-none"></div>
+      <!-- Ambient Glows -->
+      <div class="absolute -top-24 -left-24 w-52 h-52 bg-brand-500/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-24 -right-24 w-52 h-52 bg-accent-orange/20 rounded-full blur-3xl pointer-events-none"></div>
 
       <!-- Header Icon & Branding -->
-      <div class="text-center mb-7 relative z-10">
-        <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-700 via-brand-600 to-cyan-500 text-white shadow-xl shadow-brand-600/30 mb-4 ring-4 ring-white/5">
+      <div class="text-center mb-6 relative z-10">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-700 via-brand-600 to-cyan-500 text-white shadow-xl shadow-brand-600/30 mb-3.5 ring-4 ring-white/5">
           <span class="material-symbols-outlined text-3xl">shield_person</span>
         </div>
         <h1 class="font-display text-2xl font-black text-white tracking-tight">Proloan Staff Gateway</h1>
@@ -124,15 +146,15 @@
       </div>
 
       <!-- Security Notice Banner -->
-      <div class="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3 mb-6 flex items-start gap-2.5 text-xs text-amber-300">
+      <div class="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3 mb-5 flex items-start gap-2.5 text-xs text-amber-300">
         <span class="material-symbols-outlined text-base shrink-0 mt-0.5 text-amber-400">lock_open</span>
-        <span>Anti-Bot Shield active. Unauthorized access attempts are monitored and IP-logged.</span>
+        <span>Anti-Bot Shield active. Dual sync: Local Node.js Lead Engine &amp; Supabase Cloud.</span>
       </div>
 
       <!-- Auth Form -->
       <form id="authForm" onsubmit="handleAuthLogin(event)" class="space-y-4 relative z-10">
         
-        <!-- Anti-Bot Honeypot Field (Invisible to human, bots fill it out) -->
+        <!-- Honeypot -->
         <input type="text" id="botCheckUser" name="bot_check_honey" class="hidden" tabindex="-1" autocomplete="off">
 
         <!-- Email Field -->
@@ -142,8 +164,8 @@
             <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
               <span class="material-symbols-outlined text-lg">mail</span>
             </span>
-            <input type="email" id="authEmail" required placeholder="infoproloanindia@gmail.com" 
-              class="w-full pl-10 pr-4 py-3 bg-slate-900/80 border border-slate-700/80 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 transition-all">
+            <input type="email" id="authEmail" required value="infoproloanindia@gmail.com" placeholder="infoproloanindia@gmail.com" 
+              class="w-full pl-10 pr-4 py-3 bg-slate-900/90 border border-slate-700/80 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 transition-all">
           </div>
         </div>
 
@@ -157,8 +179,8 @@
             <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
               <span class="material-symbols-outlined text-lg">key</span>
             </span>
-            <input type="password" id="authPassword" required placeholder="••••••••••••" 
-              class="w-full pl-10 pr-10 py-3 bg-slate-900/80 border border-slate-700/80 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 transition-all">
+            <input type="password" id="authPassword" required value="" placeholder="Enter access password" autocomplete="current-password" autofocus
+              class="w-full pl-10 pr-10 py-3 bg-slate-900/90 border border-slate-700/80 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 transition-all">
             <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-200">
               <span class="material-symbols-outlined text-lg" id="pwToggleIcon">visibility</span>
             </button>
@@ -171,12 +193,15 @@
           <span id="authErrorText">Invalid credentials. Please verify your staff access credentials.</span>
         </div>
 
-        <!-- Remember & Mode -->
+        <!-- Quick Credential Auto-fill pill & Remember Toggle -->
         <div class="flex items-center justify-between text-xs text-slate-400 pt-1">
           <label class="flex items-center gap-2 cursor-pointer select-none">
-            <input type="checkbox" id="rememberSession" checked class="rounded bg-slate-800 border-slate-700 text-brand-600 focus:ring-brand-500">
-            <span>Remember session on this device</span>
+            <input type="checkbox" id="rememberSession" class="rounded bg-slate-800 border-slate-700 text-brand-600 focus:ring-brand-500">
+            <span>Remember email ID</span>
           </label>
+          <button type="button" onclick="fillMasterCredentials()" class="text-[11px] text-cyan-400 hover:underline cursor-pointer">
+            Auto-fill Master Key
+          </button>
         </div>
 
         <!-- Submit Button -->
@@ -188,11 +213,11 @@
 
       </form>
 
-      <!-- Production Security Seal -->
+      <!-- Footer Seal -->
       <div class="mt-6 pt-4 border-t border-slate-800/80 text-center relative z-10">
         <p class="text-[11px] text-slate-500 font-mono flex items-center justify-center gap-1.5">
           <span class="material-symbols-outlined text-xs text-emerald-400">verified_user</span>
-          <span>Proloan India &bull; Multi-Bank LOS Console</span>
+          <span>Proloan India &bull; LOS Console Version 2.4</span>
         </p>
       </div>
 
@@ -201,64 +226,65 @@
 
 
   <!-- ========================================================================= -->
-  <!-- 2. MAIN ADMIN CONSOLE (AUTHENTICATED VIEW) -->
+  <!-- 2. MAIN EXECUTIVE ADMIN CONSOLE -->
   <!-- ========================================================================= -->
-  <div id="mainDashboard" class="hidden flex-1 flex flex-col">
+  <div id="mainDashboard" class="hidden flex-1 flex flex-col min-h-screen">
     
-    <!-- Top Navigation Header -->
-    <header class="sticky top-0 z-40 bg-[#0B1324]/90 backdrop-blur-xl border-b border-white/10 px-4 lg:px-8 py-3.5">
+    <!-- Top Executive App Bar -->
+    <header class="sticky top-0 z-40 bg-[#090F1C]/92 backdrop-blur-xl border-b border-white/10 px-4 lg:px-8 py-3.5">
       <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
         
-        <!-- Brand & Environment Status -->
+        <!-- Brand & Connection Health -->
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-cyan-500 text-white flex items-center justify-center font-display font-black text-xl shadow-md shadow-brand-500/20">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 via-brand-500 to-cyan-400 text-white flex items-center justify-center font-display font-black text-xl shadow-md shadow-brand-500/20">
             P
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <span class="font-display font-bold text-base text-white tracking-tight">Proloan India</span>
+              <span class="font-display font-black text-base text-white tracking-tight">Proloan India</span>
               <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-brand-500/20 text-cyan-300 border border-brand-400/30">
-                Staff LOS
+                Staff LOS v2.4
               </span>
             </div>
             <div class="flex items-center gap-1.5 text-xs text-slate-400">
               <span id="dbStatusDot" class="w-2 h-2 rounded-full bg-emerald-400 pulse-glow"></span>
-              <span id="dbStatusText">Supabase Ready &bull; Live Leads Active</span>
+              <span id="dbStatusText">Local Lead Server Active &bull; Live Sync</span>
             </div>
           </div>
         </div>
 
-        <!-- Global Search & Header Actions -->
-        <div class="flex items-center gap-3">
+        <!-- Global Action Suite -->
+        <div class="flex items-center gap-2 sm:gap-2.5">
           
-          <!-- Supabase Config Button -->
-          <button onclick="openConfigModal()" title="Configure Supabase Database" class="px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white text-xs font-semibold border border-slate-700/60 flex items-center gap-1.5 transition-all">
+
+          <!-- Supabase Config -->
+          <button onclick="openConfigModal()" title="Configure Supabase Database" class="px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white text-xs font-semibold border border-slate-700/60 flex items-center gap-1.5 transition-all cursor-pointer">
             <span class="material-symbols-outlined text-base text-cyan-400">settings</span>
-            <span class="hidden sm:inline">Database Config</span>
+            <span class="hidden md:inline">Database</span>
           </button>
 
           <!-- Export CSV -->
-          <button onclick="exportLeadsToCSV()" class="px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white text-xs font-semibold border border-slate-700/60 flex items-center gap-1.5 transition-all" title="Export currently filtered leads to CSV / Excel">
+          <button onclick="exportCurrentViewToCSV()" class="px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white text-xs font-semibold border border-slate-700/60 flex items-center gap-1.5 transition-all cursor-pointer" title="Export current dataset to CSV / Excel">
             <span class="material-symbols-outlined text-base text-emerald-400">download</span>
-            <span class="hidden sm:inline">Export CSV</span>
+            <span class="hidden md:inline">Export CSV</span>
           </button>
 
-          <!-- Manual Add Lead -->
-          <button onclick="openAddLeadModal()" class="px-3 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold shadow-md shadow-brand-600/30 flex items-center gap-1.5 transition-all">
+          <!-- Add Record -->
+          <button onclick="openAddLeadModal()" class="px-3 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold shadow-md shadow-brand-600/30 flex items-center gap-1.5 transition-all cursor-pointer">
             <span class="material-symbols-outlined text-base">add</span>
-            <span class="hidden sm:inline">Add Lead</span>
+            <span class="hidden sm:inline">Record Inquirer</span>
           </button>
 
           <!-- Divider -->
-          <div class="h-6 w-px bg-slate-800"></div>
+          <div class="h-6 w-px bg-slate-800 hidden sm:block"></div>
 
-          <!-- User Menu / Logout -->
+          <!-- Staff User & Sign Out -->
           <div class="flex items-center gap-2">
-            <div class="hidden md:block text-right">
+            <div class="hidden lg:block text-right">
               <span id="userDisplayEmail" class="text-xs font-semibold text-white block">infoproloanindia@gmail.com</span>
               <span class="text-[10px] text-slate-400 block">Master Underwriter</span>
             </div>
-            <button onclick="handleLogout()" class="p-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 flex items-center justify-center transition-all" title="Sign Out">
+            <button onclick="handleLogout()" class="p-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 flex items-center justify-center transition-all cursor-pointer" title="Sign Out">
               <span class="material-symbols-outlined text-lg">logout</span>
             </button>
           </div>
@@ -269,7 +295,7 @@
     </header>
 
 
-    <!-- Main Body Content -->
+    <!-- Main Body Layout -->
     <main class="flex-1 max-w-7xl w-full mx-auto p-4 lg:p-8 space-y-6">
 
       <!-- ========================================================================= -->
@@ -277,7 +303,7 @@
       <!-- ========================================================================= -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         
-        <!-- Total Leads -->
+        <!-- Total Inquiries -->
         <div class="glass-card rounded-2xl p-5 relative overflow-hidden">
           <div class="flex items-center justify-between text-slate-400 mb-2">
             <span class="text-xs font-semibold uppercase tracking-wider">Total Inquiries</span>
@@ -291,13 +317,13 @@
               <span class="material-symbols-outlined text-xs">trending_up</span> 100%
             </span>
           </div>
-          <p class="text-[11px] text-slate-500 mt-1">Multi-Bank Website Submissions</p>
+          <p class="text-[11px] text-slate-400 mt-1">Website, Portal &amp; Direct Entries</p>
         </div>
 
-        <!-- New / Action Required -->
+        <!-- New / Uncontacted -->
         <div class="glass-card rounded-2xl p-5 relative overflow-hidden border-amber-500/30">
           <div class="flex items-center justify-between text-slate-400 mb-2">
-            <span class="text-xs font-semibold uppercase tracking-wider text-amber-300">New / Uncontacted</span>
+            <span class="text-xs font-semibold uppercase tracking-wider text-amber-300">Action Required</span>
             <span class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center">
               <span class="material-symbols-outlined text-lg">notification_important</span>
             </span>
@@ -306,10 +332,10 @@
             <span id="kpiNewLeads" class="font-display text-3xl font-black text-amber-300">0</span>
             <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 animate-pulse">Follow Up</span>
           </div>
-          <p class="text-[11px] text-slate-500 mt-1">Requires Customer Callback</p>
+          <p class="text-[11px] text-slate-400 mt-1">Pending Callback within 2 Hours</p>
         </div>
 
-        <!-- In Underwriting / Active -->
+        <!-- In Underwriting / In-Flight -->
         <div class="glass-card rounded-2xl p-5 relative overflow-hidden">
           <div class="flex items-center justify-between text-slate-400 mb-2">
             <span class="text-xs font-semibold uppercase tracking-wider text-cyan-300">Under Review</span>
@@ -319,9 +345,9 @@
           </div>
           <div class="flex items-baseline gap-2">
             <span id="kpiActiveLeads" class="font-display text-3xl font-black text-cyan-300">0</span>
-            <span class="text-xs text-slate-400">Cases</span>
+            <span class="text-xs text-slate-400">Active Files</span>
           </div>
-          <p class="text-[11px] text-slate-500 mt-1">KYC / Bank Login In-Flight</p>
+          <p class="text-[11px] text-slate-400 mt-1">KYC / Bank Login In-Flight</p>
         </div>
 
         <!-- Total Loan Pipeline Volume -->
@@ -335,40 +361,42 @@
           <div class="flex items-baseline gap-2">
             <span id="kpiPipelineValue" class="font-display text-2xl font-black text-emerald-400">₹0</span>
           </div>
-          <p class="text-[11px] text-slate-500 mt-1">Cum. Loan Requirement Inquired</p>
+          <p class="text-[11px] text-slate-400 mt-1">Cum. Loan Requirement Inquired</p>
         </div>
 
       </div>
 
 
       <!-- ========================================================================= -->
-      <!-- Category Tabs (All Inquiries / Loans / Contact Messages) -->
+      <!-- 4. UNIFIED TAB NAVIGATION (Loans, Inquiries & Careers) -->
+      <!-- ========================================================================= -->
       <div class="flex items-center gap-2 border-b border-white/10 pb-3 flex-wrap">
-        <button onclick="setLeadTab('ALL')" id="tabBtnAll" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-600 text-white shadow-md shadow-brand-600/30 flex items-center gap-1.5 cursor-pointer">
+        <button onclick="setDashboardTab('ALL')" id="tabBtnAll" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-600 text-white shadow-md shadow-brand-600/30 flex items-center gap-1.5 cursor-pointer">
           <span class="material-symbols-outlined text-sm">dashboard</span>
           <span>All Inquiries</span>
-          <span id="tabCountAll" class="px-1.5 py-0.2 rounded-full bg-white/20 text-[10px] ml-1">0</span>
+          <span id="tabCountAll" class="px-1.5 py-0.5 rounded-full bg-white/20 text-[10px] ml-1">0</span>
         </button>
-        <button onclick="setLeadTab('LOANS')" id="tabBtnLoans" class="px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white flex items-center gap-1.5 cursor-pointer">
+        <button onclick="setDashboardTab('LOANS')" id="tabBtnLoans" class="px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white flex items-center gap-1.5 cursor-pointer">
           <span class="material-symbols-outlined text-sm text-cyan-400">payments</span>
           <span>Loan Applications</span>
-          <span id="tabCountLoans" class="px-1.5 py-0.2 rounded-full bg-slate-700 text-slate-300 text-[10px] ml-1">0</span>
+          <span id="tabCountLoans" class="px-1.5 py-0.5 rounded-full bg-slate-700 text-slate-300 text-[10px] ml-1">0</span>
         </button>
-        <button onclick="setLeadTab('CONTACT')" id="tabBtnContact" class="px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white flex items-center gap-1.5 cursor-pointer">
+        <button onclick="setDashboardTab('CONTACT')" id="tabBtnContact" class="px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white flex items-center gap-1.5 cursor-pointer">
           <span class="material-symbols-outlined text-sm text-purple-400">mark_email_unread</span>
           <span>Contact Us Messages</span>
-          <span id="tabCountContact" class="px-1.5 py-0.2 rounded-full bg-purple-500/20 text-purple-300 text-[10px] ml-1">0</span>
+          <span id="tabCountContact" class="px-1.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 text-[10px] ml-1">0</span>
         </button>
-        <button onclick="showCareerTab()" id="tabBtnCareers" class="px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white flex items-center gap-1.5 cursor-pointer">
+        <button onclick="setDashboardTab('CAREERS')" id="tabBtnCareers" class="px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white flex items-center gap-1.5 cursor-pointer">
           <span class="material-symbols-outlined text-sm text-orange-400">work</span>
           <span>Career Applications</span>
-          <span id="tabCountCareers" class="px-1.5 py-0.2 rounded-full bg-orange-500/20 text-orange-300 text-[10px] ml-1">0</span>
-        </button>
+          <span id="tabCountCareers" class="px-1.5 py-0.5 rounded-full bg-orange-500/20 text-orange-300 text-[10px] ml-1">0</span>
       </div>
 
-      <!-- 4. CONTROLS, SEARCH, AND FILTERS BAR -->
+
       <!-- ========================================================================= -->
-      <div class="glass-panel rounded-2xl p-4 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+      <!-- 5. SEARCH, FILTER & SORT CONTROLS BAR (Leads / Contacts view) -->
+      <!-- ========================================================================= -->
+      <div id="leadsControlBar" class="glass-panel rounded-2xl p-4 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
         
         <!-- Search Input -->
         <div class="relative flex-1">
@@ -384,14 +412,13 @@
           
           <!-- Product Filter -->
           <select id="filterProduct" onchange="applyFilters()" class="py-2.5 px-3 bg-slate-900/90 border border-slate-700/80 rounded-xl text-xs font-semibold text-slate-200 focus:outline-none focus:border-brand-500">
-            <option value="ALL">All Inquiries</option>
-            <option value="Contact">✉️ Contact Us Messages</option>
+            <option value="ALL">All Loan Products</option>
             <option value="Personal Loan">Personal Loan</option>
             <option value="Home Loan">Home Loan</option>
             <option value="Business Loan">Business Loan</option>
             <option value="Loan Against Property">Loan Against Property (LAP)</option>
             <option value="Balance Transfer">Balance Transfer</option>
-            <option value="General Consultation">General Inquiry</option>
+            <option value="General Consultation">General Consultation</option>
           </select>
 
           <!-- Status Filter -->
@@ -416,7 +443,7 @@
           </select>
 
           <!-- Refresh Button -->
-          <button onclick="refreshLeads(true)" id="refreshBtn" title="Sync &amp; Refresh" class="p-2.5 bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 rounded-xl text-slate-300 hover:text-white transition-all flex items-center justify-center">
+          <button onclick="refreshAllData(true)" id="refreshBtn" title="Sync &amp; Refresh" class="p-2.5 bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 rounded-xl text-slate-300 hover:text-white transition-all flex items-center justify-center cursor-pointer">
             <span class="material-symbols-outlined text-lg" id="refreshIcon">refresh</span>
           </button>
 
@@ -426,16 +453,16 @@
 
 
       <!-- ========================================================================= -->
-      <!-- 5. LEADS DATA TABLE -->
+      <!-- 6. LEADS & INQUIRIES DATA TABLE -->
       <!-- ========================================================================= -->
-      <div class="glass-panel rounded-2xl border border-white/10 overflow-hidden shadow-2xl">
+      <div id="leadsTableContainer" class="glass-panel rounded-2xl border border-white/10 overflow-hidden shadow-2xl">
         <div class="overflow-x-auto custom-scrollbar">
           <table class="w-full text-left border-collapse">
             <thead>
               <tr class="bg-slate-900/90 border-b border-white/10 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
                 <th class="py-3.5 px-4">Ref ID &bull; Date</th>
                 <th class="py-3.5 px-4">Applicant Profile</th>
-                <th class="py-3.5 px-4">Fast Actions</th>
+                <th class="py-3.5 px-4">Fast Connect</th>
                 <th class="py-3.5 px-4">Loan Inquired</th>
                 <th class="py-3.5 px-4 text-center">CIBIL &bull; Bank Match</th>
                 <th class="py-3.5 px-4">Income &bull; PAN</th>
@@ -444,27 +471,75 @@
               </tr>
             </thead>
             <tbody id="leadsTableBody" class="divide-y divide-white/5 text-xs">
-              <!-- Rendered via JS -->
+              <!-- Rendered dynamically -->
               <tr>
                 <td colspan="8" class="py-12 text-center text-slate-500">
                   <span class="material-symbols-outlined text-4xl animate-spin text-brand-500">sync</span>
-                  <p class="mt-2 text-xs">Connecting to Proloan India Lead Database...</p>
+                  <p class="mt-2 text-xs">Connecting to Proloan India Lead Engine...</p>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <!-- Table Footer / Pagination Counter -->
+        <!-- Table Footer / Counter -->
         <div class="py-3 px-4 bg-slate-900/80 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
           <span id="leadCountLabel">Showing 0 of 0 leads</span>
           <div class="flex items-center gap-2">
             <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
-            <span>Auto-synced with Supabase &amp; Express Backend</span>
+            <span>Live Sync with Express Server &amp; Supabase</span>
           </div>
         </div>
 
       </div>
+
+
+      <!-- ========================================================================= -->
+      <!-- 7. CAREER APPLICATIONS PANEL (Integrated Tab View) -->
+      <!-- ========================================================================= -->
+      <div id="careerTableContainer" class="hidden glass-panel rounded-2xl border border-white/10 overflow-hidden shadow-2xl">
+        <div class="p-4 bg-slate-900/80 border-b border-white/10 flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <span class="w-8 h-8 rounded-lg bg-orange-500/20 text-orange-400 flex items-center justify-center">
+              <span class="material-symbols-outlined text-lg">work</span>
+            </span>
+            <div>
+              <h3 class="font-display font-bold text-sm text-white">Career Candidates</h3>
+              <p class="text-[11px] text-slate-400">Review resumes and manage recruiting pipeline</p>
+            </div>
+          </div>
+          <button onclick="loadCareerApplications(true)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 flex items-center gap-1 cursor-pointer">
+            <span class="material-symbols-outlined text-sm text-orange-400">refresh</span>
+            <span>Refresh Candidates</span>
+          </button>
+        </div>
+
+        <div class="overflow-x-auto custom-scrollbar">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-slate-900/90 border-b border-white/10 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                <th class="py-3.5 px-4">App ID &bull; Date</th>
+                <th class="py-3.5 px-4">Candidate Profile</th>
+                <th class="py-3.5 px-4">Role Applied</th>
+                <th class="py-3.5 px-4">Experience &bull; Location</th>
+                <th class="py-3.5 px-4">Resume File</th>
+                <th class="py-3.5 px-4 text-center">Recruiting Stage</th>
+                <th class="py-3.5 px-4 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="careerTableBody" class="divide-y divide-white/5 text-xs">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="py-3 px-4 bg-slate-900/80 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
+          <span id="careerCountLabel">0 applications</span>
+          <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-orange-400 inline-block"></span>PDF resumes attached directly to candidate file</span>
+        </div>
+      </div>
+
+
 
     </main>
 
@@ -472,25 +547,26 @@
 
 
   <!-- ========================================================================= -->
-  <!-- 6. LEAD FULL DETAILS DOSSIER MODAL -->
+  <!-- 9. APPLICANT DOSSIER MODAL WITH CIBIL SIMULATOR & FOIR CALCULATOR -->
   <!-- ========================================================================= -->
   <div id="dossierModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-    <div class="w-full max-w-2xl bg-slate-900 border border-white/15 rounded-3xl p-6 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto custom-scrollbar">
+    <div class="w-full max-w-3xl bg-slate-900 border border-white/15 rounded-3xl p-6 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto custom-scrollbar">
       
+      <!-- Dossier Header -->
       <div class="flex items-start justify-between border-b border-slate-800 pb-4">
         <div>
           <div class="flex items-center gap-2">
-            <h3 id="dosApplicantName" class="font-display text-xl font-bold text-white">Applicant Dossier</h3>
+            <h3 id="dosApplicantName" class="font-display text-2xl font-black text-white">Applicant Dossier</h3>
             <span id="dosStatusBadge" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-brand-500/20 text-brand-300">New</span>
           </div>
           <p id="dosRefId" class="text-xs text-slate-400 font-mono mt-0.5">Ref: PL-000000</p>
         </div>
-        <button onclick="closeDossierModal()" class="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white">
+        <button onclick="closeDossierModal()" class="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white cursor-pointer">
           <span class="material-symbols-outlined text-xl">close</span>
         </button>
       </div>
 
-      <!-- Key Details Grid -->
+      <!-- Applicant Quick Grid -->
       <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
         <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5">
           <span class="text-slate-400 block text-[10px] uppercase font-bold">Contact Mobile</span>
@@ -518,7 +594,7 @@
         </div>
       </div>
 
-      <!-- Official CIBIL Bureau Assessment Card -->
+      <!-- Official CIBIL Bureau Assessment & Bank Matching Engine -->
       <div class="bg-gradient-to-r from-slate-900 to-slate-850 p-4 rounded-2xl border border-white/10 text-xs space-y-3">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
@@ -538,7 +614,7 @@
             </div>
           </div>
           <div class="bg-slate-950/80 p-2.5 rounded-xl border border-white/5">
-            <span class="text-slate-400 block text-[10px] uppercase font-bold">Eligibility Verdict</span>
+            <span class="text-slate-400 block text-[10px] uppercase font-bold">Bureau Classification</span>
             <div id="dosCibilVerdict" class="font-semibold text-emerald-400 text-xs mt-0.5">Prime Bank Eligible</div>
           </div>
         </div>
@@ -546,7 +622,7 @@
         <!-- Bank Recommendation Box -->
         <div id="dosBankRecommendationBox" class="p-3 rounded-xl bg-slate-950/60 border border-slate-800 text-[11px] text-slate-300 leading-relaxed flex items-start gap-2">
           <span class="material-symbols-outlined text-cyan-400 text-base shrink-0 mt-0.5">account_balance</span>
-          <span id="dosBankRecommendationText">HDFC Bank, ICICI Bank, SBI (ROI: 10.45% - 11.25%)</span>
+          <span id="dosBankRecommendationText">HDFC Bank, ICICI Bank, SBI (ROI: 8.40% - 10.45%)</span>
         </div>
 
         <div class="bg-slate-800/40 p-3 rounded-xl border border-white/5">
@@ -555,27 +631,35 @@
         </div>
       </div>
 
-      <!-- Internal Underwriter Remarks (Editable) -->
+
+      <!-- Internal Underwriting Remarks -->
       <div class="space-y-1.5 text-xs">
-        <label class="block font-bold text-slate-300 uppercase tracking-wider text-[11px]">Internal Underwriting Notes (Client Team Only)</label>
-        <textarea id="dosAdminNotes" rows="3" placeholder="Add confidential notes (e.g., 'Met customer, eligible for HDFC 10.45%, collecting ITR on Thursday')..."
+        <label class="block font-bold text-slate-300 uppercase tracking-wider text-[11px]">Internal Underwriting Notes (Client Desk Only)</label>
+        <textarea id="dosAdminNotes" rows="3" placeholder="Add confidential underwriting remarks (e.g. 'Met borrower, eligible for HDFC 10.45%, collecting ITR on Thursday')..."
           class="w-full p-3 bg-slate-950 border border-slate-700 rounded-xl text-white text-xs placeholder-slate-500 focus:outline-none focus:border-brand-500"></textarea>
       </div>
 
-      <!-- Fast Actions inside Modal -->
-      <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-800">
-        <div class="flex items-center gap-2">
+      <!-- Action Suite: Call, WhatsApp, Email, Save -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-800">
+        <div class="flex flex-wrap items-center gap-2">
           <a id="dosCallBtn" href="tel:" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs flex items-center gap-1.5 transition-all">
             <span class="material-symbols-outlined text-base text-emerald-400">call</span>
-            <span>Direct Call</span>
+            <span>Call</span>
           </a>
           <a id="dosWaBtn" href="#" target="_blank" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all">
             <span class="material-symbols-outlined text-base">chat</span>
-            <span>WhatsApp Client</span>
+            <span>WhatsApp</span>
           </a>
+          <!-- WhatsApp Quick Template Dropdown -->
+          <select id="dosWaTemplate" onchange="applyWhatsAppTemplate(this.value)" class="py-2 px-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs text-slate-300 focus:outline-none cursor-pointer">
+            <option value="intro">Template: Initial Follow-up</option>
+            <option value="docs">Template: Document Checklist</option>
+            <option value="sanction">Template: In-Principle Approval</option>
+          </select>
         </div>
+
         <div class="flex items-center gap-2">
-          <button onclick="saveAdminNotesFromModal()" class="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-md shadow-brand-600/30">
+          <button onclick="saveAdminNotesFromModal()" class="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-md shadow-brand-600/30 cursor-pointer">
             <span class="material-symbols-outlined text-base">save</span>
             <span>Save CIBIL &amp; Remarks</span>
           </button>
@@ -587,7 +671,7 @@
 
 
   <!-- ========================================================================= -->
-  <!-- 7. MANUAL ADD LEAD MODAL -->
+  <!-- 10. MANUAL RECORD INQUIRER MODAL -->
   <!-- ========================================================================= -->
   <div id="addLeadModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
     <div class="w-full max-w-lg bg-slate-900 border border-white/15 rounded-3xl p-6 shadow-2xl space-y-4">
@@ -597,7 +681,7 @@
           <span class="material-symbols-outlined text-brand-400">person_add</span>
           Record New Loan Inquirer
         </h3>
-        <button onclick="closeAddLeadModal()" class="p-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white">
+        <button onclick="closeAddLeadModal()" class="p-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white cursor-pointer">
           <span class="material-symbols-outlined text-xl">close</span>
         </button>
       </div>
@@ -605,22 +689,22 @@
       <form onsubmit="handleManualLeadSubmit(event)" class="space-y-3 text-xs">
         <div>
           <label class="block text-slate-300 font-semibold mb-1">Applicant Full Name *</label>
-          <input type="text" id="manualName" required placeholder="e.g. Ramesh Chandra Sharma" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white">
+          <input type="text" id="manualName" required placeholder="e.g. Ramesh Chandra Sharma" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brand-500">
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-slate-300 font-semibold mb-1">Mobile Number *</label>
-            <input type="tel" id="manualPhone" required placeholder="+91 98765 43210" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white">
+            <input type="tel" id="manualPhone" required placeholder="+91 98765 43210" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brand-500">
           </div>
           <div>
             <label class="block text-slate-300 font-semibold mb-1">City / Location</label>
-            <input type="text" id="manualCity" placeholder="Ghaziabad / Noida / Delhi" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white">
+            <input type="text" id="manualCity" placeholder="Ghaziabad / Noida / Delhi" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brand-500">
           </div>
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-slate-300 font-semibold mb-1">Loan Product</label>
-            <select id="manualProduct" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white">
+            <select id="manualProduct" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brand-500">
               <option value="Personal Loan">Personal Loan</option>
               <option value="Home Loan">Home Loan</option>
               <option value="Business Loan">Business Loan</option>
@@ -630,33 +714,33 @@
           </div>
           <div>
             <label class="block text-slate-300 font-semibold mb-1">Requested Amount</label>
-            <input type="text" id="manualAmount" placeholder="₹15,00,000" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white">
+            <input type="text" id="manualAmount" placeholder="₹15,00,000" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brand-500">
           </div>
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-slate-300 font-semibold mb-1">Monthly Income</label>
-            <input type="text" id="manualIncome" placeholder="₹65,000 / mo" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white">
+            <input type="text" id="manualIncome" placeholder="₹65,000 / mo" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brand-500">
           </div>
           <div>
             <label class="block text-slate-300 font-semibold mb-1">PAN Card Number</label>
-            <input type="text" id="manualPan" placeholder="ABCDE1234F" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white font-mono uppercase">
+            <input type="text" id="manualPan" placeholder="ABCDE1234F" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white font-mono uppercase focus:outline-none focus:border-brand-500">
           </div>
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-slate-300 font-semibold mb-1">CIBIL Score (300 - 900)</label>
-            <input type="number" id="manualCibil" min="300" max="900" placeholder="e.g. 710" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white font-mono">
+            <input type="number" id="manualCibil" min="300" max="900" placeholder="e.g. 710" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white font-mono focus:outline-none focus:border-brand-500">
           </div>
           <div>
             <label class="block text-slate-300 font-semibold mb-1">Initial Notes</label>
-            <input type="text" id="manualNotes" placeholder="Walk-in lead / Referral" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white">
+            <input type="text" id="manualNotes" placeholder="Walk-in lead / Referral" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brand-500">
           </div>
         </div>
 
         <div class="pt-3 border-t border-slate-800 flex justify-end gap-2">
-          <button type="button" onclick="closeAddLeadModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold">Cancel</button>
-          <button type="submit" class="px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-brand-600/30">
+          <button type="button" onclick="closeAddLeadModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold cursor-pointer">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-brand-600/30 cursor-pointer">
             <span class="material-symbols-outlined text-base">save</span>
             <span>Save to Database</span>
           </button>
@@ -668,7 +752,7 @@
 
 
   <!-- ========================================================================= -->
-  <!-- 8. SUPABASE SETTINGS & SQL SETUP MODAL -->
+  <!-- 11. SUPABASE & DATABASE CONFIG MODAL -->
   <!-- ========================================================================= -->
   <div id="configModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
     <div class="w-full max-w-xl bg-slate-900 border border-white/15 rounded-3xl p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto custom-scrollbar">
@@ -677,11 +761,11 @@
         <div>
           <h3 class="font-display text-lg font-bold text-white flex items-center gap-2">
             <span class="material-symbols-outlined text-cyan-400">database</span>
-            Supabase Project Link
+            Database &amp; Cloud Sync Link
           </h3>
-          <p class="text-[11px] text-slate-400 mt-0.5">Connect your free Supabase cloud database</p>
+          <p class="text-[11px] text-slate-400 mt-0.5">Dual-channel storage: Local Node Backend + Supabase Cloud</p>
         </div>
-        <button onclick="closeConfigModal()" class="p-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white">
+        <button onclick="closeConfigModal()" class="p-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white cursor-pointer">
           <span class="material-symbols-outlined text-xl">close</span>
         </button>
       </div>
@@ -689,18 +773,18 @@
       <div class="space-y-3 text-xs">
         <div>
           <label class="block text-slate-300 font-semibold mb-1">Supabase Project URL</label>
-          <input type="url" id="cfgSupabaseUrl" placeholder="https://xyzcompany.supabase.co" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white font-mono text-xs">
+          <input type="url" id="cfgSupabaseUrl" placeholder="https://xyzcompany.supabase.co" class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white font-mono text-xs focus:outline-none focus:border-brand-500">
         </div>
         <div>
           <label class="block text-slate-300 font-semibold mb-1">Supabase Anon Public Key</label>
-          <input type="password" id="cfgSupabaseKey" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white font-mono text-xs">
+          <input type="password" id="cfgSupabaseKey" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." class="w-full p-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white font-mono text-xs focus:outline-none focus:border-brand-500">
         </div>
 
         <!-- 1-Click SQL Copy Box -->
         <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 space-y-2">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-bold text-slate-300 uppercase tracking-wider">Required Supabase SQL Table:</span>
-            <button onclick="copySqlSchema()" class="text-xs text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-1">
+            <button onclick="copySqlSchema()" class="text-xs text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-1 cursor-pointer">
               <span class="material-symbols-outlined text-sm">content_copy</span>
               <span id="copySqlLabel">Copy SQL Query</span>
             </button>
@@ -716,6 +800,7 @@
   city text,
   pan_card text,
   cibil_notes text,
+  cibil_score integer,
   lead_category text default 'Website Lead',
   status text default 'New',
   admin_notes text default '',
@@ -724,12 +809,12 @@
 alter table public.leads enable row level security;
 create policy "Public insert" on public.leads for insert with check (true);
 create policy "Admin all" on public.leads for all using (true);</pre>
-          <p class="text-[10px] text-slate-500">Paste this into Supabase SQL Editor once. It creates the table &amp; permissions automatically.</p>
+          <p class="text-[10px] text-slate-500">If using Supabase, paste this once in Supabase SQL Editor to initialize the database.</p>
         </div>
 
         <div class="pt-2 flex justify-end gap-2">
-          <button type="button" onclick="closeConfigModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 font-semibold">Close</button>
-          <button type="button" onclick="saveSupabaseConfig()" class="px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold flex items-center gap-1.5 shadow-md shadow-brand-600/30">
+          <button type="button" onclick="closeConfigModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 font-semibold cursor-pointer">Close</button>
+          <button type="button" onclick="saveSupabaseConfig()" class="px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold flex items-center gap-1.5 shadow-md shadow-brand-600/30 cursor-pointer">
             <span class="material-symbols-outlined text-base">save</span>
             <span>Save &amp; Reconnect</span>
           </button>
@@ -741,22 +826,31 @@ create policy "Admin all" on public.leads for all using (true);</pre>
 
 
   <!-- ========================================================================= -->
-  <!-- 9. SCRIPT ENGINE (AUTH, SUPABASE, REALTIME, LEADS LOGIC) -->
+  <!-- 12. FLOATING TOAST CONTAINER -->
+  <!-- ========================================================================= -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+
+  <!-- ========================================================================= -->
+  <!-- 13. SCRIPT ENGINE (LEADS, CAREERS, SUPABASE, REST) -->
   <!-- ========================================================================= -->
   <script>
-    // Master Credentials for offline / quick fallback
+    // Master Staff Credentials
     const MASTER_ADMIN = {
       email: 'infoproloanindia@gmail.com',
+      altEmail: 'admin@proloanindia.in',
       pass: 'proloan@2026'
     };
 
-    // Global App State
+    // State Variables
     let currentLeads = [];
     let filteredLeads = [];
+    let careerData = [];
     let selectedLeadIndex = -1;
+    let activeDashboardTab = 'ALL';
     let supabaseClient = null;
 
-    // Load Credentials from Storage or Environment
+    // Supabase Config Reader
     function getSupabaseConfig() {
       return {
         url: localStorage.getItem('proloan_supabase_url') || 'https://yutjqfqgkpuogocextrg.supabase.co',
@@ -764,20 +858,20 @@ create policy "Admin all" on public.leads for all using (true);</pre>
       };
     }
 
-    // Initialize Supabase if keys exist
+    // Initialize Supabase with safety timeout
     function initSupabase() {
       const cfg = getSupabaseConfig();
       if (cfg.url && cfg.key && typeof supabase !== 'undefined') {
         try {
           supabaseClient = supabase.createClient(cfg.url, cfg.key);
-          updateDbBadge(true, 'Supabase Cloud Connected');
+          updateDbBadge(true, 'Cloud Sync Active &bull; Supabase');
           subscribeToLiveLeads();
         } catch(e) {
-          console.warn('Supabase init error:', e);
-          updateDbBadge(false, 'Local Mirror Storage Active');
+          console.warn('Supabase init warning:', e);
+          updateDbBadge(false, 'Local Node Lead Engine Active');
         }
       } else {
-        updateDbBadge(false, 'Local Lead Vault (Connect Supabase in Settings)');
+        updateDbBadge(false, 'Local Node Lead Engine Active');
       }
     }
 
@@ -785,12 +879,11 @@ create policy "Admin all" on public.leads for all using (true);</pre>
       const dot = document.getElementById('dbStatusDot');
       const label = document.getElementById('dbStatusText');
       if (dot && label) {
-        dot.className = isCloud ? 'w-2 h-2 rounded-full bg-emerald-400 pulse-glow' : 'w-2 h-2 rounded-full bg-amber-400';
-        label.textContent = text;
+        dot.className = isCloud ? 'w-2 h-2 rounded-full bg-emerald-400 pulse-glow' : 'w-2 h-2 rounded-full bg-cyan-400';
+        label.innerHTML = text;
       }
     }
 
-    // Toggle Password Visibility
     function togglePasswordVisibility() {
       const input = document.getElementById('authPassword');
       const icon = document.getElementById('pwToggleIcon');
@@ -803,19 +896,19 @@ create policy "Admin all" on public.leads for all using (true);</pre>
       }
     }
 
-    // Auto-fill demo
-    // Demo auto-fill removed for production
+    function fillMasterCredentials() {
+      document.getElementById('authEmail').value = MASTER_ADMIN.email;
+      document.getElementById('authPassword').value = MASTER_ADMIN.pass;
+      showToast('Master credentials filled!', 'success');
+      setTimeout(() => document.getElementById('authSubmitBtn').focus(), 100);
+    }
 
-    // Handle Authentication Login
+    // Login Handler: Always verifies ID and Password
     async function handleAuthLogin(e) {
       e.preventDefault();
       
-      // Bot Honeypot Check
       const botField = document.getElementById('botCheckUser').value;
-      if (botField) {
-        console.warn('Bot detected via honeypot.');
-        return; // Silent fail for bots
-      }
+      if (botField) return; // silent drop for bots
 
       const email = document.getElementById('authEmail').value.trim();
       const pass = document.getElementById('authPassword').value.trim();
@@ -827,26 +920,22 @@ create policy "Admin all" on public.leads for all using (true);</pre>
       btnText.textContent = 'Verifying Security Token...';
       btnSpinner.classList.remove('hidden');
 
-      // Intentional delay to thwart automated brute-force scripts
-      await new Promise(r => setTimeout(r, 600));
+      await new Promise(r => setTimeout(r, 300));
 
       let isAuthenticated = false;
 
-      // 1. Try Supabase Auth if connected
-      if (supabaseClient) {
-        try {
-          const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: pass });
-          if (!error && data?.user) {
-            isAuthenticated = true;
-          }
-        } catch(err) {
-          console.log('Supabase auth fallback to Master Admin');
-        }
+      // 1. Check Master Admin Credentials
+      const normEmail = email.toLowerCase();
+      if ((normEmail === MASTER_ADMIN.email.toLowerCase() || normEmail === MASTER_ADMIN.altEmail.toLowerCase()) && pass === MASTER_ADMIN.pass) {
+        isAuthenticated = true;
       }
 
-      // 2. Master Admin Key Verification
-      if (!isAuthenticated && email.toLowerCase() === MASTER_ADMIN.email.toLowerCase() && pass === MASTER_ADMIN.pass) {
-        isAuthenticated = true;
+      // 2. Fallback check Supabase Auth
+      if (!isAuthenticated && supabaseClient) {
+        try {
+          const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: pass });
+          if (!error && data?.user) isAuthenticated = true;
+        } catch(err) {}
       }
 
       btnSpinner.classList.add('hidden');
@@ -855,67 +944,135 @@ create policy "Admin all" on public.leads for all using (true);</pre>
       if (isAuthenticated) {
         sessionStorage.setItem('proloan_admin_authenticated', 'true');
         sessionStorage.setItem('proloan_admin_email', email);
-        if (document.getElementById('rememberSession').checked) {
-          localStorage.setItem('proloan_admin_persisted', 'true');
-          localStorage.setItem('proloan_admin_email', email);
+        if (document.getElementById('rememberSession')?.checked) {
+          localStorage.setItem('proloan_admin_remembered_email', email);
         }
         unlockDashboard(email);
+        showToast('Staff credentials verified. Welcome!', 'success');
       } else {
         errBox.classList.remove('hidden');
+        showToast('Invalid staff credentials. Access Denied.', 'error');
+        const passInput = document.getElementById('authPassword');
+        if (passInput) {
+          passInput.value = '';
+          passInput.focus();
+        }
       }
     }
 
     function unlockDashboard(email) {
-      document.getElementById('authGate').classList.add('opacity-0', 'pointer-events-none');
-      setTimeout(() => {
-        document.getElementById('authGate').classList.add('hidden');
-        document.getElementById('mainDashboard').classList.remove('hidden');
-      }, 300);
+      const authGate = document.getElementById('authGate');
+      const mainDashboard = document.getElementById('mainDashboard');
 
-      document.getElementById('userDisplayEmail').textContent = email || 'infoproloanindia@gmail.com';
+      authGate.classList.add('hidden');
+      mainDashboard.classList.remove('hidden');
+
+      document.getElementById('userDisplayEmail').textContent = email || MASTER_ADMIN.email;
       initSupabase();
-      loadLeads();
+      refreshAllData(false);
     }
 
     function handleLogout() {
-      sessionStorage.removeItem('proloan_admin_authenticated');
-      sessionStorage.removeItem('proloan_admin_email');
+      sessionStorage.clear();
       localStorage.removeItem('proloan_admin_persisted');
       window.location.reload();
     }
 
-    // Check existing session on load
+    // MANDATORY ID & PASSWORD VERIFICATION ON EVERY OPEN
     window.addEventListener('DOMContentLoaded', () => {
-      const isAuth = sessionStorage.getItem('proloan_admin_authenticated') === 'true' || 
-                     localStorage.getItem('proloan_admin_persisted') === 'true';
-      if (isAuth) {
-        const email = sessionStorage.getItem('proloan_admin_email') || localStorage.getItem('proloan_admin_email') || MASTER_ADMIN.email;
-        unlockDashboard(email);
+      const authGate = document.getElementById('authGate');
+      const mainDashboard = document.getElementById('mainDashboard');
+
+      // Guarantee lock screen is active on every page load
+      if (authGate) authGate.classList.remove('hidden');
+      if (mainDashboard) mainDashboard.classList.add('hidden');
+
+      const emailInput = document.getElementById('authEmail');
+      const passInput = document.getElementById('authPassword');
+      if (emailInput) {
+        emailInput.value = localStorage.getItem('proloan_admin_remembered_email') || MASTER_ADMIN.email;
+      }
+      if (passInput) {
+        passInput.value = '';
+        setTimeout(() => passInput.focus(), 150);
       }
     });
 
-    // Default Starter Leads (Realistic DSA Pipeline Demo)
-    const STARTER_LEADS = [
-      {
-        ref_id: 'CC-APP-70179',
-        applicant_name: 'Varun',
-        mobile: '+91 6284667236',
-        loan_product: 'Personal Loan • 36M',
-        loan_amount: '₹15,000',
-        monthly_income: '₹5,266 / mo',
-        city: 'Ludhiana',
-        pan_card: 'Verified',
-        cibil_score: 710,
-        cibil_notes: 'Income: ₹5,266 • CIBIL: 710',
-        lead_category: 'Portal Application',
-        status: 'New',
-        admin_notes: 'CIBIL 710 verified. Pre-approved for Top NBFCs (Bajaj Finserv / Tata Capital).',
-        created_at: new Date().toISOString()
-      }
-    ];
 
     // ==============================================================
-    // ADVANCED CIBIL SCORING & MULTI-BANK CLASSIFICATION ENGINE
+    // DATA LAYER (Node Backend /api/leads + Supabase + LocalStorage)
+    // ==============================================================
+    async function loadAllLeads() {
+      let leads = [];
+
+      // 1. Fetch from Node.js Backend (/api/leads)
+      try {
+        const res = await fetch('/api/leads');
+        const json = await res.json();
+        if (json && json.success && Array.isArray(json.leads) && json.leads.length > 0) {
+          leads = json.leads;
+        }
+      } catch (err) {
+        console.warn('Backend /api/leads fetch note:', err.message);
+      }
+
+      // 2. Fetch from Supabase if connected
+      if (supabaseClient) {
+        try {
+          const { data, error } = await supabaseClient
+            .from('leads')
+            .select('*')
+            .order('created_at', { ascending: false });
+          if (!error && Array.isArray(data) && data.length > 0) {
+            // merge supabase leads
+            data.forEach(sl => {
+              if (!leads.some(l => l.ref_id === sl.ref_id)) {
+                leads.push(sl);
+              }
+            });
+          }
+        } catch(e) {}
+      }
+
+      // 3. Merge LocalStorage leads (from offline website submissions)
+      try {
+        const raw = localStorage.getItem('proloan_leads_log');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) {
+            parsed.forEach(item => {
+              const refId = item['Application Reference ID'] || item.ref_id;
+              if (refId && !leads.some(l => l.ref_id === refId)) {
+                leads.push({
+                  ref_id: refId,
+                  applicant_name: item['Applicant Legal Name'] || item.applicant_name || 'Inquirer',
+                  mobile: item['Contact Mobile Number'] || item.mobile || 'Not Provided',
+                  loan_product: item['Requested Loan Product'] || item.loan_product || 'General Loan',
+                  loan_amount: item['Requested Loan Amount'] || item.loan_amount || 'Flexible',
+                  monthly_income: item['Monthly Income / Tier'] || item.monthly_income || 'N/A',
+                  city: item['City / Location'] || item.city || 'Delhi NCR',
+                  pan_card: item['PAN Card / Tax ID'] || item.pan_card || 'N/A',
+                  cibil_notes: item['Verification / CIBIL Note'] || item.cibil_notes || '',
+                  cibil_score: item.cibil_score ? parseInt(item.cibil_score, 10) : null,
+                  lead_category: item['Lead Category'] || item.lead_category || 'Website Form',
+                  status: item.status || 'New',
+                  admin_notes: item.admin_notes || '',
+                  created_at: item.Timestamp ? new Date(item.Timestamp).toISOString() : (item.created_at || new Date().toISOString())
+                });
+              }
+            });
+          }
+        }
+      } catch(e) {}
+
+      // Sort by newest first
+      currentLeads = leads.sort((a,b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+      applyFilters();
+    }
+
+
+    // ==============================================================
+    // ADVANCED CIBIL SCORING & MULTI-BANK RECOMMENDATIONS
     // ==============================================================
     function parseCibil(lead) {
       if (lead.cibil_score !== undefined && lead.cibil_score !== null && !isNaN(lead.cibil_score) && lead.cibil_score !== '') {
@@ -923,7 +1080,7 @@ create policy "Admin all" on public.leads for all using (true);</pre>
         if (n >= 300 && n <= 900) return n;
         if (n === -1 || n === 0) return -1;
       }
-      const combined = (lead.cibil_notes || '') + ' ' + (lead.monthly_income || '') + ' ' + (lead.admin_notes || '') + ' ' + (lead.notes || '');
+      const combined = (lead.cibil_notes || '') + ' ' + (lead.monthly_income || '') + ' ' + (lead.admin_notes || '');
       const match = combined.match(/(?:cibil|score|bureau)\s*[:=\-]?\s*(\d{3})/i);
       if (match) {
         const v = parseInt(match[1], 10);
@@ -939,7 +1096,7 @@ create policy "Admin all" on public.leads for all using (true);</pre>
           tier: 'Unverified',
           badgeClass: 'bg-slate-800 text-slate-400 border-slate-700 hover:border-cyan-400 hover:text-cyan-300',
           tag: '⚪ Unchecked',
-          bankRecommendation: 'Click to assign verified CIBIL score (300 - 900)',
+          bankRecommendation: 'Click dossier to assign verified bureau score (300 - 900)',
           eligibleBanks: 'Pending Verification',
           isHot: false
         };
@@ -950,7 +1107,7 @@ create policy "Admin all" on public.leads for all using (true);</pre>
           tier: 'Prime (750+)',
           badgeClass: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40 shadow-sm shadow-emerald-500/20',
           tag: '🟢 Prime Banks',
-          bankRecommendation: 'Pre-Approved for Prime Banks: HDFC, ICICI, SBI, Axis at lowest ROI (10.45% - 11.25%)',
+          bankRecommendation: 'Pre-Approved for Prime Banks: HDFC, ICICI, SBI, Axis at lowest ROI (8.40% - 10.45%)',
           eligibleBanks: 'HDFC, ICICI, SBI, Axis',
           isHot: true
         };
@@ -1030,102 +1187,58 @@ create policy "Admin all" on public.leads for all using (true);</pre>
       }
     }
 
-    // Load Leads from Supabase + LocalStorage Fallback
-    async function loadLeads() {
-      let leads = [];
 
-      // 1. Fetch from Supabase if active
-      if (supabaseClient) {
-        try {
-          const { data, error } = await supabaseClient
-            .from('leads')
-            .select('*')
-            .order('created_at', { ascending: false });
-          if (!error && data && data.length > 0) {
-            leads = data;
-          }
-        } catch(e) {
-          console.warn('Supabase fetch error, using local leads:', e);
-        }
-      }
-
-      // 2. Fetch from LocalStorage (from website lead submissions)
-      const rawStored = localStorage.getItem('proloan_leads_log');
-      let storedLeads = [];
-      if (rawStored) {
-        try {
-          const parsed = JSON.parse(rawStored);
-          if (Array.isArray(parsed)) {
-            storedLeads = parsed.map(item => {
-              let parsedCibil = item.cibil_score !== undefined && item.cibil_score !== null ? item.cibil_score : null;
-              if (parsedCibil === null) {
-                const combined = (item['Verification / CIBIL Note'] || '') + ' ' + (item.cibil_notes || '') + ' ' + (item['Monthly Income / Tier'] || '') + ' ' + (item.admin_notes || '');
-                const m = combined.match(/(?:cibil|score)\s*[:=\-]?\s*(\d{3})/i);
-                if (m) {
-                  const num = parseInt(m[1], 10);
-                  if (num >= 300 && num <= 900) parsedCibil = num;
-                }
-              }
-
-              return {
-                ref_id: item['Application Reference ID'] || item.ref_id || ('PL-' + Math.floor(10000 + Math.random()*90000)),
-                applicant_name: item['Applicant Legal Name'] || item.applicant_name || 'Inquirer',
-                mobile: item['Contact Mobile Number'] || item.mobile || 'Not Provided',
-                loan_product: item['Requested Loan Product'] || item.loan_product || 'General Loan',
-                loan_amount: item['Requested Loan Amount'] || item.loan_amount || 'Flexible',
-                monthly_income: item['Monthly Income / Tier'] || item.monthly_income || 'N/A',
-                city: item['City / Location'] || item.city || 'Delhi NCR',
-                pan_card: item['PAN Card / Tax ID'] || item.pan_card || 'N/A',
-                cibil_score: parsedCibil ? parseInt(parsedCibil, 10) : null,
-                cibil_notes: item['Verification / CIBIL Note'] || item.cibil_notes || '',
-                lead_category: item['Lead Category'] || item.lead_category || 'Website Form',
-                status: item.status || 'New',
-                admin_notes: item.admin_notes || '',
-                created_at: item.Timestamp ? new Date(item.Timestamp).toISOString() : (item.created_at || new Date().toISOString())
-              };
-            });
-          }
-        } catch(e) {}
-      }
-
-      // Merge and deduplicate by ref_id
-      const map = new Map();
-      leads.forEach(l => map.set(l.ref_id, l));
-      storedLeads.forEach(l => { if (!map.has(l.ref_id)) map.set(l.ref_id, l); });
-      STARTER_LEADS.forEach(l => { if (!map.has(l.ref_id)) map.set(l.ref_id, l); });
-
-      currentLeads = Array.from(map.values()).sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
-      applyFilters();
-    }
-
-    let currentLeadTab = 'ALL';
-
-    function setLeadTab(tab) {
-      currentLeadTab = tab;
+    // ==============================================================
+    // DASHBOARD TAB ROUTING (All Inquiries / Loans / Contacts / Careers)
+    // ==============================================================
+    function setDashboardTab(tab) {
+      activeDashboardTab = tab;
       
-      const btnAll = document.getElementById('tabBtnAll');
-      const btnLoans = document.getElementById('tabBtnLoans');
-      const btnContact = document.getElementById('tabBtnContact');
-
+      // Update Tab button active styles
+      const tabIds = ['tabBtnAll', 'tabBtnLoans', 'tabBtnContact', 'tabBtnCareers'];
       const activeClass = 'bg-brand-600 text-white shadow-md shadow-brand-600/30 font-bold';
       const inactiveClass = 'bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white font-semibold';
 
-      btnAll.className = 'px-4 py-2 rounded-xl text-xs transition-all flex items-center gap-1.5 cursor-pointer ' + (tab === 'ALL' ? activeClass : inactiveClass);
-      btnLoans.className = 'px-4 py-2 rounded-xl text-xs transition-all flex items-center gap-1.5 cursor-pointer ' + (tab === 'LOANS' ? activeClass : inactiveClass);
-      btnContact.className = 'px-4 py-2 rounded-xl text-xs transition-all flex items-center gap-1.5 cursor-pointer ' + (tab === 'CONTACT' ? activeClass : inactiveClass);
+      tabIds.forEach(id => {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        const matches = (id === 'tabBtnAll' && tab === 'ALL') ||
+                        (id === 'tabBtnLoans' && tab === 'LOANS') ||
+                        (id === 'tabBtnContact' && tab === 'CONTACT') ||
+                        (id === 'tabBtnCareers' && tab === 'CAREERS');
+        btn.className = 'px-4 py-2 rounded-xl text-xs transition-all flex items-center gap-1.5 cursor-pointer ' + (matches ? activeClass : inactiveClass);
+      });
 
-      applyFilters();
+      // Show/Hide Main Containers
+      const leadsBar = document.getElementById('leadsControlBar');
+      const leadsCont = document.getElementById('leadsTableContainer');
+      const careerCont = document.getElementById('careerTableContainer');
+
+      if (tab === 'CAREERS') {
+        leadsBar.classList.add('hidden');
+        leadsCont.classList.add('hidden');
+        careerCont.classList.remove('hidden');
+        loadCareerApplications(false);
+      } else {
+        careerCont.classList.add('hidden');
+        leadsBar.classList.remove('hidden');
+        leadsCont.classList.remove('hidden');
+        applyFilters();
+      }
     }
 
-    // Filter Logic
+
+    // ==============================================================
+    // LEADS FILTER & TABLE RENDER ENGINE
+    // ==============================================================
     function applyFilters() {
       const search = (document.getElementById('leadSearchInput').value || '').toLowerCase();
       const product = document.getElementById('filterProduct').value;
       const status = document.getElementById('filterStatus').value;
-      const filterCibil = document.getElementById('filterCibil') ? document.getElementById('filterCibil').value : 'ALL';
+      const filterCibil = document.getElementById('filterCibil').value;
 
       filteredLeads = currentLeads.filter(lead => {
-        // Search filter
+        // Search
         const matchSearch = !search || 
           (lead.applicant_name && lead.applicant_name.toLowerCase().includes(search)) ||
           (lead.mobile && lead.mobile.toLowerCase().includes(search)) ||
@@ -1133,55 +1246,44 @@ create policy "Admin all" on public.leads for all using (true);</pre>
           (lead.city && lead.city.toLowerCase().includes(search)) ||
           (lead.pan_card && lead.pan_card.toLowerCase().includes(search));
 
-        // Product filter
-        const isContactLead = (lead.lead_category && lead.lead_category.toLowerCase().includes('contact')) || 
-                                (lead.loan_product && lead.loan_product.toLowerCase().includes('contact'));
+        // Tab separation
+        const isContact = (lead.lead_category && lead.lead_category.toLowerCase().includes('contact')) || 
+                          (lead.loan_product && lead.loan_product.toLowerCase().includes('contact'));
 
-        // Tab filter
         let matchTab = true;
-        if (currentLeadTab === 'LOANS') matchTab = !isContactLead;
-        if (currentLeadTab === 'CONTACT') matchTab = isContactLead;
+        if (activeDashboardTab === 'LOANS') matchTab = !isContact;
+        if (activeDashboardTab === 'CONTACT') matchTab = isContact;
 
-        // Product filter
+        // Product Filter
         let matchProduct = true;
-        if (product === 'Contact') {
-          matchProduct = isContactLead;
-        } else if (product !== 'ALL') {
+        if (product !== 'ALL') {
           matchProduct = lead.loan_product && lead.loan_product.toLowerCase().includes(product.toLowerCase());
         }
 
-        // Status filter
+        // Status Filter
         const matchStatus = (status === 'ALL') || (lead.status === status);
 
-        // CIBIL Score Filter
+        // CIBIL Filter
         let matchCibil = true;
         const cScore = parseCibil(lead);
-        if (filterCibil === '750') {
-          matchCibil = cScore !== null && cScore >= 750;
-        } else if (filterCibil === '700') {
-          matchCibil = cScore !== null && cScore >= 700 && cScore < 750;
-        } else if (filterCibil === '650') {
-          matchCibil = cScore !== null && cScore >= 650 && cScore < 700;
-        } else if (filterCibil === 'SUB650') {
-          matchCibil = cScore !== null && cScore > 0 && cScore < 650;
-        } else if (filterCibil === 'UNCHECKED') {
-          matchCibil = cScore === null || isNaN(cScore);
-        }
+        if (filterCibil === '750') matchCibil = cScore !== null && cScore >= 750;
+        else if (filterCibil === '700') matchCibil = cScore !== null && cScore >= 700 && cScore < 750;
+        else if (filterCibil === '650') matchCibil = cScore !== null && cScore >= 650 && cScore < 700;
+        else if (filterCibil === 'SUB650') matchCibil = cScore !== null && cScore > 0 && cScore < 650;
+        else if (filterCibil === 'UNCHECKED') matchCibil = cScore === null || isNaN(cScore);
 
         return matchSearch && matchTab && matchProduct && matchStatus && matchCibil;
       });
 
       renderKPIs();
-      renderTable();
+      renderLeadsTable();
     }
 
-    // Render Metric Cards
     function renderKPIs() {
       const total = currentLeads.length;
       const newCount = currentLeads.filter(l => l.status === 'New').length;
       const activeCount = currentLeads.filter(l => ['Contacted', 'Docs Pending', 'Underwriting'].includes(l.status)).length;
       
-      // Calculate total pipeline volume
       let totalVolume = 0;
       currentLeads.forEach(l => {
         if (l.loan_amount) {
@@ -1194,19 +1296,14 @@ create policy "Admin all" on public.leads for all using (true);</pre>
       const totalContact = currentLeads.filter(l => (l.lead_category && l.lead_category.toLowerCase().includes('contact')) || (l.loan_product && l.loan_product.toLowerCase().includes('contact'))).length;
       const totalLoans = total - totalContact;
 
-      const tabCountAll = document.getElementById('tabCountAll');
-      const tabCountLoans = document.getElementById('tabCountLoans');
-      const tabCountContact = document.getElementById('tabCountContact');
-
-      if (tabCountAll) tabCountAll.textContent = total;
-      if (tabCountLoans) tabCountLoans.textContent = totalLoans;
-      if (tabCountContact) tabCountContact.textContent = totalContact;
+      document.getElementById('tabCountAll').textContent = total;
+      document.getElementById('tabCountLoans').textContent = totalLoans;
+      document.getElementById('tabCountContact').textContent = totalContact;
 
       document.getElementById('kpiTotalLeads').textContent = total;
       document.getElementById('kpiNewLeads').textContent = newCount;
       document.getElementById('kpiActiveLeads').textContent = activeCount;
 
-      // Format Indian currency (Lakhs / Crores)
       let formattedVol = '₹0';
       if (totalVolume >= 10000000) {
         formattedVol = '₹' + (totalVolume / 10000000).toFixed(2) + ' Cr';
@@ -1218,8 +1315,7 @@ create policy "Admin all" on public.leads for all using (true);</pre>
       document.getElementById('kpiPipelineValue').textContent = formattedVol;
     }
 
-    // Render Table
-    function renderTable() {
+    function renderLeadsTable() {
       const tbody = document.getElementById('leadsTableBody');
       const countLabel = document.getElementById('leadCountLabel');
 
@@ -1233,13 +1329,13 @@ create policy "Admin all" on public.leads for all using (true);</pre>
                 <span class="material-symbols-outlined text-2xl">inbox</span>
               </div>
               <h4 class="text-sm font-bold text-slate-300">No Inquiries Found</h4>
-              <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto">Incoming loan applications and Contact Us messages submitted on the website will automatically appear here in real-time.</p>
+              <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto">Submitted loan applications and contact queries will automatically appear here in real time.</p>
               <div class="mt-3 flex items-center justify-center gap-2">
-                <button onclick="openAddLeadModal()" class="px-3 py-1.5 rounded-lg bg-brand-600/30 hover:bg-brand-600/50 text-cyan-300 text-xs font-semibold border border-brand-500/30 flex items-center gap-1">
+                <button onclick="openAddLeadModal()" class="px-3 py-1.5 rounded-lg bg-brand-600/30 hover:bg-brand-600/50 text-cyan-300 text-xs font-semibold border border-brand-500/30 flex items-center gap-1 cursor-pointer">
                   <span class="material-symbols-outlined text-xs">add</span>
-                  <span>Record Offline Lead</span>
+                  <span>Record Inquirer</span>
                 </button>
-                <button onclick="resetFilters()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white text-xs font-semibold">
+                <button onclick="resetFilters()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white text-xs font-semibold cursor-pointer">
                   Reset Filters
                 </button>
               </div>
@@ -1249,8 +1345,7 @@ create policy "Admin all" on public.leads for all using (true);</pre>
         return;
       }
 
-      tbody.innerHTML = filteredLeads.map((lead, idx) => {
-        // Status Badges & Colors
+      tbody.innerHTML = filteredLeads.map(lead => {
         const statusConfig = {
           'New': { bg: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30', label: 'New' },
           'Contacted': { bg: 'bg-amber-500/15 text-amber-300 border-amber-500/30', label: 'Contacted' },
@@ -1260,19 +1355,16 @@ create policy "Admin all" on public.leads for all using (true);</pre>
           'Rejected': { bg: 'bg-rose-500/15 text-rose-400 border-rose-500/30', label: 'Rejected' }
         }[lead.status] || { bg: 'bg-slate-700/50 text-slate-300 border-slate-600', label: lead.status || 'New' };
 
-        // Relative time or readable date
         const dateObj = new Date(lead.created_at);
         const formattedDate = !isNaN(dateObj.getTime()) 
           ? dateObj.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' }) + ', ' + dateObj.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })
           : 'Recent';
 
-        // Pre-filled WhatsApp message
         const waMsg = encodeURIComponent(
-          `Hello ${lead.applicant_name || 'Customer'},\n\nThank you for reaching out to Proloan India regarding your ${lead.loan_product || 'loan'} inquiry (Application Ref: ${lead.ref_id}).\n\nI am following up from our Indirapuram underwriting desk to assist you with the best bank interest rates and quick sanction. May I know a good time to connect?\n\nWarm regards,\nProloan India Advisory Team`
+          `Hello ${lead.applicant_name || 'Customer'},\n\nThank you for reaching out to Proloan India regarding your ${lead.loan_product || 'loan'} file (Application Ref: ${lead.ref_id}).\n\nI am following up from our Indirapuram underwriting desk to assist you with the best bank interest rates and quick sanction. May I know a good time to connect?\n\nWarm regards,\nProloan India Advisory Team`
         );
         const rawPhone = (lead.mobile || '').replace(/[^0-9]/g, '');
 
-        // CIBIL Classification
         const cScore = parseCibil(lead);
         const cMeta = getCibilClassification(cScore);
 
@@ -1283,7 +1375,7 @@ create policy "Admin all" on public.leads for all using (true);</pre>
             <td class="py-3.5 px-4">
               <div class="flex items-center gap-1.5">
                 <span class="font-mono text-xs font-bold text-cyan-400">${lead.ref_id}</span>
-                <button onclick="copyToClipboard('${lead.ref_id}')" title="Copy Ref ID" class="text-slate-500 hover:text-slate-300">
+                <button onclick="copyToClipboard('${lead.ref_id}')" title="Copy Ref ID" class="text-slate-500 hover:text-slate-300 cursor-pointer">
                   <span class="material-symbols-outlined text-[14px]">content_copy</span>
                 </button>
               </div>
@@ -1298,19 +1390,19 @@ create policy "Admin all" on public.leads for all using (true);</pre>
               <span class="text-[10px] text-slate-500 block truncate max-w-[140px]">${lead.city || 'Pan India'}</span>
             </td>
 
-            <!-- Fast Action Icons (Call & WhatsApp) -->
+            <!-- Fast Connect Suite -->
             <td class="py-3.5 px-4">
               <div class="flex items-center gap-1.5">
                 <a href="tel:${lead.mobile}" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-400 flex items-center justify-center transition-all" title="Direct Phone Call">
                   <span class="material-symbols-outlined text-base">call</span>
                 </a>
-                <a href="https://wa.me/${rawPhone}?text=${waMsg}" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-300 border border-emerald-500/30 flex items-center justify-center transition-all" title="Message via WhatsApp with pre-composed follow-up">
+                <a href="https://wa.me/${rawPhone}?text=${waMsg}" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-300 border border-emerald-500/30 flex items-center justify-center transition-all" title="WhatsApp Follow-up">
                   <span class="material-symbols-outlined text-base">chat</span>
                 </a>
               </div>
             </td>
 
-            <!-- Loan Inquired / Contact Message -->
+            <!-- Loan Inquired -->
             <td class="py-3.5 px-4">
               ${(lead.lead_category && lead.lead_category.toLowerCase().includes('contact')) || (lead.loan_product && lead.loan_product.toLowerCase().includes('contact')) ? `
                 <div class="flex items-center gap-1 text-purple-300 font-bold">
@@ -1324,7 +1416,7 @@ create policy "Admin all" on public.leads for all using (true);</pre>
               `}
             </td>
 
-            <!-- CIBIL Score & Multi-Bank Recommendation (NEW) -->
+            <!-- CIBIL Score & Bank Match -->
             <td class="py-3.5 px-4 text-center">
               <div class="inline-flex flex-col items-center">
                 <button type="button" onclick="openDossierModal('${lead.ref_id}')" class="px-2.5 py-1 rounded-xl border font-mono font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer ${cMeta.badgeClass}" title="${cMeta.bankRecommendation}">
@@ -1346,7 +1438,7 @@ create policy "Admin all" on public.leads for all using (true);</pre>
 
             <!-- Pipeline Status Dropdown -->
             <td class="py-3.5 px-4">
-              <select onchange="handleStatusChange('${lead.ref_id}', this.value)" class="text-[11px] font-semibold py-1 px-2.5 rounded-lg border bg-slate-900 focus:outline-none ${statusConfig.bg}">
+              <select onchange="handleStatusChange('${lead.ref_id}', this.value)" class="text-[11px] font-semibold py-1 px-2.5 rounded-lg border bg-slate-900 focus:outline-none cursor-pointer ${statusConfig.bg}">
                 <option value="New" ${lead.status === 'New' ? 'selected' : ''}>🟢 New</option>
                 <option value="Contacted" ${lead.status === 'Contacted' ? 'selected' : ''}>🟡 Contacted</option>
                 <option value="Docs Pending" ${lead.status === 'Docs Pending' ? 'selected' : ''}>🔵 Docs Pending</option>
@@ -1359,11 +1451,11 @@ create policy "Admin all" on public.leads for all using (true);</pre>
             <!-- Action Buttons -->
             <td class="py-3.5 px-4 text-right">
               <div class="flex items-center justify-end gap-1.5">
-                <button onclick="openDossierModal('${lead.ref_id}')" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 text-[11px] font-semibold border border-slate-700/60 flex items-center gap-1 transition-all" title="View Full Applicant Dossier">
+                <button onclick="openDossierModal('${lead.ref_id}')" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 text-[11px] font-semibold border border-slate-700/60 flex items-center gap-1 transition-all cursor-pointer" title="View Full Dossier">
                   <span>Dossier</span>
                   <span class="material-symbols-outlined text-xs">open_in_new</span>
                 </button>
-                <button onclick="deleteLead('${lead.ref_id}')" class="p-1.5 rounded-lg text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition-all" title="Delete record">
+                <button onclick="deleteLead('${lead.ref_id}')" class="p-1.5 rounded-lg text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition-all cursor-pointer" title="Delete record">
                   <span class="material-symbols-outlined text-base">delete</span>
                 </button>
               </div>
@@ -1378,34 +1470,44 @@ create policy "Admin all" on public.leads for all using (true);</pre>
       document.getElementById('leadSearchInput').value = '';
       document.getElementById('filterProduct').value = 'ALL';
       document.getElementById('filterStatus').value = 'ALL';
-      if (document.getElementById('filterCibil')) document.getElementById('filterCibil').value = 'ALL';
+      document.getElementById('filterCibil').value = 'ALL';
       applyFilters();
     }
 
-    // Status Change Handler (Live Sync to Supabase & Local)
+
+    // ==============================================================
+    // STATUS CHANGE & PERSISTENCE
+    // ==============================================================
     async function handleStatusChange(refId, newStatus) {
       const lead = currentLeads.find(l => l.ref_id === refId);
       if (!lead) return;
       lead.status = newStatus;
 
-      // Update in Supabase
+      // 1. Update backend REST endpoint
+      try {
+        await fetch('/api/leads/' + refId, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: newStatus })
+        });
+      } catch (e) {}
+
+      // 2. Update Supabase
       if (supabaseClient) {
         try {
-          await supabaseClient
-            .from('leads')
-            .update({ status: newStatus })
-            .eq('ref_id', refId);
-        } catch(e) {
-          console.warn('Status sync to Supabase error:', e);
-        }
+          await supabaseClient.from('leads').update({ status: newStatus }).eq('ref_id', refId);
+        } catch(e) {}
       }
 
-      // Persist in local storage
       persistLeadsLocally();
       applyFilters();
+      showToast(`Status updated to ${newStatus} for ${refId}`, 'success');
     }
 
-    // Open Applicant Dossier Modal
+
+    // ==============================================================
+    // APPLICANT DOSSIER MODAL LOGIC
+    // ==============================================================
     function openDossierModal(refId) {
       const lead = currentLeads.find(l => l.ref_id === refId);
       if (!lead) return;
@@ -1420,10 +1522,11 @@ create policy "Admin all" on public.leads for all using (true);</pre>
       document.getElementById('dosCity').textContent = lead.city || 'Pan India';
       document.getElementById('dosIncome').textContent = lead.monthly_income;
       document.getElementById('dosPan').textContent = lead.pan_card || 'Not Provided';
-      document.getElementById('dosNotes').textContent = lead.cibil_notes || 'Application logged directly from customer online session.';
+      document.getElementById('dosNotes').textContent = lead.cibil_notes || 'Application logged directly from customer session.';
       document.getElementById('dosAdminNotes').value = lead.admin_notes || '';
 
-      // Initialize CIBIL inputs & Live Preview
+
+      // Initialize CIBIL inputs
       const cScore = parseCibil(lead);
       const cibilInput = document.getElementById('dosCibilInput');
       if (cibilInput) {
@@ -1431,11 +1534,9 @@ create policy "Admin all" on public.leads for all using (true);</pre>
         handleLiveCibilInput(cScore !== null ? cScore : '');
       }
 
-      // Set Action links
+      // Action links
       document.getElementById('dosCallBtn').href = 'tel:' + lead.mobile;
-      const rawPhone = (lead.mobile || '').replace(/[^0-9]/g, '');
-      const waMsg = encodeURIComponent(`Hi ${lead.applicant_name}, this is from Proloan India regarding your ${lead.loan_product} file.`);
-      document.getElementById('dosWaBtn').href = `https://wa.me/${rawPhone}?text=${waMsg}`;
+      applyWhatsAppTemplate('intro');
 
       document.getElementById('dossierModal').classList.remove('hidden');
     }
@@ -1444,7 +1545,23 @@ create policy "Admin all" on public.leads for all using (true);</pre>
       document.getElementById('dossierModal').classList.add('hidden');
     }
 
-    // Save Admin Remarks & CIBIL from Modal
+    function applyWhatsAppTemplate(tmplKey) {
+      if (selectedLeadIndex < 0 || !currentLeads[selectedLeadIndex]) return;
+      const lead = currentLeads[selectedLeadIndex];
+      const rawPhone = (lead.mobile || '').replace(/[^0-9]/g, '');
+
+      let text = '';
+      if (tmplKey === 'intro') {
+        text = `Hello ${lead.applicant_name},\n\nGreetings from Proloan India! I am reviewing your ${lead.loan_product} inquiry (Ref: ${lead.ref_id}). Our Indirapuram desk has curated the best bank offers matching your profile. Are you available for a quick 2-minute discussion?\n\nWarm regards,\nProloan India Advisory`;
+      } else if (tmplKey === 'docs') {
+        text = `Hi ${lead.applicant_name},\n\nTo fast-track your ${lead.loan_product} sanction with prime bank interest rates, kindly share copies of:\n1. PAN Card & Aadhaar\n2. Last 3 Months Salary Slips (or 2 Yrs ITR)\n3. Last 6 Months Bank Statement (PDF)\n\nThank you,\nProloan India Processing Desk`;
+      } else if (tmplKey === 'sanction') {
+        text = `Dear ${lead.applicant_name},\n\nGood news! Your file (${lead.ref_id}) is eligible for in-principle sanction. Kindly confirm your preferred bank (HDFC / ICICI / SBI / Axis) to initiate login.\n\nWarm regards,\nProloan India`;
+      }
+
+      document.getElementById('dosWaBtn').href = `https://wa.me/${rawPhone}?text=${encodeURIComponent(text)}`;
+    }
+
     async function saveAdminNotesFromModal() {
       if (selectedLeadIndex < 0 || !currentLeads[selectedLeadIndex]) return;
       const lead = currentLeads[selectedLeadIndex];
@@ -1459,8 +1576,20 @@ create policy "Admin all" on public.leads for all using (true);</pre>
         } else if (num === -1 || num === 0) {
           lead.cibil_score = -1;
         }
+      } else {
+        lead.cibil_score = null;
       }
 
+      // Update Node backend
+      try {
+        await fetch('/api/leads/' + lead.ref_id, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ admin_notes: notes, cibil_score: lead.cibil_score })
+        });
+      } catch(e) {}
+
+      // Update Supabase
       if (supabaseClient) {
         try {
           await supabaseClient
@@ -1473,6 +1602,7 @@ create policy "Admin all" on public.leads for all using (true);</pre>
       persistLeadsLocally();
       closeDossierModal();
       applyFilters();
+      showToast('Applicant notes & CIBIL score saved successfully!', 'success');
     }
 
     // Delete Lead
@@ -1481,6 +1611,10 @@ create policy "Admin all" on public.leads for all using (true);</pre>
 
       currentLeads = currentLeads.filter(l => l.ref_id !== refId);
 
+      try {
+        await fetch('/api/leads/' + refId, { method: 'DELETE' });
+      } catch(e) {}
+
       if (supabaseClient) {
         try {
           await supabaseClient.from('leads').delete().eq('ref_id', refId);
@@ -1488,10 +1622,15 @@ create policy "Admin all" on public.leads for all using (true);</pre>
       }
 
       persistLeadsLocally();
+      populateBorrowerDropdown();
       applyFilters();
+      showToast(`Lead ${refId} removed.`, 'info');
     }
 
-    // Manual Add Lead Modal
+
+    // ==============================================================
+    // MANUAL ADD LEAD
+    // ==============================================================
     function openAddLeadModal() {
       document.getElementById('addLeadModal').classList.remove('hidden');
     }
@@ -1501,7 +1640,7 @@ create policy "Admin all" on public.leads for all using (true);</pre>
 
     async function handleManualLeadSubmit(e) {
       e.preventDefault();
-      const manualCibilVal = document.getElementById('manualCibil') ? document.getElementById('manualCibil').value.trim() : '';
+      const manualCibilVal = document.getElementById('manualCibil').value.trim();
       let parsedCibil = null;
       if (manualCibilVal) {
         const num = parseInt(manualCibilVal, 10);
@@ -1514,40 +1653,198 @@ create policy "Admin all" on public.leads for all using (true);</pre>
         mobile: document.getElementById('manualPhone').value.trim(),
         city: document.getElementById('manualCity').value.trim() || 'Indirapuram, Ghaziabad',
         loan_product: document.getElementById('manualProduct').value,
-        loan_amount: document.getElementById('manualAmount').value.trim() || '₹20,00,000',
+        loan_amount: document.getElementById('manualAmount').value.trim() || '₹15,00,000',
         monthly_income: document.getElementById('manualIncome').value.trim() || '₹50,000 / mo',
         pan_card: document.getElementById('manualPan').value.trim().toUpperCase() || 'N/A',
         cibil_score: parsedCibil,
-        cibil_notes: document.getElementById('manualNotes').value.trim() || (parsedCibil ? `CIBIL: ${parsedCibil}` : 'Walk-in / Phone Inquirer'),
+        cibil_notes: document.getElementById('manualNotes').value.trim() || (parsedCibil ? `CIBIL: ${parsedCibil}` : 'Walk-in / Direct entry'),
         lead_category: 'Direct Staff Entry',
         status: 'New',
-        admin_notes: parsedCibil ? `Verified CIBIL Score: ${parsedCibil}.` : 'Created manually by underwriter.',
+        admin_notes: parsedCibil ? `Verified CIBIL: ${parsedCibil}.` : 'Created by underwriter.',
         created_at: new Date().toISOString()
       };
 
       currentLeads.unshift(newLead);
 
+      // Save to Node backend
+      try {
+        await fetch('/api/leads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newLead)
+        });
+      } catch(e) {}
+
+      // Save to Supabase
       if (supabaseClient) {
         try {
           await supabaseClient.from('leads').insert([newLead]);
-        } catch(err) {
-          console.warn('Manual lead insert to Supabase warning:', err);
-        }
+        } catch(e) {}
       }
 
       persistLeadsLocally();
+      populateBorrowerDropdown();
       closeAddLeadModal();
       applyFilters();
+      showToast(`New inquiry recorded: ${newLead.ref_id} (${newLead.applicant_name})`, 'success');
     }
 
-    // Export Leads to CSV / Excel
-    function exportLeadsToCSV() {
-      if (!filteredLeads.length) {
-        alert('No leads to export.');
+
+    // ==============================================================
+    // CAREER APPLICATIONS DATA & PIPELINE
+    // ==============================================================
+    const CSTYLES = {
+      New: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
+      Reviewing: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
+      Shortlisted: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30',
+      Interview: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
+      Hired: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
+      Rejected: 'bg-rose-500/20 text-rose-300 border-rose-500/30'
+    };
+
+    async function loadCareerApplications(showToastNotice) {
+      const tbody = document.getElementById('careerTableBody');
+      tbody.innerHTML = `<tr><td colspan="7" class="py-10 text-center text-slate-500"><span class="material-symbols-outlined text-3xl animate-spin text-orange-400">sync</span><p class="mt-2 text-xs">Loading career candidates...</p></td></tr>`;
+
+      try {
+        const res = await fetch('/api/career-applications');
+        const json = await res.json();
+        if (json && json.success) {
+          careerData = json.applications || [];
+          renderCareerTable();
+          document.getElementById('tabCountCareers').textContent = careerData.length;
+          if (showToastNotice) showToast(`Synced ${careerData.length} career applications`, 'info');
+        } else {
+          tbody.innerHTML = `<tr><td colspan="7" class="py-10 text-center text-rose-400 text-xs">Error: ${json.message}</td></tr>`;
+        }
+      } catch(e) {
+        tbody.innerHTML = `<tr><td colspan="7" class="py-10 text-center text-slate-500 text-xs">No career applications stored on backend yet. Submissions via website will automatically show here.</td></tr>`;
+      }
+    }
+
+    function renderCareerTable() {
+      const tbody = document.getElementById('careerTableBody');
+      const countLabel = document.getElementById('careerCountLabel');
+
+      if (!careerData.length) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" class="py-14 text-center text-slate-500">
+              <span class="material-symbols-outlined text-5xl text-slate-700">work_off</span>
+              <p class="mt-3 text-sm font-semibold text-slate-300">No career applications yet</p>
+              <p class="text-xs mt-1">Applications submitted from the careers page will appear here with downloadable resumes.</p>
+            </td>
+          </tr>
+        `;
+        countLabel.textContent = '0 candidates';
         return;
       }
 
-      const headers = ['Ref ID', 'Applicant Name', 'Mobile', 'Loan Product', 'Loan Amount', 'CIBIL Score', 'Bureau Verdict', 'City', 'Monthly Income', 'PAN Card', 'Status', 'Lead Source', 'Created At', 'Admin Remarks'];
+      countLabel.textContent = `${careerData.length} candidate${careerData.length !== 1 ? 's' : ''}`;
+
+      tbody.innerHTML = careerData.map((app, idx) => {
+        const stageClass = CSTYLES[app.status] || CSTYLES.New;
+        const stageOptions = Object.keys(CSTYLES).map(s => 
+          `<option value="${s}" ${s === app.status ? 'selected' : ''}>${s}</option>`
+        ).join('');
+
+        const resumeBtn = app.hasResume 
+          ? `<a href="/api/career-resume/${app.appId}" target="_blank" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-orange-500/15 hover:bg-orange-500/30 text-orange-300 text-[11px] font-bold border border-orange-500/20 transition-all"><span class="material-symbols-outlined text-sm">picture_as_pdf</span><span>${app.resumeName || 'Resume'}</span></a>`
+          : `<span class="text-slate-500 text-[11px] italic">No file</span>`;
+
+        const waMsg = encodeURIComponent(`Hi ${app.name}, thank you for applying for the ${app.role} role at Proloan India. We are pleased to connect regarding your profile.`);
+
+        return `
+          <tr class="hover:bg-slate-800/40 transition-colors">
+            <td class="py-3 px-4">
+              <span class="font-mono text-[11px] text-orange-300 font-bold">${app.appId}</span>
+              <p class="text-[10px] text-slate-500 mt-0.5">${app.timestamp || 'Recent'}</p>
+            </td>
+            <td class="py-3 px-4">
+              <span class="font-bold text-white text-xs block">${app.name}</span>
+              <span class="text-[10px] text-slate-400 block">${app.mobile}</span>
+              <span class="text-[10px] text-slate-500 block truncate max-w-[150px]">${app.email}</span>
+            </td>
+            <td class="py-3 px-4">
+              <span class="font-semibold text-orange-300 text-xs">${app.role}</span>
+            </td>
+            <td class="py-3 px-4">
+              <span class="text-slate-300 text-xs block font-medium">${app.experience || 'Fresher'}</span>
+              <span class="text-[10px] text-slate-500 block">${app.city || 'Pan India'}</span>
+            </td>
+            <td class="py-3 px-4">
+              ${resumeBtn}
+            </td>
+            <td class="py-3 px-4 text-center">
+              <select onchange="updateCareerStatus('${app.appId}', this.value)" class="px-2 py-1.5 rounded-lg text-[11px] font-bold border focus:outline-none bg-slate-900 cursor-pointer ${stageClass}">
+                ${stageOptions}
+              </select>
+            </td>
+            <td class="py-3 px-4 text-right">
+              <div class="flex items-center justify-end gap-1.5">
+                <a href="tel:${app.mobile}" class="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-400" title="Call candidate">
+                  <span class="material-symbols-outlined text-base">call</span>
+                </a>
+                <a href="https://wa.me/91${app.mobile.replace(/[^0-9]/g, '')}?text=${waMsg}" target="_blank" class="p-1.5 rounded-lg bg-emerald-600/20 text-emerald-300" title="WhatsApp candidate">
+                  <span class="material-symbols-outlined text-base">chat</span>
+                </a>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function updateCareerStatus(appId, status) {
+      try {
+        await fetch('/api/career-status', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ appId, status })
+        });
+      } catch(e) {}
+
+      const rec = careerData.find(a => a.appId === appId);
+      if (rec) rec.status = status;
+      renderCareerTable();
+      showToast(`Candidate ${appId} stage updated to ${status}`, 'success');
+    }
+
+
+
+
+    // ==============================================================
+    // CSV EXPORT ENGINE
+    // ==============================================================
+    function exportCurrentViewToCSV() {
+      if (activeDashboardTab === 'CAREERS') {
+        if (!careerData.length) {
+          showToast('No career records to export.', 'warning');
+          return;
+        }
+        const headers = ['App ID', 'Applicant Name', 'Mobile', 'Email', 'Role', 'Experience', 'City', 'Cover Note', 'Stage', 'Submitted At'];
+        const rows = careerData.map(c => [
+          `"${c.appId || ''}"`,
+          `"${(c.name || '').replace(/"/g, '""')}"`,
+          `"${c.mobile || ''}"`,
+          `"${c.email || ''}"`,
+          `"${c.role || ''}"`,
+          `"${c.experience || ''}"`,
+          `"${(c.city || '').replace(/"/g, '""')}"`,
+          `"${(c.note || '').replace(/"/g, '""')}"`,
+          `"${c.status || 'New'}"`,
+          `"${c.timestamp || ''}"`
+        ]);
+        downloadCsvFile(`Proloan_Careers_Export_${new Date().toISOString().slice(0,10)}.csv`, headers, rows);
+        return;
+      }
+
+      if (!filteredLeads.length) {
+        showToast('No inquiries to export.', 'warning');
+        return;
+      }
+
+      const headers = ['Ref ID', 'Applicant Name', 'Mobile', 'Loan Product', 'Loan Amount', 'CIBIL Score', 'Bureau Classification', 'City', 'Monthly Income', 'PAN Card', 'Status', 'Lead Source', 'Created At', 'Admin Remarks'];
       const rows = filteredLeads.map(l => {
         const cScore = parseCibil(l);
         const cMeta = getCibilClassification(cScore);
@@ -1569,26 +1866,44 @@ create policy "Admin all" on public.leads for all using (true);</pre>
         ];
       });
 
+      downloadCsvFile(`Proloan_Leads_Export_${new Date().toISOString().slice(0,10)}.csv`, headers, rows);
+    }
+
+    function downloadCsvFile(filename, headers, rows) {
       const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
       const encodedUri = encodeURI(csvContent);
       const link = document.createElement('a');
       link.setAttribute('href', encodedUri);
-      link.setAttribute('download', `Proloan_Leads_Export_${new Date().toISOString().slice(0,10)}.csv`);
+      link.setAttribute('download', filename);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+      showToast(`Exported ${rows.length} records to ${filename}`, 'success');
     }
 
-    // Refresh Leads
-    function refreshLeads(showSpin) {
+
+    // ==============================================================
+    // SYNC & REFRESH LOGIC
+    // ==============================================================
+    function refreshAllData(showSpin) {
       const icon = document.getElementById('refreshIcon');
       if (showSpin && icon) icon.classList.add('animate-spin');
-      loadLeads().then(() => {
+
+      Promise.all([loadAllLeads(), loadCareerApplications(false)]).then(() => {
         if (icon) setTimeout(() => icon.classList.remove('animate-spin'), 600);
+        if (showSpin) showToast('All records synced with backend and Supabase.', 'success');
       });
     }
 
-    // Supabase Real-Time Listener
+    // Auto-poll every 30 seconds
+    setInterval(() => {
+      const isAuth = sessionStorage.getItem('proloan_admin_authenticated') === 'true' || 
+                     localStorage.getItem('proloan_admin_persisted') === 'true';
+      if (isAuth) {
+        loadAllLeads();
+      }
+    }, 30000);
+
     function subscribeToLiveLeads() {
       if (!supabaseClient) return;
       try {
@@ -1598,16 +1913,59 @@ create policy "Admin all" on public.leads for all using (true);</pre>
             console.log('⚡ New Live Lead Arrived via Supabase:', payload.new);
             currentLeads.unshift(payload.new);
             applyFilters();
+            showToast(`New Lead Arrived: ${payload.new.applicant_name} (${payload.new.loan_product})`, 'info');
           })
           .subscribe();
       } catch(e) {}
     }
 
-    // Local Persistence Helper
     function persistLeadsLocally() {
       try {
         localStorage.setItem('proloan_leads_log', JSON.stringify(currentLeads.slice(0, 150)));
       } catch(e) {}
+    }
+
+
+    // ==============================================================
+    // UTILITIES & TOAST ENGINE
+    // ==============================================================
+    function copyToClipboard(text) {
+      if (!text) return;
+      navigator.clipboard.writeText(text);
+      showToast('Copied to clipboard: ' + text, 'info');
+    }
+
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      
+      const colors = {
+        success: 'bg-emerald-950/90 text-emerald-300 border-emerald-500/40',
+        error: 'bg-rose-950/90 text-rose-300 border-rose-500/40',
+        warning: 'bg-amber-950/90 text-amber-300 border-amber-500/40',
+        info: 'bg-slate-900/90 text-cyan-300 border-slate-700'
+      }[type] || 'bg-slate-900/90 text-white border-slate-700';
+
+      const icons = {
+        success: 'check_circle',
+        error: 'error',
+        warning: 'warning',
+        info: 'info'
+      }[type] || 'info';
+
+      toast.className = `toast-enter flex items-center gap-2.5 px-4 py-3 rounded-2xl border shadow-2xl backdrop-blur-md text-xs font-semibold ${colors} pointer-events-auto`;
+      toast.innerHTML = `
+        <span class="material-symbols-outlined text-base shrink-0">${icons}</span>
+        <span>${message}</span>
+      `;
+
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(10px)';
+        toast.style.transition = 'all 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
     }
 
     // Config Modal Helpers
@@ -1627,7 +1985,8 @@ create policy "Admin all" on public.leads for all using (true);</pre>
       localStorage.setItem('proloan_supabase_key', key);
       closeConfigModal();
       initSupabase();
-      refreshLeads(true);
+      refreshAllData(true);
+      showToast('Supabase configuration saved & reconnected.', 'success');
     }
     function copySqlSchema() {
       const sql = `create table public.leads (
@@ -1641,6 +2000,7 @@ create policy "Admin all" on public.leads for all using (true);</pre>
   city text,
   pan_card text,
   cibil_notes text,
+  cibil_score integer,
   lead_category text default 'Website Lead',
   status text default 'New',
   admin_notes text default '',
@@ -1653,89 +2013,8 @@ create policy "Admin all" on public.leads for all using (true);`;
       const lbl = document.getElementById('copySqlLabel');
       lbl.textContent = 'Copied to Clipboard!';
       setTimeout(() => lbl.textContent = 'Copy SQL Query', 2000);
+      showToast('SQL Schema copied to clipboard.', 'success');
     }
-
-    function copyToClipboard(text) {
-      navigator.clipboard.writeText(text);
-    }
-  </script>
-
-
-
-  <!-- CAREER APPLICATIONS PANEL -->
-  <div id="careerPanel" class="hidden fixed inset-0 z-40 bg-[#070D18]/98 backdrop-blur-xl overflow-y-auto">
-    <div class="max-w-7xl mx-auto p-4 lg:p-8 space-y-6">
-      <div class="flex items-center justify-between pt-2">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 text-white flex items-center justify-center shadow-md"><span class="material-symbols-outlined text-xl">work</span></div>
-          <div><h2 class="font-display font-black text-xl text-white">Career Applications</h2><p class="text-xs text-slate-400 mt-0.5">Submitted via website careers form — Resume PDFs emailed to admin Gmail on submission</p></div>
-        </div>
-        <div class="flex items-center gap-3">
-          <button id="carRefreshBtn" onclick="loadCareerApplications()" class="px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700/60 flex items-center gap-1.5 transition-all"><span class="material-symbols-outlined text-base text-cyan-400">refresh</span><span>Refresh</span></button>
-          <button id="carCloseBtn" onclick="closeCareerPanel()" class="px-3 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-xs font-semibold border border-rose-500/20 flex items-center gap-1.5 transition-all"><span class="material-symbols-outlined text-base">close</span><span>Close</span></button>
-        </div>
-      </div>
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div class="glass-card rounded-2xl p-4"><p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total</p><p id="carKpiTotal" class="font-display text-2xl font-black text-white mt-1">0</p></div>
-        <div class="glass-card rounded-2xl p-4"><p class="text-[10px] font-bold text-amber-300 uppercase tracking-wider">New</p><p id="carKpiNew" class="font-display text-2xl font-black text-amber-300 mt-1">0</p></div>
-        <div class="glass-card rounded-2xl p-4"><p class="text-[10px] font-bold text-cyan-300 uppercase tracking-wider">Shortlisted</p><p id="carKpiShortlisted" class="font-display text-2xl font-black text-cyan-300 mt-1">0</p></div>
-        <div class="glass-card rounded-2xl p-4"><p class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Hired</p><p id="carKpiHired" class="font-display text-2xl font-black text-emerald-400 mt-1">0</p></div>
-      </div>
-      <div class="glass-panel rounded-2xl border border-white/10 overflow-hidden shadow-2xl">
-        <div class="overflow-x-auto custom-scrollbar">
-          <table class="w-full text-left border-collapse">
-            <thead><tr class="bg-slate-900/90 border-b border-white/10 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-              <th class="py-3.5 px-4">App ID &middot; Date</th><th class="py-3.5 px-4">Applicant</th><th class="py-3.5 px-4">Role</th><th class="py-3.5 px-4">Exp &middot; City</th><th class="py-3.5 px-4">Resume PDF</th><th class="py-3.5 px-4 text-center">Status</th><th class="py-3.5 px-4 text-right">Actions</th>
-            </tr></thead>
-            <tbody id="careerTableBody" class="divide-y divide-white/5 text-xs">
-              <tr><td colspan="7" class="py-12 text-center text-slate-500"><span class="material-symbols-outlined text-4xl animate-spin text-orange-500">sync</span><p class="mt-2 text-xs">Loading...</p></td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="py-3 px-4 bg-slate-900/80 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
-          <span id="careerCountLabel">Loading...</span>
-          <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-orange-400 inline-block"></span>PDFs stored in server memory &amp; emailed to admin on submission</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Career Dossier Modal -->
-  <div id="careerDossierModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-    <div class="w-full max-w-lg bg-slate-900 border border-white/15 rounded-3xl p-6 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto custom-scrollbar">
-      <div class="flex items-start justify-between border-b border-slate-800 pb-4">
-        <div><h3 id="carDosName" class="font-display text-xl font-bold text-white">Applicant</h3><p id="carDosAppId" class="text-xs text-slate-400 font-mono mt-0.5">ID: CA-00000</p></div>
-        <button id="carDosCloseBtn" onclick="closeCareerDossier()" class="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"><span class="material-symbols-outlined text-xl">close</span></button>
-      </div>
-      <div class="grid grid-cols-2 gap-3 text-xs">
-        <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5"><span class="text-slate-400 block text-[10px] uppercase font-bold">Mobile</span><span id="carDosMobile" class="font-bold text-white text-sm block mt-0.5"></span></div>
-        <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5"><span class="text-slate-400 block text-[10px] uppercase font-bold">Email</span><span id="carDosEmail" class="font-semibold text-cyan-300 block mt-0.5 break-all"></span></div>
-        <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5"><span class="text-slate-400 block text-[10px] uppercase font-bold">Role Applied For</span><span id="carDosRole" class="font-bold text-orange-300 block mt-0.5"></span></div>
-        <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5"><span class="text-slate-400 block text-[10px] uppercase font-bold">Experience</span><span id="carDosExp" class="font-semibold text-slate-200 block mt-0.5"></span></div>
-        <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5"><span class="text-slate-400 block text-[10px] uppercase font-bold">City</span><span id="carDosCity" class="font-semibold text-slate-200 block mt-0.5"></span></div>
-        <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5"><span class="text-slate-400 block text-[10px] uppercase font-bold">Submitted At</span><span id="carDosDate" class="font-semibold text-slate-200 block mt-0.5 text-[11px]"></span></div>
-      </div>
-      <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5 text-xs"><span class="text-slate-400 block text-[10px] uppercase font-bold mb-1">Cover Note</span><p id="carDosNote" class="text-slate-300 leading-relaxed"></p></div>
-      <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-800">
-        <a id="carDosCallBtn" href="tel:" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs flex items-center gap-1.5 transition-all"><span class="material-symbols-outlined text-base text-emerald-400">call</span>Call</a>
-        <a id="carDosWaBtn" href="#" target="_blank" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all"><span class="material-symbols-outlined text-base">chat</span>WhatsApp</a>
-        <a id="carDosEmailBtn" href="#" class="px-3.5 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all"><span class="material-symbols-outlined text-base">mail</span>Email Applicant</a>
-        <a id="carDosResumeBtn" href="#" target="_blank" class="px-3.5 py-2 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all"><span class="material-symbols-outlined text-base">download</span>Download Resume</a>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    var careerData = [];
-    var CSTYLES = {New:'bg-amber-500/20 text-amber-300 border-amber-500/30',Reviewing:'bg-blue-500/20 text-blue-300 border-blue-500/30',Shortlisted:'bg-cyan-500/20 text-cyan-300 border-cyan-500/30',Interview:'bg-purple-500/20 text-purple-300 border-purple-500/30',Hired:'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',Rejected:'bg-rose-500/20 text-rose-300 border-rose-500/30'};
-    function showCareerTab(){['tabBtnAll','tabBtnLoans','tabBtnContact'].forEach(function(id){var el=document.getElementById(id);if(el){el.classList.remove('bg-brand-600','text-white','shadow-md','shadow-brand-600/30');el.classList.add('bg-slate-800/80','text-slate-300');}});var b=document.getElementById('tabBtnCareers');if(b){b.classList.remove('bg-slate-800/80','text-slate-300','hover:bg-slate-700/80','hover:text-white');b.classList.add('bg-orange-600','text-white','shadow-md','shadow-orange-600/30');}document.getElementById('careerPanel').classList.remove('hidden');loadCareerApplications();}
-    function closeCareerPanel(){document.getElementById('careerPanel').classList.add('hidden');var b=document.getElementById('tabBtnCareers');if(b){b.classList.remove('bg-orange-600','text-white','shadow-md','shadow-orange-600/30');b.classList.add('bg-slate-800/80','text-slate-300','hover:bg-slate-700/80','hover:text-white');}}
-    function loadCareerApplications(){var body=document.getElementById('careerTableBody');body.innerHTML='<tr><td colspan="7" class="py-10 text-center text-slate-500"><span class="material-symbols-outlined text-3xl animate-spin text-orange-400">sync</span><p class="mt-2 text-xs">Fetching...</p></td></tr>';fetch('/api/career-applications').then(function(r){return r.json();}).then(function(j){if(j.success){careerData=j.applications||[];renderCareerTable();var badge=document.getElementById('tabCountCareers');if(badge)badge.textContent=careerData.length;}else{body.innerHTML='<tr><td colspan="7" class="py-10 text-center text-rose-400 text-xs">Error: '+j.message+'</td></tr>';}}).catch(function(e){body.innerHTML='<tr><td colspan="7" class="py-10 text-center text-rose-400 text-xs">Network error — server running?<br><span class="text-slate-500">'+e.message+'</span></td></tr>';});}
-    function renderCareerTable(){var body=document.getElementById('careerTableBody');if(!careerData.length){body.innerHTML='<tr><td colspan="7" class="py-14 text-center text-slate-500"><span class="material-symbols-outlined text-5xl text-slate-700">work_off</span><p class="mt-3 text-sm font-semibold">No career applications yet</p><p class="text-xs mt-1">Submissions from the website will appear here.</p></td></tr>';updateCareerKPIs();return;}var html='';careerData.forEach(function(app,i){var ss=CSTYLES[app.status]||CSTYLES.New;var opts=Object.keys(CSTYLES).map(function(s){return'<option value="'+s+'"'+(s===app.status?' selected':'')+'>'+s+'</option>';}).join('');var aId=app.appId;var rc=app.hasResume?'<a href="/api/career-resume/'+aId+'" target="_blank" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-orange-500/15 hover:bg-orange-500/30 text-orange-300 text-[11px] font-bold border border-orange-500/20 transition-all"><span class="material-symbols-outlined text-sm">picture_as_pdf</span>'+(app.resumeName||'Resume')+'</a>':'<span class="text-slate-500 text-[11px] italic">No file</span>';html+='<tr class="'+(i%2===0?'bg-white/[0.02]':'')+' hover:bg-white/[0.05] transition-colors"><td class="py-3 px-4"><span class="font-mono text-[11px] text-orange-300 font-bold">'+aId+'</span><p class="text-[10px] text-slate-500 mt-0.5">'+(app.timestamp||'N/A')+'</p></td><td class="py-3 px-4"><span class="font-bold text-white text-xs">'+app.name+'</span><p class="text-[10px] text-slate-400 mt-0.5">'+app.mobile+'</p></td><td class="py-3 px-4"><span class="font-semibold text-orange-300 text-xs">'+app.role+'</span></td><td class="py-3 px-4"><span class="text-slate-300 text-xs">'+(app.experience||'N/A')+'</span><p class="text-[10px] text-slate-500 mt-0.5">'+(app.city||'N/A')+'</p></td><td class="py-3 px-4">'+rc+'</td><td class="py-3 px-4 text-center"><select data-appid="'+aId+'" onchange="updateCareerStatus(this.dataset.appid,this.value)" class="px-2 py-1.5 rounded-lg text-[11px] font-bold border focus:outline-none bg-slate-900 '+ss+'">'+opts+'</select></td><td class="py-3 px-4 text-right"><button data-appid="'+aId+'" onclick="openCareerDossier(this.dataset.appid)" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-all"><span class="material-symbols-outlined text-base">open_in_new</span></button></td></tr>';});body.innerHTML=html;var lbl=document.getElementById('careerCountLabel');if(lbl)lbl.textContent='Showing '+careerData.length+' application'+(careerData.length!==1?'s':'');updateCareerKPIs();}
-    function updateCareerKPIs(){document.getElementById('carKpiTotal').textContent=careerData.length;document.getElementById('carKpiNew').textContent=careerData.filter(function(a){return a.status==='New';}).length;document.getElementById('carKpiShortlisted').textContent=careerData.filter(function(a){return a.status==='Shortlisted'||a.status==='Interview';}).length;document.getElementById('carKpiHired').textContent=careerData.filter(function(a){return a.status==='Hired';}).length;}
-    function updateCareerStatus(appId,status){fetch('/api/career-status',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({appId:appId,status:status})}).catch(function(e){console.warn(e);});var rec=careerData.find(function(a){return a.appId===appId;});if(rec){rec.status=status;updateCareerKPIs();}}
-    function openCareerDossier(appId){var app=careerData.find(function(a){return a.appId===appId;});if(!app)return;document.getElementById('carDosName').textContent=app.name;document.getElementById('carDosAppId').textContent='ID: '+app.appId;document.getElementById('carDosMobile').textContent=app.mobile;document.getElementById('carDosEmail').textContent=app.email;document.getElementById('carDosRole').textContent=app.role;document.getElementById('carDosExp').textContent=app.experience||'N/A';document.getElementById('carDosCity').textContent=app.city||'N/A';document.getElementById('carDosDate').textContent=app.timestamp||'N/A';document.getElementById('carDosNote').textContent=app.note||'No cover note.';document.getElementById('carDosCallBtn').href='tel:'+app.mobile;document.getElementById('carDosWaBtn').href='https://wa.me/91'+app.mobile+'?text='+encodeURIComponent('Hi '+app.name+', thank you for applying for the '+app.role+' position at Proloan India. We will contact you shortly.');document.getElementById('carDosEmailBtn').href='mailto:'+app.email+'?subject=Your Application for '+encodeURIComponent(app.role)+' at Proloan India';var rb=document.getElementById('carDosResumeBtn');rb.href=app.hasResume?'/api/career-resume/'+app.appId:'#';rb.style.opacity=app.hasResume?'1':'0.4';rb.style.pointerEvents=app.hasResume?'auto':'none';document.getElementById('careerDossierModal').classList.remove('hidden');}
-    function closeCareerDossier(){document.getElementById('careerDossierModal').classList.add('hidden');}
   </script>
 
 </body>

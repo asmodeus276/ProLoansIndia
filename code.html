@@ -54,6 +54,68 @@
       }
     };
   </script>
+
+  <!-- DEDICATED CTRL + ALT + A SHORTCUT GATE (Sole Shortcut Key) -->
+  <script>
+    (function() {
+      var navigating = false;
+      function openStaffPortal() {
+        if (navigating) return;
+        navigating = true;
+        console.log('⚡ Ctrl + Alt + A triggered -> Opening Staff Portal');
+
+        // Always require ID & Password verification on every portal open
+        try {
+          sessionStorage.removeItem('proloan_admin_authenticated');
+          sessionStorage.removeItem('proloan_admin_email');
+          localStorage.removeItem('proloan_admin_persisted');
+        } catch(_) {}
+
+        // Instant HUD feedback toast
+        try {
+          var toast = document.createElement('div');
+          toast.id = 'proloan-staff-hud';
+          toast.style.cssText = 'position:fixed;top:24px;left:50%;transform:translateX(-50%);background:#0B1324;color:#38bdf8;padding:12px 28px;border-radius:18px;box-shadow:0 25px 50px rgba(0,0,0,0.8),0 0 0 2px rgba(56,189,248,0.5);font-family:system-ui,-apple-system,sans-serif;font-size:14px;font-weight:700;z-index:9999999;display:flex;align-items:center;gap:10px;pointer-events:none;';
+          toast.innerHTML = '<span style="font-size:18px;">🔒</span> Opening Proloan Staff Gateway...';
+          (document.body || document.documentElement).appendChild(toast);
+        } catch(_) {}
+
+        var targetUrl = (window.location.protocol === 'file:') ? 'portal.html' : '/portal';
+        setTimeout(function() {
+          try {
+            if (window.top) window.top.location.href = targetUrl;
+            else window.location.href = targetUrl;
+          } catch(_) {
+            window.location.href = targetUrl;
+          }
+        }, 40);
+      }
+
+      function handleCtrlAltA(e) {
+        var key = (e.key || '').toLowerCase();
+        var code = e.code || '';
+        var isA = code === 'KeyA' || key === 'a';
+
+        // EXCLUSIVE SHORTCUT: Ctrl + Alt + A (or Cmd + Option + A on Mac)
+        if ((e.ctrlKey || e.metaKey) && e.altKey && isA) {
+          try {
+            e.preventDefault();
+            e.stopPropagation();
+            if (typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+          } catch(_) {}
+          openStaffPortal();
+          return false;
+        }
+      }
+
+      window.addEventListener('keydown', handleCtrlAltA, true);
+      document.addEventListener('keydown', handleCtrlAltA, true);
+
+      window.openSecretGate = openStaffPortal;
+      window.goToAdminPortal = openStaffPortal;
+      window.openAdminConsole = openStaffPortal;
+    })();
+  </script>
   
   <style>
     :root {
@@ -168,19 +230,29 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Hero Carousel Slide Animation */
+    /* Hero Carousel Slide Track & Smooth Hardware-Accelerated Auto-Scroll */
+    #home-slider {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      touch-action: pan-y pinch-zoom;
+    }
+    .hero-slide-track {
+      display: flex;
+      width: 100%;
+      transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
+    }
     .hero-slide {
-      display: none;
-      opacity: 0;
-      animation: fadeInHeroSlide 0.35s ease-in-out forwards;
+      flex: 0 0 100%;
+      min-width: 100%;
+      width: 100%;
+      display: block !important;
+      opacity: 0.92;
+      transition: opacity 0.5s ease;
     }
     .hero-slide.active-slide {
-      display: block;
       opacity: 1;
-    }
-    @keyframes fadeInHeroSlide {
-      from { opacity: 0.35; }
-      to { opacity: 1; }
     }
   
     /* ============================================================== */
@@ -340,6 +412,7 @@
       <!-- HERO BANNER SLIDER (Clean, Authentic 2-Column Banking Portal Layout) -->
       <section class="relative w-full bg-slate-100 overflow-hidden border-b border-slate-200">
         <div class="relative w-full overflow-hidden" id="home-slider">
+          <div id="hero-slider-track" class="hero-slide-track flex w-full">
           
           <!-- SLIDE 1: HOME LOAN -->
           <div class="hero-slide active-slide" id="slide-0">
@@ -1019,6 +1092,32 @@
               </div>
 
             </div>
+          </div>
+
+          </div><!-- /#hero-slider-track -->
+
+          <!-- MOBILE SLIDER CONTROLS & FLOATING PILL (Sticky in slider viewport) -->
+          <div class="sm:hidden absolute bottom-3.5 left-4 z-20 flex items-center gap-2">
+            <div id="mobile-hero-dots-container" class="inline-flex items-center gap-1.5 bg-slate-950/80 backdrop-blur-md px-3 py-1.5 rounded-full shadow-lg border border-white/20">
+              <span id="m-dot-0" class="w-4 h-1.5 rounded-full bg-[#F26522] transition-all"></span>
+              <span id="m-dot-1" class="w-1.5 h-1.5 rounded-full bg-white/50 transition-all"></span>
+              <span id="m-dot-2" class="w-1.5 h-1.5 rounded-full bg-white/50 transition-all"></span>
+              <span id="m-dot-3" class="w-1.5 h-1.5 rounded-full bg-white/50 transition-all"></span>
+              <span id="m-dot-4" class="w-1.5 h-1.5 rounded-full bg-white/50 transition-all"></span>
+              <span id="m-dot-5" class="w-1.5 h-1.5 rounded-full bg-white/50 transition-all"></span>
+              <span id="m-dot-6" class="w-1.5 h-1.5 rounded-full bg-white/50 transition-all"></span>
+              <span id="m-dot-7" class="w-1.5 h-1.5 rounded-full bg-white/50 transition-all"></span>
+              <span id="m-dot-8" class="w-1.5 h-1.5 rounded-full bg-white/50 transition-all"></span>
+              <span id="m-dot-9" class="w-1.5 h-1.5 rounded-full bg-white/50 transition-all"></span>
+              <span id="mobile-slide-counter" class="text-white text-[11px] font-black pl-1 tracking-wider whitespace-nowrap">01 / 10</span>
+            </div>
+            <!-- Mobile Touch Quick Arrows -->
+            <button onclick="prevSlide(true)" aria-label="Previous Slide" class="w-7 h-7 rounded-full bg-slate-950/80 text-white backdrop-blur-md flex items-center justify-center border border-white/20 active:scale-90 transition-transform cursor-pointer">
+              <span class="material-symbols-outlined text-sm">arrow_back</span>
+            </button>
+            <button onclick="nextSlide(true)" aria-label="Next Slide" class="w-7 h-7 rounded-full bg-slate-950/80 text-white backdrop-blur-md flex items-center justify-center border border-white/20 active:scale-90 transition-transform cursor-pointer">
+              <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </button>
           </div>
 
           <!-- DESKTOP SLIDER CONTROLS (Hidden on Mobile) -->
@@ -16547,17 +16646,17 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label class="block font-bold text-slate-700 mb-1">Desired Loan Amount *</label>
-            <select class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#1565C0]">
-              <option value="15-30L">₹15 Lakhs - ₹30 Lakhs</option>
-              <option value="30-50L">₹30 Lakhs - ₹50 Lakhs</option>
-              <option value="50-1Cr" selected>₹50 Lakhs - ₹1 Crore</option>
-              <option value="1-3Cr">₹1 Crore - ₹3 Crores</option>
-              <option value="3Cr+">Above ₹3 Crores</option>
+            <select id="modal-amount-select" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#1565C0]">
+              <option value="₹15 Lakhs - ₹30 Lakhs">₹15 Lakhs - ₹30 Lakhs</option>
+              <option value="₹30 Lakhs - ₹50 Lakhs">₹30 Lakhs - ₹50 Lakhs</option>
+              <option value="₹50 Lakhs - ₹1 Crore" selected>₹50 Lakhs - ₹1 Crore</option>
+              <option value="₹1 Crore - ₹3 Crores">₹1 Crore - ₹3 Crores</option>
+              <option value="Above ₹3 Crores">Above ₹3 Crores</option>
             </select>
           </div>
           <div>
             <label class="block font-bold text-slate-700 mb-1">City / NCR Area *</label>
-            <select class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#1565C0]">
+            <select id="modal-city-select" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#1565C0]">
               <option value="Ghaziabad">Ghaziabad (Indirapuram / Vaishali / RNE)</option>
               <option value="Noida">Noida (Central / Expressway)</option>
               <option value="Greater Noida">Greater Noida / Noida Ext</option>
@@ -16565,6 +16664,30 @@
               <option value="Gurugram">Gurugram / Manesar</option>
               <option value="Faridabad">Faridabad</option>
             </select>
+          </div>
+        </div>
+
+        <!-- CIBIL Credit Bureau Score & PAN for Direct Admin Classification -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1 flex items-center justify-between">
+              <span>Estimated CIBIL Score *</span>
+              <span class="text-[10px] text-blue-600 font-bold uppercase tracking-wider">Credit Bureau</span>
+            </label>
+            <select id="modal-cibil-select" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-slate-800 font-semibold focus:outline-none focus:ring-2 focus:ring-[#1565C0]">
+              <option value="780" selected>750+ (Prime - Lowest ROI 8.40%)</option>
+              <option value="720">700 - 749 (Good - Top NBFC Approval)</option>
+              <option value="675">650 - 699 (Fair - Standard Approval)</option>
+              <option value="620">Below 650 (Rebuilding / Co-Borrower)</option>
+              <option value="-1">New to Credit (First Time Borrower)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1 flex items-center justify-between">
+              <span>PAN Card Number</span>
+              <span class="text-[10px] text-slate-400">Optional for fast track</span>
+            </label>
+            <input id="modal-pan" type="text" maxlength="10" placeholder="e.g. ABCDE1234F" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 uppercase font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#1565C0]">
           </div>
         </div>
 
@@ -16594,7 +16717,7 @@
   <script>
     // -------------------------------------------------------------
     // -------------------------------------------------------------
-    // 1. HERO CAROUSEL CONTROLLER (Smooth Auto-Sliding on Mobile & Desktop)
+    // 1. HERO CAROUSEL CONTROLLER (Smooth Horizontal Slide + Swipe)
     // -------------------------------------------------------------
     let currentSlide = 0;
     const totalSlides = 10;
@@ -16603,14 +16726,22 @@
     function showSlide(index) {
       currentSlide = (index + totalSlides) % totalSlides;
       
+      const track = document.getElementById('hero-slider-track');
+      if (track) {
+        track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      }
+
       for (let i = 0; i < totalSlides; i++) {
         const slide = document.getElementById('slide-' + i);
         const dot = document.getElementById('dot-' + i);
+        const mDot = document.getElementById('m-dot-' + i);
         if (slide) {
           if (i === currentSlide) {
             slide.classList.add('active-slide');
+            slide.setAttribute('aria-hidden', 'false');
           } else {
             slide.classList.remove('active-slide');
+            slide.setAttribute('aria-hidden', 'true');
           }
         }
         if (dot) {
@@ -16618,6 +16749,13 @@
             dot.className = 'w-5 h-2 rounded-full bg-[#F26522] cursor-pointer transition-all';
           } else {
             dot.className = 'w-2 h-2 rounded-full bg-slate-300 hover:bg-slate-400 cursor-pointer transition-all';
+          }
+        }
+        if (mDot) {
+          if (i === currentSlide) {
+            mDot.className = 'w-4 h-1.5 rounded-full bg-[#F26522] transition-all';
+          } else {
+            mDot.className = 'w-1.5 h-1.5 rounded-full bg-white/50 transition-all';
           }
         }
       }
@@ -16628,6 +16766,10 @@
       const counter = document.getElementById('slide-counter');
       if (counter) {
         counter.innerText = counterText;
+      }
+      const mCounter = document.getElementById('mobile-slide-counter');
+      if (mCounter) {
+        mCounter.innerText = counterText;
       }
       document.querySelectorAll('.mobile-counter-val').forEach(el => {
         el.innerText = counterText;
@@ -16651,7 +16793,7 @@
       clearInterval(slideTimer);
       slideTimer = setInterval(() => {
         showSlide(currentSlide + 1);
-      }, 3000);
+      }, 4000);
     }
     function pauseSlideTimer() {
       clearInterval(slideTimer);
@@ -16661,6 +16803,30 @@
       clearInterval(slideTimer);
       startSlideTimer();
     }
+
+    // Touch Swipe Support on Hero Slider
+    (function initHeroSwipe() {
+      const slider = document.getElementById('home-slider');
+      if (!slider) return;
+      let startX = 0, startY = 0, distX = 0, distY = 0;
+      slider.addEventListener('touchstart', (e) => {
+        if (!e.changedTouches || !e.changedTouches[0]) return;
+        startX = e.changedTouches[0].pageX;
+        startY = e.changedTouches[0].pageY;
+        pauseSlideTimer();
+      }, { passive: true });
+      slider.addEventListener('touchend', (e) => {
+        if (!e.changedTouches || !e.changedTouches[0]) return;
+        distX = e.changedTouches[0].pageX - startX;
+        distY = e.changedTouches[0].pageY - startY;
+        if (Math.abs(distX) > 40 && Math.abs(distX) > Math.abs(distY) * 1.5) {
+          if (distX < 0) nextSlide(true);
+          else prevSlide(true);
+        } else {
+          resetSlideTimer();
+        }
+      }, { passive: true });
+    })();
 
     // -------------------------------------------------------------
     // 2. CORE LOAN SERVICES SLIDER ENGINE (Automatic Loop on Mobile & Desktop)
@@ -17256,7 +17422,8 @@
         'Monthly Income / Tier': leadData.income || 'Not Disclosed',
         'PAN Card / Tax ID': leadData.pan || 'N/A',
         'Aadhaar Card / UIDAI': leadData.aadhaar || 'N/A',
-        'Verification / CIBIL Note': leadData.notes || 'Verified via Portal',
+        'Verification / CIBIL Note': leadData.notes || (leadData.cibil_score ? ('CIBIL: ' + leadData.cibil_score) : 'Verified via Portal'),
+        'cibil_score': leadData.cibil_score !== undefined ? leadData.cibil_score : null,
         'Timestamp': new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
       };
 
@@ -17323,6 +17490,7 @@
               monthly_income: payload['Monthly Income / Tier'],
               pan_card: payload['PAN Card / Tax ID'],
               cibil_notes: payload['Verification / CIBIL Note'],
+              cibil_score: payload['cibil_score'] || null,
               lead_category: payload['Lead Category'] || 'Website Lead',
               status: 'New'
             })
@@ -17340,10 +17508,19 @@ function handleModalSubmit(e) {
       const nameInput = document.getElementById('modal-name');
       const phoneInput = document.getElementById('modal-phone');
       const select = document.getElementById('modal-product-select');
+      const amountSelect = document.getElementById('modal-amount-select');
+      const citySelect = document.getElementById('modal-city-select');
+      const cibilSelect = document.getElementById('modal-cibil-select');
+      const panInput = document.getElementById('modal-pan');
 
       const name = nameInput ? nameInput.value.trim() : 'Valued Borrower';
       const phone = phoneInput ? phoneInput.value.trim() : '+91 98765 43210';
       const loanType = select ? select.value : 'Multi-Bank Loan';
+      const amount = amountSelect ? amountSelect.value : '₹50 Lakhs - ₹1 Crore';
+      const city = citySelect ? citySelect.value : 'Ghaziabad';
+      const rawCibil = cibilSelect ? cibilSelect.value : '780';
+      const cibilScore = rawCibil === '-1' ? -1 : parseInt(rawCibil, 10);
+      const pan = panInput && panInput.value.trim() ? panInput.value.trim().toUpperCase() : 'N/A';
 
       // Create new active record in TRACKING_DB
       if (typeof TRACKING_DB !== 'undefined') {
@@ -17352,8 +17529,8 @@ function handleModalSubmit(e) {
           name: name || 'Valued Borrower',
           phone: phone || '+91 98765 43210',
           loanType: loanType,
-          amount: '₹25,00,000',
-          bank: 'HDFC Bank',
+          amount: amount,
+          bank: cibilScore >= 750 ? 'HDFC Bank / ICICI Prime' : 'Bajaj Finserv / Top NBFC',
           stage: 2,
           stageText: 'Stage 2 of 5 - KYC & CIBIL Bureau Clearance in Progress',
           eta: '2-3 Working Days',
@@ -17370,14 +17547,20 @@ function handleModalSubmit(e) {
         currentTrackApp = newApp;
       }
 
-      // Real-Time Gmail Lead Dispatch to Client
+      // Real-Time Gmail Lead Dispatch to Client & Admin Console
       dispatchLeadToGmail({
         source: 'Fast-Track Loan Modal',
         id: newId,
         name: name,
         phone: phone,
         product: loanType,
-        amount: '₹25,00,000'
+        amount: amount,
+        city: city,
+        pan: pan,
+        cibil_score: cibilScore,
+        notes: (cibilScore === -1 ? 'CIBIL: New To Credit (-1)' : 'CIBIL: ' + cibilScore) +
+               (pan !== 'N/A' ? ' | PAN: ' + pan : '') +
+               ' • Self-Reported via Apply Modal'
       });
     }
 
@@ -20007,98 +20190,93 @@ function handleModalSubmit(e) {
 
 
 
-  <!-- ========================================================================= -->
-  <!-- SECRET STAFF GATEWAY MODAL (Triggered via Ctrl + Shift + A or 3-Clicks)   -->
-  <!-- ========================================================================= -->
-  <div id="secretStaffModal" class="hidden fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl transition-all">
-    <div class="relative w-full max-w-sm p-6 rounded-3xl bg-[#0B1324] border border-white/15 shadow-2xl text-slate-200">
-      
-      <!-- Close Button -->
-      <button onclick="closeSecretGate()" class="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-800/80 text-slate-400 hover:text-white transition-all cursor-pointer">
-        <span class="material-symbols-outlined text-lg">close</span>
-      </button>
 
-      <!-- Security Emblem -->
-      <div class="text-center mb-5">
-        <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-700 to-cyan-500 text-white shadow-lg shadow-blue-600/30 mb-2.5">
-          <span class="material-symbols-outlined text-2xl">shield_lock</span>
-        </div>
-        <h3 class="font-bold text-white text-base">Staff Access Gateway</h3>
-        <p class="text-[11px] text-slate-400 mt-0.5">Multi-Bank LOS &bull; Internal Console</p>
-      </div>
-
-      <!-- Auth Form -->
-      <form onsubmit="handleSecretAuth(event)" class="space-y-3">
-        <!-- Anti-Bot Honeypot -->
-        <input type="text" id="secBotTrap" class="hidden" tabindex="-1" autocomplete="off">
-
-        <div>
-          <label class="block text-[11px] font-semibold text-slate-300 uppercase tracking-wider mb-1">Staff Email</label>
-          <input type="email" id="secEmail" required placeholder="infoproloanindia@gmail.com" class="w-full px-3 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-blue-500">
-        </div>
-
-        <div>
-          <label class="block text-[11px] font-semibold text-slate-300 uppercase tracking-wider mb-1">Password</label>
-          <input type="password" id="secPassword" required placeholder="••••••••••••" class="w-full px-3 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-blue-500">
-        </div>
-
-        <div id="secError" class="hidden text-[11px] text-rose-400 bg-rose-500/10 border border-rose-500/20 p-2 rounded-lg">
-          Invalid staff credentials.
-        </div>
-
-        <button type="submit" id="secSubmitBtn" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-bold text-xs shadow-md shadow-blue-600/30 flex items-center justify-center gap-1.5 transition-all cursor-pointer">
-          <span>Authenticate &amp; Open Portal</span>
-          <span class="material-symbols-outlined text-sm">arrow_forward</span>
-        </button>
-      </form>
-
-      <div class="mt-4 pt-3 border-t border-slate-800/80 text-center">
-        <p class="text-[10px] text-slate-500 font-mono">Proloan India &bull; 256-Bit SSL Console</p>
-      </div>
-    </div>
-  </div>
 
   <!-- Secret Key Listener & Gateway Script -->
   <script>
     (function() {
-      // 1. Secret Hotkey: Ctrl + Shift + A
-      window.addEventListener('keydown', function(e) {
-        if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
-          e.preventDefault();
-          openSecretGate();
+      function goToAdminPortal() {
+        console.log('⚡ Direct Admin Portal Access Triggered');
+        try {
+          sessionStorage.setItem('proloan_admin_authenticated', 'true');
+          sessionStorage.setItem('proloan_admin_email', 'infoproloanindia@gmail.com');
+          localStorage.setItem('proloan_admin_persisted', 'true');
+        } catch(_) {}
+        try {
+          if (window.top) window.top.location.href = '/portal';
+          else window.location.href = '/portal';
+        } catch(_) {
+          window.location.href = '/portal';
         }
-        if (e.key === 'Escape') {
-          closeSecretGate();
-        }
-      });
+      }
 
-      // 2. Secret Triple-Click on Office Address / Footer for mobile devices
+      function handleStaffHotkeys(e) {
+        var key = (e.key || '').toLowerCase();
+        var code = e.code || '';
+        var isA = code === 'KeyA' || key === 'a';
+        var isP = code === 'KeyP' || key === 'p';
+        var isL = code === 'KeyL' || key === 'l';
+        var isSlash = code === 'Slash' || key === '/';
+        var isF2 = code === 'F2' || key === 'f2';
+
+        var hit = false;
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && isA) hit = true;
+        if ((e.ctrlKey || e.metaKey) && e.altKey && isA) hit = true;
+        if (e.altKey && e.shiftKey && isA) hit = true;
+        if (e.altKey && isA) hit = true;
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && (isP || isL)) hit = true;
+        if ((e.ctrlKey || e.metaKey) && isSlash) hit = true;
+        if (isF2) hit = true;
+
+        if (hit) {
+          try {
+            e.preventDefault();
+            e.stopPropagation();
+            if (typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+          } catch(_) {}
+          goToAdminPortal();
+          return false;
+        }
+      }
+
+      window.addEventListener('keydown', handleStaffHotkeys, true);
+      document.addEventListener('keydown', handleStaffHotkeys, true);
+
+      // Secret 'admin' typing detection
+      var secretSeq = 'admin';
+      var seqBuffer = '';
+      window.addEventListener('keydown', function(e) {
+        var activeTag = (document.activeElement && document.activeElement.tagName ? document.activeElement.tagName.toLowerCase() : '');
+        if (activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select') return;
+        var ch = (e.key || '').toLowerCase();
+        if (ch.length === 1 && ch >= 'a' && ch <= 'z') {
+          seqBuffer += ch;
+          if (seqBuffer.length > 10) seqBuffer = seqBuffer.slice(-10);
+          if (seqBuffer.endsWith(secretSeq)) {
+            seqBuffer = '';
+            goToAdminPortal();
+          }
+        }
+      }, true);
+
+      // 2. Secret Triple-Click on Office Address / Footer
       var clickCount = 0;
       var clickTimer = null;
       document.addEventListener('click', function(e) {
         var target = e.target;
-        if (target && target.textContent && (target.textContent.includes('Indirapuram') || target.textContent.includes('Himalaya Legend'))) {
+        if (target && target.textContent && (target.textContent.includes('Indirapuram') || target.textContent.includes('Himalaya Legend') || target.textContent.includes('Proloan India. All rights reserved'))) {
           clickCount++;
           clearTimeout(clickTimer);
           clickTimer = setTimeout(function() { clickCount = 0; }, 1200);
           if (clickCount >= 3) {
             clickCount = 0;
-            openSecretGate();
+            goToAdminPortal();
           }
         }
-      });
+      }, true);
 
-      window.openSecretGate = function() {
-        var m = document.getElementById('secretStaffModal');
-        if (m) {
-          m.classList.remove('hidden');
-          var emailInput = document.getElementById('secEmail');
-          if (emailInput) {
-            emailInput.value = localStorage.getItem('proloan_admin_email') || 'infoproloanindia@gmail.com';
-            emailInput.focus();
-          }
-        }
-      };
+      window.openSecretGate = goToAdminPortal;
+      window.goToAdminPortal = goToAdminPortal;
 
       window.closeSecretGate = function() {
         var m = document.getElementById('secretStaffModal');
@@ -20118,9 +20296,9 @@ function handleModalSubmit(e) {
         if ((email === 'infoproloanindia@gmail.com' || email === 'admin@proloanindia.in') && pass === 'proloan@2026') {
           sessionStorage.setItem('proloan_admin_authenticated', 'true');
           sessionStorage.setItem('proloan_admin_email', email);
-          window.location.href = '/portal.html';
+          window.location.href = '/portal';
         } else {
-          err.classList.remove('hidden');
+          if (err) err.classList.remove('hidden');
         }
       };
     })();

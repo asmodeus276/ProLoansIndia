@@ -663,7 +663,8 @@
         'Monthly Income / Tier': leadData.income || 'Not Disclosed',
         'PAN Card / Tax ID': leadData.pan || 'N/A',
         'Aadhaar Card / UIDAI': leadData.aadhaar || 'N/A',
-        'Verification / CIBIL Note': leadData.notes || 'Verified via Portal',
+        'Verification / CIBIL Note': leadData.notes || (leadData.cibil_score ? ('CIBIL: ' + leadData.cibil_score) : 'Verified via Portal'),
+        'cibil_score': leadData.cibil_score !== undefined ? leadData.cibil_score : null,
         'Timestamp': new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
       };
 
@@ -730,6 +731,7 @@
               monthly_income: payload['Monthly Income / Tier'],
               pan_card: payload['PAN Card / Tax ID'],
               cibil_notes: payload['Verification / CIBIL Note'],
+              cibil_score: payload['cibil_score'] || null,
               lead_category: payload['Lead Category'] || 'Website Lead',
               status: 'New'
             })
@@ -747,10 +749,19 @@ function handleModalSubmit(e) {
       const nameInput = document.getElementById('modal-name');
       const phoneInput = document.getElementById('modal-phone');
       const select = document.getElementById('modal-product-select');
+      const amountSelect = document.getElementById('modal-amount-select');
+      const citySelect = document.getElementById('modal-city-select');
+      const cibilSelect = document.getElementById('modal-cibil-select');
+      const panInput = document.getElementById('modal-pan');
 
       const name = nameInput ? nameInput.value.trim() : 'Valued Borrower';
       const phone = phoneInput ? phoneInput.value.trim() : '+91 98765 43210';
       const loanType = select ? select.value : 'Multi-Bank Loan';
+      const amount = amountSelect ? amountSelect.value : '₹50 Lakhs - ₹1 Crore';
+      const city = citySelect ? citySelect.value : 'Ghaziabad';
+      const rawCibil = cibilSelect ? cibilSelect.value : '780';
+      const cibilScore = rawCibil === '-1' ? -1 : parseInt(rawCibil, 10);
+      const pan = panInput && panInput.value.trim() ? panInput.value.trim().toUpperCase() : 'N/A';
 
       // Create new active record in TRACKING_DB
       if (typeof TRACKING_DB !== 'undefined') {
@@ -759,8 +770,8 @@ function handleModalSubmit(e) {
           name: name || 'Valued Borrower',
           phone: phone || '+91 98765 43210',
           loanType: loanType,
-          amount: '₹25,00,000',
-          bank: 'HDFC Bank',
+          amount: amount,
+          bank: cibilScore >= 750 ? 'HDFC Bank / ICICI Prime' : 'Bajaj Finserv / Top NBFC',
           stage: 2,
           stageText: 'Stage 2 of 5 - KYC & CIBIL Bureau Clearance in Progress',
           eta: '2-3 Working Days',
@@ -777,14 +788,20 @@ function handleModalSubmit(e) {
         currentTrackApp = newApp;
       }
 
-      // Real-Time Gmail Lead Dispatch to Client
+      // Real-Time Gmail Lead Dispatch to Client & Admin Console
       dispatchLeadToGmail({
         source: 'Fast-Track Loan Modal',
         id: newId,
         name: name,
         phone: phone,
         product: loanType,
-        amount: '₹25,00,000'
+        amount: amount,
+        city: city,
+        pan: pan,
+        cibil_score: cibilScore,
+        notes: (cibilScore === -1 ? 'CIBIL: New To Credit (-1)' : 'CIBIL: ' + cibilScore) +
+               (pan !== 'N/A' ? ' | PAN: ' + pan : '') +
+               ' • Self-Reported via Apply Modal'
       });
     }
 
@@ -2966,69 +2983,45 @@ function handleModalSubmit(e) {
     }
 
 // -------------------------------------------------------------
-// SECRET STAFF GATEWAY CONTROLLER
+// SECRET STAFF GATEWAY CONTROLLER (Exclusive Ctrl + Alt + A)
 // -------------------------------------------------------------
 (function() {
-      // 1. Secret Hotkey: Ctrl + Shift + A
-      window.addEventListener('keydown', function(e) {
-        if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
-          e.preventDefault();
-          openSecretGate();
-        }
-        if (e.key === 'Escape') {
-          closeSecretGate();
-        }
-      });
+      function handleStaffHotkeys(e) {
+        var isA = e.code === 'KeyA' || e.key === 'A' || e.key === 'a';
+        var isCtrlAltA = (e.ctrlKey || e.metaKey) && e.altKey && isA;
 
-      // 2. Secret Triple-Click on Office Address / Footer for mobile devices
-      var clickCount = 0;
-      var clickTimer = null;
-      document.addEventListener('click', function(e) {
-        var target = e.target;
-        if (target && target.textContent && (target.textContent.includes('Indirapuram') || target.textContent.includes('Himalaya Legend'))) {
-          clickCount++;
-          clearTimeout(clickTimer);
-          clickTimer = setTimeout(function() { clickCount = 0; }, 1200);
-          if (clickCount >= 3) {
-            clickCount = 0;
-            openSecretGate();
-          }
+        if (isCtrlAltA) {
+          try {
+            e.preventDefault();
+            e.stopPropagation();
+            if (typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+          } catch(_) {}
+          openSecretGate();
+          return false;
         }
-      });
+      }
+
+      window.addEventListener('keydown', handleStaffHotkeys, true);
+      document.addEventListener('keydown', handleStaffHotkeys, true);
 
       window.openSecretGate = function() {
-        var m = document.getElementById('secretStaffModal');
-        if (m) {
-          m.classList.remove('hidden');
-          var emailInput = document.getElementById('secEmail');
-          if (emailInput) {
-            emailInput.value = localStorage.getItem('proloan_admin_email') || 'infoproloanindia@gmail.com';
-            emailInput.focus();
-          }
+        try {
+          sessionStorage.removeItem('proloan_admin_authenticated');
+          sessionStorage.removeItem('proloan_admin_email');
+          localStorage.removeItem('proloan_admin_persisted');
+        } catch(_) {}
+        var targetUrl = (window.location.protocol === 'file:') ? 'portal.html' : '/portal';
+        try {
+          if (window.top) window.top.location.href = targetUrl;
+          else window.location.href = targetUrl;
+        } catch(_) {
+          window.location.href = targetUrl;
         }
       };
 
-      window.closeSecretGate = function() {
-        var m = document.getElementById('secretStaffModal');
-        if (m) m.classList.add('hidden');
-      };
-
+      window.closeSecretGate = function() {};
       window.handleSecretAuth = function(e) {
-        e.preventDefault();
-        var botTrap = document.getElementById('secBotTrap').value;
-        if (botTrap) return; // Silent discard for bots
-
-        var email = (document.getElementById('secEmail').value || '').trim().toLowerCase();
-        var pass = (document.getElementById('secPassword').value || '').trim();
-        var err = document.getElementById('secError');
-
-        // Master check or Supabase session
-        if ((email === 'infoproloanindia@gmail.com' || email === 'admin@proloanindia.in') && pass === 'proloan@2026') {
-          sessionStorage.setItem('proloan_admin_authenticated', 'true');
-          sessionStorage.setItem('proloan_admin_email', email);
-          window.location.href = '/portal.html';
-        } else {
-          err.classList.remove('hidden');
-        }
+        if (e && e.preventDefault) e.preventDefault();
+        window.openSecretGate();
       };
-    })();
+})();
