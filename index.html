@@ -10,8 +10,9 @@
   <meta name="author" content="Proloan India">
   <meta name="theme-color" content="#1565C0">
   <link rel="canonical" href="https://proloanindia.in/">
-  <link rel="icon" type="image/png" href="assets/proloan-logo.png">
-  <link rel="apple-touch-icon" href="assets/proloan-logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
@@ -116,24 +117,19 @@
       window.openAdminConsole = openStaffPortal;
     })();
   </script>
-  
+    <!-- Preload Critical LCP Images FIRST (browser highest priority) -->
+  <link rel="preload" as="image" href="assets/banners/home-clean.webp" type="image/webp" fetchpriority="high" media="(min-width: 640px)">
+  <link rel="preload" as="image" href="assets/banners/home-clean-sm.webp" type="image/webp" fetchpriority="high" media="(max-width: 639px)">
 
-    <!-- Local Self-Hosted Fonts: Instant paint, zero external latency -->
+  <!-- Self-Hosted Fonts: zero external latency -->
   <link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
 
-  <!-- Preload Critical LCP Assets -->
+  <!-- Icon font: loaded after LCP images -->
   <link rel="preload" href="assets/material-symbols.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" as="image" href="assets/banners/home-clean.webp" type="image/webp" fetchpriority="high">
-  <link rel="preload" as="image" href="assets/proloan-logo.webp" fetchpriority="high" type="image/webp">
 
-  <!-- Google Fonts: Manrope & Inter -->
-  
-  
-  
-  <!-- Tailwind CSS - Self-hosted, purged, non-render-blocking -->
-  <link rel="preload" href="assets/proloan.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="assets/proloan.min.css"></noscript>
+  <!-- Tailwind CSS: render-blocking is fine at 15KB, prevents FOUC -->
+  <link rel="stylesheet" href="assets/proloan.min.css?v=20261020">
   
   <style>
     /* Local Self-Hosted Inter & Manrope */
@@ -498,7 +494,11 @@
               
               <!-- Full bleed background image on mobile, right 50% on desktop -->
               <div class="absolute inset-0 w-full sm:left-auto sm:right-0 sm:w-3/5 md:w-7/12 lg:w-1/2 h-full z-0 overflow-hidden pointer-events-none">
-                <img src="assets/banners/home-clean.webp" alt="Home Loan" class="w-full h-full object-cover object-top xs:object-center sm:object-top select-none banner-photo-responsive" loading="eager" fetchpriority="high" decoding="async" width="1280" height="714">
+                <picture>
+                  <source media="(max-width: 639px)" srcset="assets/banners/home-clean-sm.webp" type="image/webp">
+                  <source srcset="assets/banners/home-clean.webp" type="image/webp">
+                  <img src="assets/banners/home-clean.webp" alt="Home Loan" class="w-full h-full object-cover object-top xs:object-center sm:object-top select-none banner-photo-responsive" loading="eager" fetchpriority="high" decoding="sync" width="1280" height="714">
+                </picture>
                 <!-- Mobile Dark Bottom Gradient: Leaves face/upper body 100% visible, text 100% readable -->
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/35 to-transparent sm:hidden"></div>
               </div>
@@ -4906,7 +4906,7 @@
           
           <!-- Photographic Right Half (Visible on Right 50% on Desktop, Full Bleed on Mobile) -->
           <div class="absolute inset-0 w-full sm:left-auto sm:right-0 sm:w-3/5 md:w-7/12 lg:w-1/2 h-full z-0 overflow-hidden pointer-events-none">
-            <picture><source srcset="assets/banners/home-clean.webp" type="image/webp" fetchpriority="high"><img src="assets/banners/home-clean.jpg" alt="Home Loan &amp; Top-Up" class="w-full h-full object-cover object-top xs:object-center sm:object-top select-none banner-photo-responsive" loading="lazy" decoding="async" width="1280" height="714" fetchpriority="high"></picture>
+            <picture><source srcset="assets/banners/home-clean.webp" type="image/webp"><img src="assets/banners/home-clean.jpg" alt="Home Loan &amp; Top-Up" class="w-full h-full object-cover object-top xs:object-center sm:object-top select-none banner-photo-responsive" loading="lazy" decoding="async" width="1280" height="714" fetchpriority="high"></picture>
             <!-- Mobile Dark Bottom Gradient: Leaves face/upper body 100% visible, text 100% readable -->
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/35 to-transparent sm:hidden"></div>
           </div>
@@ -16792,7 +16792,7 @@
   <!-- ========================================================================= -->
   <!-- JAVASCRIPT: CAROUSEL, ROUTING, CALCULATOR & CREDIT SCORE ENGINE -->
   <!-- ========================================================================= -->
-  <script src="assets/main.min.js?v=20261020_swipe_v3" defer></script>
+  <script src="assets/main.min.js?v=20261021_slider_v4" defer></script>
 
   <!-- SANCTION LETTER PREVIEW MODAL -->
   <div id="sanction-modal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm hidden items-center justify-center p-4">

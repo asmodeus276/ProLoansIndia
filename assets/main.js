@@ -1,6 +1,6 @@
 // -------------------------------------------------------------
     // -------------------------------------------------------------
-    // 1. HERO CAROUSEL CONTROLLER (Smooth Auto-Sliding on Mobile & Desktop)
+    // 1. HERO CAROUSEL CONTROLLER (Smooth Horizontal Slide + Auto + Swipe)
     // -------------------------------------------------------------
     let currentSlide = 0;
     const totalSlides = 10;
@@ -9,14 +9,22 @@
     function showSlide(index) {
       currentSlide = (index + totalSlides) % totalSlides;
       
+      const track = document.getElementById('hero-slider-track');
+      if (track) {
+        track.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+      }
+
       for (let i = 0; i < totalSlides; i++) {
         const slide = document.getElementById('slide-' + i);
         const dot = document.getElementById('dot-' + i);
+        const mDot = document.getElementById('m-dot-' + i);
         if (slide) {
           if (i === currentSlide) {
             slide.classList.add('active-slide');
+            slide.setAttribute('aria-hidden', 'false');
           } else {
             slide.classList.remove('active-slide');
+            slide.setAttribute('aria-hidden', 'true');
           }
         }
         if (dot) {
@@ -26,19 +34,39 @@
             dot.className = 'w-2 h-2 rounded-full bg-slate-300 hover:bg-slate-400 cursor-pointer transition-all';
           }
         }
+        if (mDot) {
+          if (i === currentSlide) {
+            mDot.className = 'w-4 h-1.5 rounded-full bg-[#F26522] transition-all';
+          } else {
+            mDot.className = 'w-1.5 h-1.5 rounded-full bg-white/50 transition-all';
+          }
+        }
       }
 
       const currentFormatted = String(currentSlide + 1).padStart(2, '0');
       const totalFormatted = String(totalSlides).padStart(2, '0');
-      const counterText = `${currentFormatted} / ${totalFormatted}`;
+      const counterText = currentFormatted + ' / ' + totalFormatted;
       const counter = document.getElementById('slide-counter');
       if (counter) {
         counter.innerText = counterText;
+      }
+      const mCounter = document.getElementById('mobile-slide-counter');
+      if (mCounter) {
+        mCounter.innerText = counterText;
       }
       document.querySelectorAll('.mobile-counter-val').forEach(el => {
         el.innerText = counterText;
       });
     }
+
+    // Expose hero slider methods globally for inline onclick handlers
+    window.showSlide = showSlide;
+    window.nextSlide = nextSlide;
+    window.prevSlide = prevSlide;
+    window.goToSlide = goToSlide;
+    window.startSlideTimer = startSlideTimer;
+    window.pauseSlideTimer = pauseSlideTimer;
+    window.resetSlideTimer = resetSlideTimer;
 
     function nextSlide(isManual) {
       showSlide(currentSlide + 1);
@@ -311,11 +339,12 @@
 
       // 1. Hero banner auto slider & touch swipe (Continuous 3-second automatic rotation)
       startSlideTimer();
-      const heroSliderEl = document.getElementById('home-slider') || document.querySelector('#page-home .hero-slide')?.parentElement;
+      const heroSliderEl = document.getElementById('home-slider') || document.getElementById('hero-slider-track');
       if (heroSliderEl) {
-        // Continuous auto-slide every 3 seconds without indefinitely freezing on mouse hover
-        let touchStartX = 0;
-        let touchStartY = 0;
+        if (hasHover) {
+          heroSliderEl.addEventListener('mouseenter', pauseSlideTimer);
+          heroSliderEl.addEventListener('mouseleave', startSlideTimer);
+        }
         heroSliderEl.addEventListener('touchstart', (e) => {
           if (e.touches && e.touches[0]) {
             touchStartX = e.touches[0].clientX;
@@ -418,9 +447,11 @@
     });
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => setTimeout(initAllSliders, 5000));
+      document.addEventListener('DOMContentLoaded', () => {
+        initAllSliders();
+      });
     } else {
-      setTimeout(initAllSliders, 5000);
+      initAllSliders();
     }
 
     

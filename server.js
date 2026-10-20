@@ -158,27 +158,48 @@ const careerApplications = readJsonFile(CAREERS_FILE, []);
 
 // Middleware
 app.use(compression({
-  threshold: 1024,
-  level: 6
+  threshold: 512,
+  level: 9,
+  filter: (req, res) => {
+    // Don't compress already-compressed formats
+    if (/\.(woff2|webp|avif|jpg|jpeg|png|gif|mp4|zip)$/i.test(req.path)) return false;
+    return compression.filter(req, res);
+  }
 }));
 app.use(cors());
 app.use(express.json({ limit: '5mb' }));
 app.use(express.urlencoded({ extended: true, limit: '5mb' }));
 
-// Global Speed & Performance Headers for PageSpeed & Audits
+// Global Speed & Security Headers
 app.use((req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-DNS-Prefetch-Control', 'on');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Vary', 'Accept-Encoding');
   next();
 });
 
-// Static files with HTTP caching for PageSpeed performance
+// Static files with aggressive HTTP caching
 app.use(express.static(path.join(__dirname), {
+  etag: true,
+  lastModified: true,
   setHeaders: (res, filePath) => {
-    if (filePath.endsWith('.html') || filePath.endsWith('.js')) {
-      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-    } else if (/\.(jpg|jpeg|png|webp|avif|svg|gif|woff|woff2|ttf|css)$/i.test(filePath)) {
-      res.setHeader('Cache-Control', 'public, max-age=86400');
+    if (filePath.endsWith('.html')) {
+      // HTML: always revalidate so users get latest version
+      res.setHeader('Cache-Control', 'no-cache, must-revalidate');
+    } else if (/\.(woff|woff2|ttf|otf)$/i.test(filePath)) {
+      // Fonts: immutable 1 year — filenames are stable
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    } else if (/\.(webp|avif|jpg|jpeg|png|gif|svg|ico)$/i.test(filePath)) {
+      // Images: 30 days
+      res.setHeader('Cache-Control', 'public, max-age=2592000');
+    } else if (/\.css$/i.test(filePath)) {
+      // CSS: 1 year immutable (versioned via query string in HTML)
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    } else if (/\.js$/i.test(filePath)) {
+      // JS: 1 year immutable (versioned via query string in HTML)
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
     }
   }
 }));
