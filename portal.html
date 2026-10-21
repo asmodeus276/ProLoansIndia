@@ -15,6 +15,9 @@
   <!-- Supabase JS Client (v2) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   
+  <!-- SheetJS Library for Professional Spacious Excel (.xlsx) Exports -->
+  <script src="assets/xlsx.full.min.js"></script>
+  
 
   <!-- Tailwind CSS Play CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -133,6 +136,15 @@
       <div class="absolute -top-24 -left-24 w-52 h-52 bg-brand-500/20 rounded-full blur-3xl pointer-events-none"></div>
       <div class="absolute -bottom-24 -right-24 w-52 h-52 bg-accent-orange/20 rounded-full blur-3xl pointer-events-none"></div>
 
+      <!-- Top Return Link -->
+      <div class="flex items-center justify-between mb-3 relative z-10">
+        <a href="/" onclick="navigateToWebsite(event)" class="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-cyan-300 transition-colors cursor-pointer">
+          <span class="material-symbols-outlined text-sm text-cyan-400">arrow_back</span>
+          <span>Back to Main Website</span>
+        </a>
+        <span class="text-[10px] text-slate-500 font-mono tracking-wider">STAFF PORTAL</span>
+      </div>
+
       <!-- Header Icon & Branding -->
       <div class="text-center mb-6 relative z-10">
         <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-700 via-brand-600 to-cyan-500 text-white shadow-xl shadow-brand-600/30 mb-3.5 ring-4 ring-white/5">
@@ -211,6 +223,12 @@
           <span class="material-symbols-outlined text-lg">arrow_forward</span>
         </button>
 
+        <!-- Exit to Main Website Button -->
+        <a href="/" onclick="navigateToWebsite(event)" class="w-full py-2.5 px-4 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white text-xs font-semibold border border-slate-700/60 flex items-center justify-center gap-2 transition-all cursor-pointer">
+          <span class="material-symbols-outlined text-base text-cyan-400">arrow_back</span>
+          <span>Exit &amp; Return to Main Website</span>
+        </a>
+
       </form>
 
       <!-- Footer Seal -->
@@ -231,18 +249,18 @@
   <div id="mainDashboard" class="hidden flex-1 flex flex-col min-h-screen">
     
     <!-- Top Executive App Bar -->
-    <header class="sticky top-0 z-40 bg-[#090F1C]/92 backdrop-blur-xl border-b border-white/10 px-4 lg:px-8 py-3.5">
-      <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+    <header class="sticky top-0 z-40 bg-[#090F1C]/92 backdrop-blur-xl border-b border-white/10 px-4 sm:px-6 lg:px-8 py-3.5">
+      <div class="w-full max-w-[1720px] mx-auto flex items-center justify-between gap-4">
         
         <!-- Brand & Connection Health -->
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 via-brand-500 to-cyan-400 text-white flex items-center justify-center font-display font-black text-xl shadow-md shadow-brand-500/20">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 via-brand-500 to-cyan-400 text-white flex items-center justify-center font-display font-black text-xl shadow-lg shadow-brand-500/25 ring-1 ring-white/10">
             P
           </div>
           <div>
             <div class="flex items-center gap-2">
               <span class="font-display font-black text-base text-white tracking-tight">Proloan India</span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-brand-500/20 text-cyan-300 border border-brand-400/30">
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-brand-500/20 text-cyan-300 border border-brand-400/30">
                 Staff LOS v2.4
               </span>
             </div>
@@ -256,21 +274,26 @@
         <!-- Global Action Suite -->
         <div class="flex items-center gap-2 sm:gap-2.5">
           
+          <!-- Return to Website Button -->
+          <a href="/" onclick="navigateToWebsite(event)" title="Return to Proloan India Main Website" class="px-3.5 py-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white text-xs font-semibold border border-slate-700/60 flex items-center gap-1.5 transition-all cursor-pointer shadow-sm hover:border-cyan-500/30">
+            <span class="material-symbols-outlined text-base text-cyan-400">arrow_back</span>
+            <span class="hidden md:inline">Website</span>
+          </a>
 
           <!-- Supabase Config -->
-          <button onclick="openConfigModal()" title="Configure Supabase Database" class="px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white text-xs font-semibold border border-slate-700/60 flex items-center gap-1.5 transition-all cursor-pointer">
+          <button onclick="openConfigModal()" title="Configure Supabase Database" class="px-3.5 py-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white text-xs font-semibold border border-slate-700/60 flex items-center gap-1.5 transition-all cursor-pointer shadow-sm hover:border-cyan-500/30">
             <span class="material-symbols-outlined text-base text-cyan-400">settings</span>
             <span class="hidden md:inline">Database</span>
           </button>
 
-          <!-- Export CSV -->
-          <button onclick="exportCurrentViewToCSV()" class="px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white text-xs font-semibold border border-slate-700/60 flex items-center gap-1.5 transition-all cursor-pointer" title="Export current dataset to CSV / Excel">
-            <span class="material-symbols-outlined text-base text-emerald-400">download</span>
-            <span class="hidden md:inline">Export CSV</span>
+          <!-- Export to Spacious Excel (.xlsx) -->
+          <button onclick="exportCurrentViewToExcel()" class="px-4 py-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white text-xs font-semibold border border-slate-700/60 flex items-center gap-1.5 transition-all cursor-pointer hover:border-emerald-500/40 shadow-sm" title="Export as spacious, formatted Excel (.xlsx) spreadsheet">
+            <span class="material-symbols-outlined text-base text-emerald-400">table_view</span>
+            <span class="hidden sm:inline font-bold">Export Excel</span>
           </button>
 
           <!-- Add Record -->
-          <button onclick="openAddLeadModal()" class="px-3 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold shadow-md shadow-brand-600/30 flex items-center gap-1.5 transition-all cursor-pointer">
+          <button onclick="openAddLeadModal()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-cyan-600 hover:from-brand-500 hover:to-cyan-500 text-white text-xs font-bold shadow-lg shadow-brand-600/25 flex items-center gap-1.5 transition-all cursor-pointer border border-cyan-400/20">
             <span class="material-symbols-outlined text-base">add</span>
             <span class="hidden sm:inline">Record Inquirer</span>
           </button>
@@ -282,10 +305,11 @@
           <div class="flex items-center gap-2">
             <div class="hidden lg:block text-right">
               <span id="userDisplayEmail" class="text-xs font-semibold text-white block">infoproloanindia@gmail.com</span>
-              <span class="text-[10px] text-slate-400 block">Master Underwriter</span>
+              <span class="text-[10px] text-slate-400 block font-medium">Master Underwriter</span>
             </div>
-            <button onclick="handleLogout()" class="p-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 flex items-center justify-center transition-all cursor-pointer" title="Sign Out">
-              <span class="material-symbols-outlined text-lg">logout</span>
+            <button onclick="handleLogout()" class="px-3.5 py-2.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 flex items-center gap-1.5 transition-all cursor-pointer shadow-sm" title="Exit Admin &amp; Return to Website">
+              <span class="material-symbols-outlined text-base">logout</span>
+              <span class="hidden sm:inline text-xs font-semibold">Exit</span>
             </button>
           </div>
 
@@ -296,72 +320,84 @@
 
 
     <!-- Main Body Layout -->
-    <main class="flex-1 max-w-7xl w-full mx-auto p-4 lg:p-8 space-y-6">
+    <main class="flex-1 w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-7">
 
       <!-- ========================================================================= -->
       <!-- 3. TOP KPI METRICS CARDS -->
       <!-- ========================================================================= -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
         
         <!-- Total Inquiries -->
-        <div class="glass-card rounded-2xl p-5 relative overflow-hidden">
-          <div class="flex items-center justify-between text-slate-400 mb-2">
-            <span class="text-xs font-semibold uppercase tracking-wider">Total Inquiries</span>
-            <span class="w-8 h-8 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center">
-              <span class="material-symbols-outlined text-lg">contact_mail</span>
+        <div class="glass-card rounded-2xl p-6 relative overflow-hidden group border border-white/10 hover:border-cyan-500/30 transition-all duration-300 shadow-xl bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-slate-950/90">
+          <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none transition-opacity opacity-40 group-hover:opacity-70"></div>
+          <div class="flex items-center justify-between text-slate-400 mb-3 relative z-10">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Inquiries</span>
+            <span class="w-11 h-11 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center shadow-inner">
+              <span class="material-symbols-outlined text-xl">contact_mail</span>
             </span>
           </div>
-          <div class="flex items-baseline gap-2">
-            <span id="kpiTotalLeads" class="font-display text-3xl font-black text-white">0</span>
-            <span class="text-xs font-bold text-emerald-400 flex items-center">
+          <div class="flex items-baseline gap-2.5 relative z-10">
+            <span id="kpiTotalLeads" class="font-display text-3xl sm:text-4xl font-black text-white tracking-tight">0</span>
+            <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full flex items-center gap-0.5">
               <span class="material-symbols-outlined text-xs">trending_up</span> 100%
             </span>
           </div>
-          <p class="text-[11px] text-slate-400 mt-1">Website, Portal &amp; Direct Entries</p>
+          <p class="text-xs text-slate-400 mt-2 font-medium relative z-10">Website, Portal &amp; Direct Form Entries</p>
         </div>
 
-        <!-- New / Uncontacted -->
-        <div class="glass-card rounded-2xl p-5 relative overflow-hidden border-amber-500/30">
-          <div class="flex items-center justify-between text-slate-400 mb-2">
-            <span class="text-xs font-semibold uppercase tracking-wider text-amber-300">Action Required</span>
-            <span class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center">
-              <span class="material-symbols-outlined text-lg">notification_important</span>
+        <!-- Action Required / Follow Up -->
+        <div class="glass-card rounded-2xl p-6 relative overflow-hidden group border border-amber-500/25 hover:border-amber-500/40 transition-all duration-300 shadow-xl bg-gradient-to-br from-slate-900/90 via-amber-950/20 to-slate-950/90">
+          <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-amber-500/15 rounded-full blur-2xl pointer-events-none transition-opacity opacity-40 group-hover:opacity-70"></div>
+          <div class="flex items-center justify-between mb-3 relative z-10">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-amber-300">Action Required</span>
+            <span class="w-11 h-11 rounded-xl bg-amber-500/15 border border-amber-500/25 text-amber-400 flex items-center justify-center shadow-inner">
+              <span class="material-symbols-outlined text-xl">notification_important</span>
             </span>
           </div>
-          <div class="flex items-baseline gap-2">
-            <span id="kpiNewLeads" class="font-display text-3xl font-black text-amber-300">0</span>
-            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 animate-pulse">Follow Up</span>
+          <div class="flex items-baseline gap-2.5 relative z-10">
+            <span id="kpiNewLeads" class="font-display text-3xl sm:text-4xl font-black text-amber-300 tracking-tight">0</span>
+            <span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 animate-pulse flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 inline-block"></span>
+              Follow Up
+            </span>
           </div>
-          <p class="text-[11px] text-slate-400 mt-1">Pending Callback within 2 Hours</p>
+          <p class="text-xs text-slate-400 mt-2 font-medium relative z-10">Pending Callback within 2 Hours</p>
         </div>
 
         <!-- In Underwriting / In-Flight -->
-        <div class="glass-card rounded-2xl p-5 relative overflow-hidden">
-          <div class="flex items-center justify-between text-slate-400 mb-2">
-            <span class="text-xs font-semibold uppercase tracking-wider text-cyan-300">Under Review</span>
-            <span class="w-8 h-8 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
-              <span class="material-symbols-outlined text-lg">pending_actions</span>
+        <div class="glass-card rounded-2xl p-6 relative overflow-hidden group border border-white/10 hover:border-cyan-500/30 transition-all duration-300 shadow-xl bg-gradient-to-br from-slate-900/90 via-cyan-950/20 to-slate-950/90">
+          <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-cyan-500/15 rounded-full blur-2xl pointer-events-none transition-opacity opacity-40 group-hover:opacity-70"></div>
+          <div class="flex items-center justify-between mb-3 relative z-10">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-300">Under Review</span>
+            <span class="w-11 h-11 rounded-xl bg-cyan-500/15 border border-cyan-500/25 text-cyan-400 flex items-center justify-center shadow-inner">
+              <span class="material-symbols-outlined text-xl">pending_actions</span>
             </span>
           </div>
-          <div class="flex items-baseline gap-2">
-            <span id="kpiActiveLeads" class="font-display text-3xl font-black text-cyan-300">0</span>
-            <span class="text-xs text-slate-400">Active Files</span>
+          <div class="flex items-baseline gap-2.5 relative z-10">
+            <span id="kpiActiveLeads" class="font-display text-3xl sm:text-4xl font-black text-cyan-300 tracking-tight">0</span>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/25">
+              Active Files
+            </span>
           </div>
-          <p class="text-[11px] text-slate-400 mt-1">KYC / Bank Login In-Flight</p>
+          <p class="text-xs text-slate-400 mt-2 font-medium relative z-10">KYC &bull; Bank Underwriting In-Flight</p>
         </div>
 
         <!-- Total Loan Pipeline Volume -->
-        <div class="glass-card rounded-2xl p-5 relative overflow-hidden">
-          <div class="flex items-center justify-between text-slate-400 mb-2">
-            <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400">Pipeline Value</span>
-            <span class="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
-              <span class="material-symbols-outlined text-lg">account_balance</span>
+        <div class="glass-card rounded-2xl p-6 relative overflow-hidden group border border-white/10 hover:border-emerald-500/30 transition-all duration-300 shadow-xl bg-gradient-to-br from-slate-900/90 via-emerald-950/20 to-slate-950/90">
+          <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-emerald-500/15 rounded-full blur-2xl pointer-events-none transition-opacity opacity-40 group-hover:opacity-70"></div>
+          <div class="flex items-center justify-between mb-3 relative z-10">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400">Pipeline Value</span>
+            <span class="w-11 h-11 rounded-xl bg-emerald-500/15 border border-emerald-500/25 text-emerald-400 flex items-center justify-center shadow-inner">
+              <span class="material-symbols-outlined text-xl">account_balance_wallet</span>
             </span>
           </div>
-          <div class="flex items-baseline gap-2">
-            <span id="kpiPipelineValue" class="font-display text-2xl font-black text-emerald-400">₹0</span>
+          <div class="flex items-baseline gap-2.5 relative z-10">
+            <span id="kpiPipelineValue" class="font-display text-3xl sm:text-4xl font-black text-emerald-400 tracking-tight">₹0</span>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">
+              Active Demand
+            </span>
           </div>
-          <p class="text-[11px] text-slate-400 mt-1">Cum. Loan Requirement Inquired</p>
+          <p class="text-xs text-slate-400 mt-2 font-medium relative z-10">Cum. Loan Requirement Inquired</p>
         </div>
 
       </div>
@@ -370,48 +406,56 @@
       <!-- ========================================================================= -->
       <!-- 4. UNIFIED TAB NAVIGATION (Loans, Inquiries & Careers) -->
       <!-- ========================================================================= -->
-      <div class="flex items-center gap-2 border-b border-white/10 pb-3 flex-wrap">
-        <button onclick="setDashboardTab('ALL')" id="tabBtnAll" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-600 text-white shadow-md shadow-brand-600/30 flex items-center gap-1.5 cursor-pointer">
-          <span class="material-symbols-outlined text-sm">dashboard</span>
-          <span>All Inquiries</span>
-          <span id="tabCountAll" class="px-1.5 py-0.5 rounded-full bg-white/20 text-[10px] ml-1">0</span>
-        </button>
-        <button onclick="setDashboardTab('LOANS')" id="tabBtnLoans" class="px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white flex items-center gap-1.5 cursor-pointer">
-          <span class="material-symbols-outlined text-sm text-cyan-400">payments</span>
-          <span>Loan Applications</span>
-          <span id="tabCountLoans" class="px-1.5 py-0.5 rounded-full bg-slate-700 text-slate-300 text-[10px] ml-1">0</span>
-        </button>
-        <button onclick="setDashboardTab('CONTACT')" id="tabBtnContact" class="px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white flex items-center gap-1.5 cursor-pointer">
-          <span class="material-symbols-outlined text-sm text-purple-400">mark_email_unread</span>
-          <span>Contact Us Messages</span>
-          <span id="tabCountContact" class="px-1.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 text-[10px] ml-1">0</span>
-        </button>
-        <button onclick="setDashboardTab('CAREERS')" id="tabBtnCareers" class="px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white flex items-center gap-1.5 cursor-pointer">
-          <span class="material-symbols-outlined text-sm text-orange-400">work</span>
-          <span>Career Applications</span>
-          <span id="tabCountCareers" class="px-1.5 py-0.5 rounded-full bg-orange-500/20 text-orange-300 text-[10px] ml-1">0</span>
+      <div class="flex items-center justify-between gap-3 flex-wrap">
+        <div class="flex items-center gap-2 p-1.5 bg-slate-900/80 backdrop-blur-xl rounded-2xl border border-white/10 shadow-lg">
+          <button onclick="setDashboardTab('ALL')" id="tabBtnAll" class="px-4.5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 bg-gradient-to-r from-brand-600 to-cyan-600 text-white shadow-lg shadow-brand-500/25 flex items-center gap-2 cursor-pointer border border-cyan-400/30">
+            <span class="material-symbols-outlined text-base">dashboard</span>
+            <span>All Inquiries</span>
+            <span id="tabCountAll" class="px-2 py-0.5 rounded-full bg-white/20 text-[11px] font-bold ml-0.5">0</span>
+          </button>
+          <button onclick="setDashboardTab('LOANS')" id="tabBtnLoans" class="px-4.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 bg-slate-900/60 hover:bg-slate-800/80 text-slate-300 hover:text-white flex items-center gap-2 cursor-pointer border border-transparent">
+            <span class="material-symbols-outlined text-base text-cyan-400">payments</span>
+            <span>Loan Applications</span>
+            <span id="tabCountLoans" class="px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 text-[11px] font-bold ml-0.5">0</span>
+          </button>
+          <button onclick="setDashboardTab('CONTACT')" id="tabBtnContact" class="px-4.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 bg-slate-900/60 hover:bg-slate-800/80 text-slate-300 hover:text-white flex items-center gap-2 cursor-pointer border border-transparent">
+            <span class="material-symbols-outlined text-base text-purple-400">mark_email_unread</span>
+            <span>Contact Us Messages</span>
+            <span id="tabCountContact" class="px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 text-[11px] font-bold ml-0.5">0</span>
+          </button>
+          <button onclick="setDashboardTab('CAREERS')" id="tabBtnCareers" class="px-4.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 bg-slate-900/60 hover:bg-slate-800/80 text-slate-300 hover:text-white flex items-center gap-2 cursor-pointer border border-transparent">
+            <span class="material-symbols-outlined text-base text-orange-400">work</span>
+            <span>Career Applications</span>
+            <span id="tabCountCareers" class="px-2 py-0.5 rounded-full bg-orange-500/20 text-orange-300 text-[11px] font-bold ml-0.5">0</span>
+          </button>
+        </div>
+
+        <div class="hidden sm:flex items-center gap-2 text-xs text-slate-400">
+          <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span>Dual Sync: Express LOS &amp; Supabase</span>
+        </div>
       </div>
 
 
       <!-- ========================================================================= -->
       <!-- 5. SEARCH, FILTER & SORT CONTROLS BAR (Leads / Contacts view) -->
       <!-- ========================================================================= -->
-      <div id="leadsControlBar" class="glass-panel rounded-2xl p-4 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+      <div id="leadsControlBar" class="glass-panel rounded-2xl p-4 sm:p-5 flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-4 shadow-xl border border-white/10">
         
         <!-- Search Input -->
         <div class="relative flex-1">
-          <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-            <span class="material-symbols-outlined text-lg">search</span>
+          <span class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+            <span class="material-symbols-outlined text-xl">search</span>
           </span>
           <input type="text" id="leadSearchInput" oninput="applyFilters()" placeholder="Search by Applicant Name, Phone, PAN, City, or Ref ID..."
-            class="w-full pl-10 pr-4 py-2.5 bg-slate-900/90 border border-slate-700/80 rounded-xl text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-all">
+            class="w-full h-12 pl-12 pr-4 bg-slate-950/80 border border-slate-700/80 rounded-xl text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20 transition-all shadow-inner">
         </div>
 
         <!-- Filter Selects -->
-        <div class="flex flex-wrap items-center gap-2">
+        <div class="flex flex-wrap items-center gap-2.5">
           
           <!-- Product Filter -->
-          <select id="filterProduct" onchange="applyFilters()" class="py-2.5 px-3 bg-slate-900/90 border border-slate-700/80 rounded-xl text-xs font-semibold text-slate-200 focus:outline-none focus:border-brand-500">
+          <select id="filterProduct" onchange="applyFilters()" class="h-12 px-4 bg-slate-950/80 border border-slate-700/80 rounded-xl text-xs sm:text-sm font-semibold text-slate-200 focus:outline-none focus:border-cyan-400 transition-all cursor-pointer shadow-inner hover:border-slate-600">
             <option value="ALL">All Loan Products</option>
             <option value="Personal Loan">Personal Loan</option>
             <option value="Home Loan">Home Loan</option>
@@ -422,7 +466,7 @@
           </select>
 
           <!-- Status Filter -->
-          <select id="filterStatus" onchange="applyFilters()" class="py-2.5 px-3 bg-slate-900/90 border border-slate-700/80 rounded-xl text-xs font-semibold text-slate-200 focus:outline-none focus:border-brand-500">
+          <select id="filterStatus" onchange="applyFilters()" class="h-12 px-4 bg-slate-950/80 border border-slate-700/80 rounded-xl text-xs sm:text-sm font-semibold text-slate-200 focus:outline-none focus:border-cyan-400 transition-all cursor-pointer shadow-inner hover:border-slate-600">
             <option value="ALL">All Statuses</option>
             <option value="New">🟢 New (Uncontacted)</option>
             <option value="Contacted">🟡 Contacted / Interested</option>
@@ -433,7 +477,7 @@
           </select>
 
           <!-- CIBIL Bureau Filter -->
-          <select id="filterCibil" onchange="applyFilters()" class="py-2.5 px-3 bg-slate-900/90 border border-slate-700/80 rounded-xl text-xs font-semibold text-slate-200 focus:outline-none focus:border-brand-500">
+          <select id="filterCibil" onchange="applyFilters()" class="h-12 px-4 bg-slate-950/80 border border-slate-700/80 rounded-xl text-xs sm:text-sm font-semibold text-slate-200 focus:outline-none focus:border-cyan-400 transition-all cursor-pointer shadow-inner hover:border-slate-600">
             <option value="ALL">All CIBIL Scores</option>
             <option value="750">🟢 750+ Prime (Prime Banks)</option>
             <option value="700">🟡 700 - 749 Good (Standard NBFC)</option>
@@ -443,8 +487,8 @@
           </select>
 
           <!-- Refresh Button -->
-          <button onclick="refreshAllData(true)" id="refreshBtn" title="Sync &amp; Refresh" class="p-2.5 bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 rounded-xl text-slate-300 hover:text-white transition-all flex items-center justify-center cursor-pointer">
-            <span class="material-symbols-outlined text-lg" id="refreshIcon">refresh</span>
+          <button onclick="refreshAllData(true)" id="refreshBtn" title="Sync &amp; Refresh" class="h-12 w-12 bg-slate-950/80 hover:bg-slate-800 border border-slate-700/80 hover:border-cyan-400/40 rounded-xl text-slate-300 hover:text-cyan-300 transition-all flex items-center justify-center cursor-pointer shadow-sm">
+            <span class="material-symbols-outlined text-xl" id="refreshIcon">refresh</span>
           </button>
 
         </div>
@@ -455,27 +499,27 @@
       <!-- ========================================================================= -->
       <!-- 6. LEADS & INQUIRIES DATA TABLE -->
       <!-- ========================================================================= -->
-      <div id="leadsTableContainer" class="glass-panel rounded-2xl border border-white/10 overflow-hidden shadow-2xl">
+      <div id="leadsTableContainer" class="glass-panel rounded-3xl border border-white/10 overflow-hidden shadow-2xl">
         <div class="overflow-x-auto custom-scrollbar">
-          <table class="w-full text-left border-collapse">
+          <table class="w-full min-w-[1300px] text-left border-collapse">
             <thead>
-              <tr class="bg-slate-900/90 border-b border-white/10 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                <th class="py-3.5 px-4">Ref ID &bull; Date</th>
-                <th class="py-3.5 px-4">Applicant Profile</th>
-                <th class="py-3.5 px-4">Fast Connect</th>
-                <th class="py-3.5 px-4">Loan Inquired</th>
-                <th class="py-3.5 px-4 text-center">CIBIL &bull; Bank Match</th>
-                <th class="py-3.5 px-4">Income &bull; PAN</th>
-                <th class="py-3.5 px-4">Pipeline Status</th>
-                <th class="py-3.5 px-4 text-right">Actions</th>
+              <tr class="bg-slate-950/90 border-b border-white/10 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                <th class="py-4.5 px-6 whitespace-nowrap">Ref ID &bull; Date</th>
+                <th class="py-4.5 px-6 whitespace-nowrap">Applicant Profile</th>
+                <th class="py-4.5 px-6 whitespace-nowrap text-center">Fast Connect</th>
+                <th class="py-4.5 px-6 whitespace-nowrap">Loan Inquired</th>
+                <th class="py-4.5 px-6 whitespace-nowrap text-center">CIBIL &bull; Bank Match</th>
+                <th class="py-4.5 px-6 whitespace-nowrap">Income &bull; PAN</th>
+                <th class="py-4.5 px-6 whitespace-nowrap text-center">Pipeline Status</th>
+                <th class="py-4.5 px-6 whitespace-nowrap text-right">Actions</th>
               </tr>
             </thead>
             <tbody id="leadsTableBody" class="divide-y divide-white/5 text-xs">
               <!-- Rendered dynamically -->
               <tr>
-                <td colspan="8" class="py-12 text-center text-slate-500">
-                  <span class="material-symbols-outlined text-4xl animate-spin text-brand-500">sync</span>
-                  <p class="mt-2 text-xs">Connecting to Proloan India Lead Engine...</p>
+                <td colspan="8" class="py-16 text-center text-slate-500">
+                  <span class="material-symbols-outlined text-4xl animate-spin text-cyan-400">sync</span>
+                  <p class="mt-2 text-xs font-medium">Connecting to Proloan India Lead Engine...</p>
                 </td>
               </tr>
             </tbody>
@@ -483,7 +527,7 @@
         </div>
 
         <!-- Table Footer / Counter -->
-        <div class="py-3 px-4 bg-slate-900/80 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
+        <div class="py-4 px-6 bg-slate-950/85 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-400 font-medium">
           <span id="leadCountLabel">Showing 0 of 0 leads</span>
           <div class="flex items-center gap-2">
             <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
@@ -497,19 +541,19 @@
       <!-- ========================================================================= -->
       <!-- 7. CAREER APPLICATIONS PANEL (Integrated Tab View) -->
       <!-- ========================================================================= -->
-      <div id="careerTableContainer" class="hidden glass-panel rounded-2xl border border-white/10 overflow-hidden shadow-2xl">
-        <div class="p-4 bg-slate-900/80 border-b border-white/10 flex items-center justify-between">
-          <div class="flex items-center gap-2.5">
-            <span class="w-8 h-8 rounded-lg bg-orange-500/20 text-orange-400 flex items-center justify-center">
-              <span class="material-symbols-outlined text-lg">work</span>
+      <div id="careerTableContainer" class="hidden glass-panel rounded-3xl border border-white/10 overflow-hidden shadow-2xl">
+        <div class="p-5 bg-slate-950/85 border-b border-white/10 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="w-10 h-10 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center border border-orange-500/25">
+              <span class="material-symbols-outlined text-xl">work</span>
             </span>
             <div>
-              <h3 class="font-display font-bold text-sm text-white">Career Candidates</h3>
-              <p class="text-[11px] text-slate-400">Review resumes and manage recruiting pipeline</p>
+              <h3 class="font-display font-bold text-base text-white tracking-tight">Career Candidates</h3>
+              <p class="text-xs text-slate-400">Review resumes and manage recruiting pipeline</p>
             </div>
           </div>
-          <button onclick="loadCareerApplications(true)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 flex items-center gap-1 cursor-pointer">
-            <span class="material-symbols-outlined text-sm text-orange-400">refresh</span>
+          <button onclick="loadCareerApplications(true)" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 flex items-center gap-1.5 transition-all cursor-pointer border border-white/10">
+            <span class="material-symbols-outlined text-base text-orange-400">refresh</span>
             <span>Refresh Candidates</span>
           </button>
         </div>
@@ -517,14 +561,14 @@
         <div class="overflow-x-auto custom-scrollbar">
           <table class="w-full text-left border-collapse">
             <thead>
-              <tr class="bg-slate-900/90 border-b border-white/10 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                <th class="py-3.5 px-4">App ID &bull; Date</th>
-                <th class="py-3.5 px-4">Candidate Profile</th>
-                <th class="py-3.5 px-4">Role Applied</th>
-                <th class="py-3.5 px-4">Experience &bull; Location</th>
-                <th class="py-3.5 px-4">Resume File</th>
-                <th class="py-3.5 px-4 text-center">Recruiting Stage</th>
-                <th class="py-3.5 px-4 text-right">Actions</th>
+              <tr class="bg-slate-950/90 border-b border-white/10 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                <th class="py-4.5 px-6">App ID &bull; Date</th>
+                <th class="py-4.5 px-6">Candidate Profile</th>
+                <th class="py-4.5 px-6">Role Applied</th>
+                <th class="py-4.5 px-6">Experience &bull; Location</th>
+                <th class="py-4.5 px-6">Resume File</th>
+                <th class="py-4.5 px-6 text-center">Recruiting Stage</th>
+                <th class="py-4.5 px-6 text-right">Actions</th>
               </tr>
             </thead>
             <tbody id="careerTableBody" class="divide-y divide-white/5 text-xs">
@@ -533,7 +577,7 @@
           </table>
         </div>
 
-        <div class="py-3 px-4 bg-slate-900/80 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
+        <div class="py-4 px-6 bg-slate-950/85 border-t border-white/10 flex items-center justify-between text-xs text-slate-400 font-medium">
           <span id="careerCountLabel">0 applications</span>
           <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-orange-400 inline-block"></span>PDF resumes attached directly to candidate file</span>
         </div>
@@ -659,6 +703,10 @@
         </div>
 
         <div class="flex items-center gap-2">
+          <button type="button" onclick="deleteCurrentDossierLead()" class="px-3.5 py-2 rounded-xl bg-rose-950/40 hover:bg-rose-900/60 text-rose-300 font-bold text-xs border border-rose-500/30 flex items-center gap-1.5 transition-all cursor-pointer" title="Delete this lead permanently">
+            <span class="material-symbols-outlined text-base">delete</span>
+            <span>Delete Inquiry</span>
+          </button>
           <button onclick="saveAdminNotesFromModal()" class="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-md shadow-brand-600/30 cursor-pointer">
             <span class="material-symbols-outlined text-base">save</span>
             <span>Save CIBIL &amp; Remarks</span>
@@ -669,6 +717,43 @@
     </div>
   </div>
 
+
+    <!-- ========================================================================= -->
+  <!-- 10.5 IN-PORTAL RESUME PDF VIEWER MODAL -->
+  <!-- ========================================================================= -->
+  <div id="pdfViewerModal" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
+    <div class="w-full max-w-5xl h-[90vh] bg-slate-900 border border-white/15 rounded-3xl p-5 shadow-2xl flex flex-col">
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between pb-4 border-b border-white/10 shrink-0">
+        <div class="flex items-center gap-3 min-w-0">
+          <span class="w-10 h-10 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-2xl">picture_as_pdf</span>
+          </span>
+          <div class="min-w-0">
+            <h3 id="pdfModalTitle" class="text-base font-bold text-white truncate">Candidate Resume</h3>
+            <p id="pdfModalSub" class="text-xs text-slate-400 font-mono truncate mt-0.5">Application ID: CA-00000</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <a id="pdfModalNewTabBtn" href="#" target="_blank" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 border border-white/10 flex items-center gap-1.5 transition-all cursor-pointer">
+            <span class="material-symbols-outlined text-sm">open_in_new</span>
+            <span class="hidden sm:inline">Open in Tab</span>
+          </a>
+          <a id="pdfModalDlBtn" href="#" class="px-3 py-1.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-xs font-semibold text-white flex items-center gap-1.5 transition-all cursor-pointer shadow-sm">
+            <span class="material-symbols-outlined text-sm">download</span>
+            <span class="hidden sm:inline">Download</span>
+          </a>
+          <button type="button" onclick="closePdfModal()" class="p-1.5 rounded-xl bg-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer ml-1">
+            <span class="material-symbols-outlined text-xl">close</span>
+          </button>
+        </div>
+      </div>
+      <!-- Embedded PDF Viewer Frame -->
+      <div class="flex-1 mt-4 rounded-2xl overflow-hidden bg-slate-950 border border-white/10 relative">
+        <iframe id="pdfViewerIframe" src="" class="w-full h-full border-0 rounded-2xl" title="Resume PDF Preview"></iframe>
+      </div>
+    </div>
+  </div>
 
   <!-- ========================================================================= -->
   <!-- 10. MANUAL RECORD INQUIRER MODAL -->
@@ -843,12 +928,12 @@ create policy "Admin all" on public.leads for all using (true);</pre>
     };
 
     // State Variables
-    let currentLeads = [];
-    let filteredLeads = [];
-    let careerData = [];
-    let selectedLeadIndex = -1;
-    let activeDashboardTab = 'ALL';
-    let supabaseClient = null;
+    var currentLeads = [];
+    var filteredLeads = [];
+    var careerData = [];
+    var selectedLeadIndex = -1;
+    var activeDashboardTab = 'ALL';
+    var supabaseClient = null;
 
     // Supabase Config Reader
     function getSupabaseConfig() {
@@ -972,10 +1057,16 @@ create policy "Admin all" on public.leads for all using (true);</pre>
       refreshAllData(false);
     }
 
+    function navigateToWebsite(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      const target = (window.location.protocol === 'file:') ? 'index.html' : '/';
+      window.location.href = target;
+    }
+
     function handleLogout() {
       sessionStorage.clear();
       localStorage.removeItem('proloan_admin_persisted');
-      window.location.reload();
+      navigateToWebsite();
     }
 
     // MANDATORY ID & PASSWORD VERIFICATION ON EVERY OPEN
@@ -1065,8 +1156,19 @@ create policy "Admin all" on public.leads for all using (true);</pre>
         }
       } catch(e) {}
 
-      // Sort by newest first
-      currentLeads = leads.sort((a,b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+      // Read deleted leads registry to ensure deleted items never resurrect on background sync
+      let deletedSet = new Set();
+      try {
+        const d = JSON.parse(localStorage.getItem('proloan_deleted_leads') || '[]');
+        if (Array.isArray(d)) {
+          deletedSet = new Set(d.map(id => String(id).trim().toLowerCase()));
+        }
+      } catch(e) {}
+
+      // Filter deleted records and sort by newest first
+      currentLeads = leads
+        .filter(l => l && l.ref_id && !deletedSet.has(String(l.ref_id).trim().toLowerCase()))
+        .sort((a,b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
       applyFilters();
     }
 
@@ -1196,8 +1298,8 @@ create policy "Admin all" on public.leads for all using (true);</pre>
       
       // Update Tab button active styles
       const tabIds = ['tabBtnAll', 'tabBtnLoans', 'tabBtnContact', 'tabBtnCareers'];
-      const activeClass = 'bg-brand-600 text-white shadow-md shadow-brand-600/30 font-bold';
-      const inactiveClass = 'bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white font-semibold';
+      const activeClass = 'bg-gradient-to-r from-brand-600 to-cyan-600 text-white shadow-lg shadow-brand-500/25 font-bold border border-cyan-400/30';
+      const inactiveClass = 'bg-slate-900/60 hover:bg-slate-800/80 text-slate-300 hover:text-white font-semibold border border-transparent';
 
       tabIds.forEach(id => {
         const btn = document.getElementById(id);
@@ -1206,7 +1308,7 @@ create policy "Admin all" on public.leads for all using (true);</pre>
                         (id === 'tabBtnLoans' && tab === 'LOANS') ||
                         (id === 'tabBtnContact' && tab === 'CONTACT') ||
                         (id === 'tabBtnCareers' && tab === 'CAREERS');
-        btn.className = 'px-4 py-2 rounded-xl text-xs transition-all flex items-center gap-1.5 cursor-pointer ' + (matches ? activeClass : inactiveClass);
+        btn.className = 'px-4.5 py-2.5 rounded-xl text-xs sm:text-sm transition-all duration-200 flex items-center gap-2 cursor-pointer ' + (matches ? activeClass : inactiveClass);
       });
 
       // Show/Hide Main Containers
@@ -1369,76 +1471,90 @@ create policy "Admin all" on public.leads for all using (true);</pre>
         const cMeta = getCibilClassification(cScore);
 
         return `
-          <tr class="hover:bg-slate-800/40 transition-colors">
+          <tr class="hover:bg-slate-800/40 transition-colors border-b border-white/[0.06] group">
             
             <!-- Ref ID & Date -->
-            <td class="py-3.5 px-4">
+            <td class="py-4.5 px-6 whitespace-nowrap">
               <div class="flex items-center gap-1.5">
-                <span class="font-mono text-xs font-bold text-cyan-400">${lead.ref_id}</span>
-                <button onclick="copyToClipboard('${lead.ref_id}')" title="Copy Ref ID" class="text-slate-500 hover:text-slate-300 cursor-pointer">
+                <span class="font-mono text-xs font-bold text-cyan-400 tracking-wide whitespace-nowrap">${lead.ref_id}</span>
+                <button onclick="copyToClipboard('${lead.ref_id}')" title="Copy Ref ID" class="text-slate-500 hover:text-cyan-300 transition-colors cursor-pointer">
                   <span class="material-symbols-outlined text-[14px]">content_copy</span>
                 </button>
               </div>
-              <span class="text-[10px] text-slate-400 block mt-0.5">${formattedDate}</span>
-              <span class="text-[9px] text-slate-500 block">${lead.lead_category || 'Website'}</span>
+              <span class="text-[11px] text-slate-400 font-medium block mt-1">${formattedDate}</span>
+              <span class="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-md bg-slate-800/90 text-slate-400 mt-1.5 border border-white/5">
+                ${lead.lead_category || 'Website Lead'}
+              </span>
             </td>
 
             <!-- Applicant Profile -->
-            <td class="py-3.5 px-4">
-              <span class="font-bold text-white text-xs block">${lead.applicant_name}</span>
-              <span class="text-[11px] text-slate-400 block">${lead.mobile}</span>
-              <span class="text-[10px] text-slate-500 block truncate max-w-[140px]">${lead.city || 'Pan India'}</span>
+            <td class="py-4.5 px-6">
+              <span class="font-bold text-white text-sm tracking-tight block group-hover:text-cyan-300 transition-colors">${lead.applicant_name}</span>
+              <span class="text-xs text-slate-300 font-mono mt-0.5 block whitespace-nowrap">${lead.mobile}</span>
+              <span class="text-[11px] text-slate-400 block truncate max-w-[160px] mt-0.5 flex items-center gap-1">
+                <span class="material-symbols-outlined text-xs text-slate-500">location_on</span>
+                ${lead.city || 'Pan India'}
+              </span>
             </td>
 
             <!-- Fast Connect Suite -->
-            <td class="py-3.5 px-4">
-              <div class="flex items-center gap-1.5">
-                <a href="tel:${lead.mobile}" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-400 flex items-center justify-center transition-all" title="Direct Phone Call">
+            <td class="py-4.5 px-6 whitespace-nowrap text-center">
+              <div class="flex items-center justify-center gap-2">
+                <a href="tel:${lead.mobile}" class="w-9 h-9 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/25 flex items-center justify-center transition-all hover:scale-105 shadow-sm" title="Direct Phone Call">
                   <span class="material-symbols-outlined text-base">call</span>
                 </a>
-                <a href="https://wa.me/${rawPhone}?text=${waMsg}" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-300 border border-emerald-500/30 flex items-center justify-center transition-all" title="WhatsApp Follow-up">
+                <a href="https://wa.me/${rawPhone}?text=${waMsg}" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-300 border border-emerald-500/35 flex items-center justify-center transition-all hover:scale-105 shadow-sm" title="WhatsApp Follow-up">
                   <span class="material-symbols-outlined text-base">chat</span>
                 </a>
               </div>
             </td>
 
-            <!-- Loan Inquired -->
-            <td class="py-3.5 px-4">
+            <!-- Loan / Career Inquired -->
+            <td class="py-4.5 px-6">
               ${(lead.lead_category && lead.lead_category.toLowerCase().includes('contact')) || (lead.loan_product && lead.loan_product.toLowerCase().includes('contact')) ? `
-                <div class="flex items-center gap-1 text-purple-300 font-bold">
-                  <span class="material-symbols-outlined text-sm">chat</span>
+                <div class="flex items-center gap-1.5 text-purple-300 font-bold text-xs whitespace-nowrap">
+                  <span class="material-symbols-outlined text-base">mark_email_unread</span>
                   <span>Contact Message</span>
                 </div>
-                <span class="text-[11px] text-slate-400 block truncate max-w-[200px]" title="${lead.cibil_notes || ''}">${lead.cibil_notes || 'Consultation Request'}</span>
+                <span class="text-xs text-slate-400 block truncate max-w-[220px] mt-0.5 font-medium" title="${lead.cibil_notes || ''}">${lead.cibil_notes || 'Consultation Request'}</span>
+              ` : (lead.lead_category === 'Career Application' || (lead.loan_product && lead.loan_product.includes('Career')) || (lead.ref_id && lead.ref_id.startsWith('CA-'))) ? `
+                <div class="flex items-center gap-1.5 text-orange-300 font-bold text-xs whitespace-nowrap">
+                  <span class="material-symbols-outlined text-base">work</span>
+                  <span>${lead.loan_product || 'Career Application'}</span>
+                </div>
+                <button type="button" onclick="viewResumeModal('${lead.ref_id}', '${(lead.applicant_name || 'Candidate').replace(/'/g, "\\'")}', 'Resume.pdf')" class="mt-1.5 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-orange-500/20 hover:bg-orange-500/35 text-orange-300 text-[11px] font-bold border border-orange-500/35 transition-all cursor-pointer shadow-sm hover:scale-105">
+                  <span class="material-symbols-outlined text-xs">picture_as_pdf</span>
+                  <span>Open Resume PDF</span>
+                </button>
               ` : `
-                <span class="font-bold text-slate-200 block">${lead.loan_product}</span>
-                <span class="font-display font-black text-emerald-400 text-xs block">${lead.loan_amount}</span>
+                <span class="font-bold text-slate-200 text-xs sm:text-sm block whitespace-nowrap">${lead.loan_product}</span>
+                <span class="font-display font-black text-emerald-400 text-xs sm:text-sm block mt-0.5 whitespace-nowrap">${lead.loan_amount}</span>
               `}
             </td>
 
             <!-- CIBIL Score & Bank Match -->
-            <td class="py-3.5 px-4 text-center">
+            <td class="py-4.5 px-6 text-center whitespace-nowrap">
               <div class="inline-flex flex-col items-center">
-                <button type="button" onclick="openDossierModal('${lead.ref_id}')" class="px-2.5 py-1 rounded-xl border font-mono font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer ${cMeta.badgeClass}" title="${cMeta.bankRecommendation}">
-                  <span class="material-symbols-outlined text-[13px]">${cMeta.isHot ? 'verified' : 'credit_score'}</span>
+                <button type="button" onclick="openDossierModal('${lead.ref_id}')" class="px-3 py-1.5 rounded-xl border font-mono font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer shadow-sm hover:scale-105 ${cMeta.badgeClass}" title="${cMeta.bankRecommendation}">
+                  <span class="material-symbols-outlined text-[14px]">${cMeta.isHot ? 'verified' : 'credit_score'}</span>
                   <span>${cMeta.score}</span>
                   <span class="text-[10px] font-sans font-semibold">${cMeta.tier.split(' ')[0]}</span>
                 </button>
-                <span class="text-[9px] text-slate-400 mt-1 block truncate max-w-[130px]" title="${cMeta.bankRecommendation}">
+                <span class="text-[10px] text-slate-400 mt-1.5 block font-medium truncate max-w-[150px]" title="${cMeta.bankRecommendation}">
                   ${cMeta.eligibleBanks.split(',')[0]}
                 </span>
               </div>
             </td>
 
             <!-- Income & PAN -->
-            <td class="py-3.5 px-4">
-              <span class="text-slate-300 block font-medium">${lead.monthly_income}</span>
-              <span class="font-mono text-[10px] text-amber-300/80 block">${lead.pan_card || 'No PAN'}</span>
+            <td class="py-4.5 px-6 whitespace-nowrap">
+              <span class="text-slate-200 block text-xs sm:text-sm font-semibold whitespace-nowrap">${lead.monthly_income}</span>
+              <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-slate-800/80 text-amber-300/90 border border-white/5 inline-block mt-1">${lead.pan_card || 'No PAN'}</span>
             </td>
 
             <!-- Pipeline Status Dropdown -->
-            <td class="py-3.5 px-4">
-              <select onchange="handleStatusChange('${lead.ref_id}', this.value)" class="text-[11px] font-semibold py-1 px-2.5 rounded-lg border bg-slate-900 focus:outline-none cursor-pointer ${statusConfig.bg}">
+            <td class="py-4.5 px-6 text-center whitespace-nowrap">
+              <select onchange="handleStatusChange('${lead.ref_id}', this.value)" class="text-xs font-semibold py-1.5 px-3 rounded-xl border bg-slate-950 focus:outline-none cursor-pointer transition-all shadow-sm ${statusConfig.bg}">
                 <option value="New" ${lead.status === 'New' ? 'selected' : ''}>🟢 New</option>
                 <option value="Contacted" ${lead.status === 'Contacted' ? 'selected' : ''}>🟡 Contacted</option>
                 <option value="Docs Pending" ${lead.status === 'Docs Pending' ? 'selected' : ''}>🔵 Docs Pending</option>
@@ -1449,13 +1565,13 @@ create policy "Admin all" on public.leads for all using (true);</pre>
             </td>
 
             <!-- Action Buttons -->
-            <td class="py-3.5 px-4 text-right">
-              <div class="flex items-center justify-end gap-1.5">
-                <button onclick="openDossierModal('${lead.ref_id}')" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 text-[11px] font-semibold border border-slate-700/60 flex items-center gap-1 transition-all cursor-pointer" title="View Full Dossier">
+            <td class="py-4.5 px-6 text-right whitespace-nowrap">
+              <div class="flex items-center justify-end gap-2">
+                <button onclick="openDossierModal('${lead.ref_id}')" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-brand-600 text-slate-200 hover:text-white text-xs font-bold border border-white/10 flex items-center gap-1.5 transition-all cursor-pointer shadow-sm hover:border-brand-400/40" title="View Full Dossier">
                   <span>Dossier</span>
-                  <span class="material-symbols-outlined text-xs">open_in_new</span>
+                  <span class="material-symbols-outlined text-sm">open_in_new</span>
                 </button>
-                <button onclick="deleteLead('${lead.ref_id}')" class="p-1.5 rounded-lg text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition-all cursor-pointer" title="Delete record">
+                <button onclick="deleteLead('${lead.ref_id}')" class="w-8 h-8 rounded-xl text-slate-400 hover:text-rose-400 hover:bg-rose-500/15 flex items-center justify-center transition-all cursor-pointer" title="Delete record">
                   <span class="material-symbols-outlined text-base">delete</span>
                 </button>
               </div>
@@ -1523,6 +1639,28 @@ create policy "Admin all" on public.leads for all using (true);</pre>
       document.getElementById('dosIncome').textContent = lead.monthly_income;
       document.getElementById('dosPan').textContent = lead.pan_card || 'Not Provided';
       document.getElementById('dosNotes').textContent = lead.cibil_notes || 'Application logged directly from customer session.';
+      
+      // If Career Application, inject Open Resume button in Dossier
+      const isCareer = lead.lead_category === 'Career Application' || (lead.loan_product && lead.loan_product.includes('Career')) || (lead.ref_id && lead.ref_id.startsWith('CA-'));
+      let careerBtnEl = document.getElementById('dosCareerResumeBtn');
+      if (isCareer) {
+        if (!careerBtnEl) {
+          careerBtnEl = document.createElement('div');
+          careerBtnEl.id = 'dosCareerResumeBtn';
+          careerBtnEl.className = 'mt-3 pt-3 border-t border-white/10 flex items-center justify-between';
+          document.getElementById('dosNotes').parentNode.appendChild(careerBtnEl);
+        }
+        careerBtnEl.innerHTML = `
+          <span class="text-xs text-orange-300 font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-sm">picture_as_pdf</span>Candidate Resume Attached</span>
+          <button type="button" onclick="viewResumeModal('${lead.ref_id}', '${(lead.applicant_name || 'Candidate').replace(/'/g, "\\'")}', 'Resume.pdf')" class="px-3.5 py-1.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs flex items-center gap-1 transition-all cursor-pointer shadow-md">
+            <span class="material-symbols-outlined text-sm">visibility</span>
+            <span>Open Resume PDF</span>
+          </button>
+        `;
+        careerBtnEl.style.display = 'flex';
+      } else if (careerBtnEl) {
+        careerBtnEl.style.display = 'none';
+      }
       document.getElementById('dosAdminNotes').value = lead.admin_notes || '';
 
 
@@ -1607,24 +1745,48 @@ create policy "Admin all" on public.leads for all using (true);</pre>
 
     // Delete Lead
     async function deleteLead(refId) {
-      if (!confirm(`Are you sure you want to remove lead ${refId}?`)) return;
+      if (!refId) return;
+      if (!confirm(`Are you sure you want to permanently remove lead ${refId}?`)) return;
 
-      currentLeads = currentLeads.filter(l => l.ref_id !== refId);
+      const normId = String(refId).trim().toLowerCase();
 
+      // 1. Maintain persistent deleted registry so background polls & syncs never resurrect it
       try {
-        await fetch('/api/leads/' + refId, { method: 'DELETE' });
+        const deletedIds = JSON.parse(localStorage.getItem('proloan_deleted_leads') || '[]');
+        if (!deletedIds.some(id => String(id).trim().toLowerCase() === normId)) {
+          deletedIds.push(refId);
+          localStorage.setItem('proloan_deleted_leads', JSON.stringify(deletedIds.slice(-300)));
+        }
       } catch(e) {}
 
+      // 2. Remove immediately from memory array
+      currentLeads = currentLeads.filter(l => l && (l.ref_id || '').trim().toLowerCase() !== normId);
+
+      // 3. Update localStorage cache and re-render table immediately
+      persistLeadsLocally();
+      applyFilters();
+
+      // 4. Send delete request to backend Node server
+      try {
+        await fetch('/api/leads/' + encodeURIComponent(refId), { method: 'DELETE' });
+      } catch(e) {}
+
+      // 5. Send delete request to Supabase if connected
       if (supabaseClient) {
         try {
           await supabaseClient.from('leads').delete().eq('ref_id', refId);
         } catch(e) {}
       }
 
-      persistLeadsLocally();
-      populateBorrowerDropdown();
-      applyFilters();
-      showToast(`Lead ${refId} removed.`, 'info');
+      showToast(`Lead ${refId} permanently removed.`, 'info');
+    }
+
+    function deleteCurrentDossierLead() {
+      if (selectedLeadIndex < 0 || !currentLeads[selectedLeadIndex]) return;
+      const lead = currentLeads[selectedLeadIndex];
+      const targetRef = lead.ref_id;
+      closeDossierModal();
+      deleteLead(targetRef);
     }
 
 
@@ -1683,7 +1845,6 @@ create policy "Admin all" on public.leads for all using (true);</pre>
       }
 
       persistLeadsLocally();
-      populateBorrowerDropdown();
       closeAddLeadModal();
       applyFilters();
       showToast(`New inquiry recorded: ${newLead.ref_id} (${newLead.applicant_name})`, 'success');
@@ -1722,6 +1883,51 @@ create policy "Admin all" on public.leads for all using (true);</pre>
       }
     }
 
+    
+    // ==============================================================
+    // RESUME PDF VIEWER CONTROLLER
+    // ==============================================================
+    function viewResumeModal(appId, candidateName, resumeName) {
+      const modal = document.getElementById('pdfViewerModal');
+      const iframe = document.getElementById('pdfViewerIframe');
+      const title = document.getElementById('pdfModalTitle');
+      const sub = document.getElementById('pdfModalSub');
+      const newTabBtn = document.getElementById('pdfModalNewTabBtn');
+      const dlBtn = document.getElementById('pdfModalDlBtn');
+
+      const cleanId = encodeURIComponent((appId || '').trim());
+      const pdfUrl = '/api/career-resume/' + cleanId;
+      const dlUrl = '/api/career-resume/' + cleanId + '?download=true';
+
+      if (title) title.textContent = (candidateName || 'Candidate') + ' — Resume';
+      if (sub) sub.textContent = 'Application ID: ' + appId + (resumeName ? ' • ' + resumeName : '');
+      if (newTabBtn) newTabBtn.href = pdfUrl;
+      if (dlBtn) dlBtn.href = dlUrl;
+      if (iframe) iframe.src = pdfUrl;
+
+      if (modal) {
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closePdfModal() {
+      const modal = document.getElementById('pdfViewerModal');
+      const iframe = document.getElementById('pdfViewerIframe');
+      if (iframe) iframe.src = '';
+      if (modal) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closePdfModal();
+        closeDossierModal();
+      }
+    });
+
     function renderCareerTable() {
       const tbody = document.getElementById('careerTableBody');
       const countLabel = document.getElementById('careerCountLabel');
@@ -1748,46 +1954,59 @@ create policy "Admin all" on public.leads for all using (true);</pre>
           `<option value="${s}" ${s === app.status ? 'selected' : ''}>${s}</option>`
         ).join('');
 
+        const safeCandidateName = (app.name || 'Candidate').replace(/'/g, "\\'");
+        const safeResumeName = (app.resumeName || 'Resume.pdf').replace(/'/g, "\\'");
         const resumeBtn = app.hasResume 
-          ? `<a href="/api/career-resume/${app.appId}" target="_blank" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-orange-500/15 hover:bg-orange-500/30 text-orange-300 text-[11px] font-bold border border-orange-500/20 transition-all"><span class="material-symbols-outlined text-sm">picture_as_pdf</span><span>${app.resumeName || 'Resume'}</span></a>`
+          ? `<div class="flex items-center gap-1.5">
+               <button type="button" onclick="viewResumeModal('${app.appId}', '${safeCandidateName}', '${safeResumeName}')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-orange-500/20 hover:bg-orange-500/35 text-orange-300 text-xs font-bold border border-orange-500/35 transition-all cursor-pointer shadow-sm hover:scale-105" title="Click to view resume inside portal">
+                 <span class="material-symbols-outlined text-sm">visibility</span>
+                 <span>View PDF</span>
+               </button>
+               <a href="/api/career-resume/${app.appId}" target="_blank" title="Open in new browser tab" class="p-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-white/5 transition-all">
+                 <span class="material-symbols-outlined text-sm">open_in_new</span>
+               </a>
+             </div>`
           : `<span class="text-slate-500 text-[11px] italic">No file</span>`;
 
         const waMsg = encodeURIComponent(`Hi ${app.name}, thank you for applying for the ${app.role} role at Proloan India. We are pleased to connect regarding your profile.`);
 
         return `
-          <tr class="hover:bg-slate-800/40 transition-colors">
-            <td class="py-3 px-4">
-              <span class="font-mono text-[11px] text-orange-300 font-bold">${app.appId}</span>
-              <p class="text-[10px] text-slate-500 mt-0.5">${app.timestamp || 'Recent'}</p>
+          <tr class="hover:bg-slate-800/40 transition-colors border-b border-white/[0.06] group">
+            <td class="py-4.5 px-6">
+              <span class="font-mono text-xs text-orange-300 font-bold">${app.appId}</span>
+              <p class="text-[11px] text-slate-400 mt-1 font-medium">${app.timestamp || 'Recent'}</p>
             </td>
-            <td class="py-3 px-4">
-              <span class="font-bold text-white text-xs block">${app.name}</span>
-              <span class="text-[10px] text-slate-400 block">${app.mobile}</span>
-              <span class="text-[10px] text-slate-500 block truncate max-w-[150px]">${app.email}</span>
+            <td class="py-4.5 px-6">
+              <span class="font-bold text-white text-sm tracking-tight block group-hover:text-orange-300 transition-colors">${app.name}</span>
+              <span class="text-xs text-slate-300 font-mono mt-0.5 block">${app.mobile}</span>
+              <span class="text-[11px] text-slate-400 block truncate max-w-[160px] mt-0.5">${app.email}</span>
             </td>
-            <td class="py-3 px-4">
-              <span class="font-semibold text-orange-300 text-xs">${app.role}</span>
+            <td class="py-4.5 px-6">
+              <span class="font-semibold text-orange-300 text-xs sm:text-sm">${app.role}</span>
             </td>
-            <td class="py-3 px-4">
-              <span class="text-slate-300 text-xs block font-medium">${app.experience || 'Fresher'}</span>
-              <span class="text-[10px] text-slate-500 block">${app.city || 'Pan India'}</span>
+            <td class="py-4.5 px-6">
+              <span class="text-slate-200 text-xs sm:text-sm block font-semibold">${app.experience || 'Fresher'}</span>
+              <span class="text-[11px] text-slate-400 block mt-0.5">${app.city || 'Pan India'}</span>
             </td>
-            <td class="py-3 px-4">
+            <td class="py-4.5 px-6">
               ${resumeBtn}
             </td>
-            <td class="py-3 px-4 text-center">
-              <select onchange="updateCareerStatus('${app.appId}', this.value)" class="px-2 py-1.5 rounded-lg text-[11px] font-bold border focus:outline-none bg-slate-900 cursor-pointer ${stageClass}">
+            <td class="py-4.5 px-6 text-center">
+              <select onchange="updateCareerStatus('${app.appId}', this.value)" class="px-3 py-1.5 rounded-xl text-xs font-bold border focus:outline-none bg-slate-950 cursor-pointer transition-all shadow-sm ${stageClass}">
                 ${stageOptions}
               </select>
             </td>
-            <td class="py-3 px-4 text-right">
-              <div class="flex items-center justify-end gap-1.5">
-                <a href="tel:${app.mobile}" class="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-400" title="Call candidate">
+            <td class="py-4.5 px-6 text-right">
+              <div class="flex items-center justify-end gap-2">
+                <a href="tel:${app.mobile}" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-slate-700 flex items-center justify-center transition-all hover:scale-105 shadow-sm" title="Call candidate">
                   <span class="material-symbols-outlined text-base">call</span>
                 </a>
-                <a href="https://wa.me/91${app.mobile.replace(/[^0-9]/g, '')}?text=${waMsg}" target="_blank" class="p-1.5 rounded-lg bg-emerald-600/20 text-emerald-300" title="WhatsApp candidate">
+                <a href="https://wa.me/91${app.mobile.replace(/[^0-9]/g, '')}?text=${waMsg}" target="_blank" class="w-9 h-9 rounded-xl bg-emerald-600/20 text-emerald-300 border border-emerald-500/30 flex items-center justify-center transition-all hover:scale-105 shadow-sm" title="WhatsApp candidate">
                   <span class="material-symbols-outlined text-base">chat</span>
                 </a>
+                <button onclick="deleteCareerApplication('${app.appId}')" class="w-8 h-8 rounded-xl text-slate-400 hover:text-rose-400 hover:bg-rose-500/15 flex items-center justify-center transition-all cursor-pointer" title="Delete application">
+                  <span class="material-symbols-outlined text-base">delete</span>
+                </button>
               </div>
             </td>
           </tr>
@@ -1810,75 +2029,367 @@ create policy "Admin all" on public.leads for all using (true);</pre>
       showToast(`Candidate ${appId} stage updated to ${status}`, 'success');
     }
 
+    async function deleteCareerApplication(appId) {
+      if (!appId) return;
+      if (!confirm(`Are you sure you want to permanently delete candidate application ${appId}?`)) return;
+
+      const normId = String(appId).trim().toLowerCase();
+      careerData = careerData.filter(a => a && (a.appId || '').trim().toLowerCase() !== normId);
+      renderCareerTable();
+      const badge = document.getElementById('tabCountCareers');
+      if (badge) badge.textContent = careerData.length;
+
+      try {
+        await fetch('/api/career-applications/' + encodeURIComponent(appId), { method: 'DELETE' });
+      } catch(e) {}
+
+      showToast(`Candidate application ${appId} removed.`, 'info');
+    }
+
 
 
 
     // ==============================================================
-    // CSV EXPORT ENGINE
+    // SPACIOUS EXCEL (.xlsx) & CLEAN CSV EXPORT SUITE
     // ==============================================================
-    function exportCurrentViewToCSV() {
-      if (activeDashboardTab === 'CAREERS') {
+    function toggleExportMenu(e) {
+      if (e) e.stopPropagation();
+      const dd = document.getElementById('exportDropdown');
+      if (dd) dd.classList.toggle('hidden');
+    }
+    function closeExportMenu() {
+      const dd = document.getElementById('exportDropdown');
+      if (dd) dd.classList.add('hidden');
+    }
+    document.addEventListener('click', (e) => {
+      const group = document.getElementById('exportButtonGroup');
+      if (group && !group.contains(e.target)) {
+        closeExportMenu();
+      }
+    });
+
+    function formatPhoneClean(phone, forCsv = false) {
+      if (!phone) return 'Not Provided';
+      const raw = String(phone).trim();
+      const digits = raw.replace(/[^0-9]/g, '');
+      let formatted = raw;
+      if (digits.length === 10) {
+        formatted = `+91 ${digits.slice(0, 5)} ${digits.slice(5)}`;
+      } else if (digits.length === 12 && digits.startsWith('91')) {
+        formatted = `+91 ${digits.slice(2, 7)} ${digits.slice(7)}`;
+      }
+      // For CSV, Excel turns raw numbers into scientific notation (9.88E+09).
+      // Wrapping with ="..." formula forces Excel to treat it as a literal text string.
+      if (forCsv) {
+        return `="${formatted}"`;
+      }
+      return formatted;
+    }
+
+    function formatDateClean(dateStr) {
+      if (!dateStr) return 'N/A';
+      const d = new Date(dateStr);
+      if (isNaN(d.getTime())) return String(dateStr);
+      const day = String(d.getDate()).padStart(2, '0');
+      const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const month = monthNames[d.getMonth()];
+      const year = d.getFullYear();
+      let hours = d.getHours();
+      const minutes = String(d.getMinutes()).padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12 || 12;
+      const strHours = String(hours).padStart(2, '0');
+      return `${day}-${month}-${year} ${strHours}:${minutes} ${ampm}`;
+    }
+
+    function formatAmountClean(amt) {
+      if (!amt) return 'Flexible';
+      let str = String(amt).trim();
+      const digits = str.replace(/[^0-9]/g, '');
+      if (digits && /^\d+$/.test(str)) {
+        const num = parseInt(digits, 10);
+        return '₹ ' + num.toLocaleString('en-IN');
+      }
+      if (str.startsWith('₹') && !str.startsWith('₹ ')) {
+        return '₹ ' + str.slice(1).trim();
+      }
+      return str;
+    }
+
+    function formatCsvCell(val) {
+      if (val === null || val === undefined) return '""';
+      const str = String(val);
+      // Preserve ="..." formula for phone numbers in Excel
+      if (str.startsWith('="') && str.endsWith('"')) {
+        return str;
+      }
+      const clean = str.replace(/"/g, '""').replace(/[\r\n]+/g, ' ');
+      return `"${clean}"`;
+    }
+
+    // ── Primary Spacious Excel (.xlsx) Exporter ──
+    function exportCurrentViewToExcel() {
+      if (typeof XLSX === 'undefined') {
+        console.warn('SheetJS library not yet initialized. Falling back to Formatted CSV.');
+        exportCurrentViewToCSV();
+        return;
+      }
+
+      const isCareer = activeDashboardTab === 'CAREERS';
+      const dateStr = new Date().toISOString().slice(0, 10);
+
+      if (isCareer) {
         if (!careerData.length) {
-          showToast('No career records to export.', 'warning');
+          showToast('No career records available to export.', 'warning');
           return;
         }
-        const headers = ['App ID', 'Applicant Name', 'Mobile', 'Email', 'Role', 'Experience', 'City', 'Cover Note', 'Stage', 'Submitted At'];
-        const rows = careerData.map(c => [
-          `"${c.appId || ''}"`,
-          `"${(c.name || '').replace(/"/g, '""')}"`,
-          `"${c.mobile || ''}"`,
-          `"${c.email || ''}"`,
-          `"${c.role || ''}"`,
-          `"${c.experience || ''}"`,
-          `"${(c.city || '').replace(/"/g, '""')}"`,
-          `"${(c.note || '').replace(/"/g, '""')}"`,
-          `"${c.status || 'New'}"`,
-          `"${c.timestamp || ''}"`
+
+        const headers = [
+          'Application ID',
+          'Candidate Name',
+          'Mobile Number',
+          'Email Address',
+          'Role Applied',
+          'Experience',
+          'City / Location',
+          'Recruiting Stage',
+          'Submitted Date',
+          'Cover Note / Remarks'
+        ];
+
+        const dataRows = careerData.map(c => [
+          String(c.appId || ''),
+          String(c.name || ''),
+          formatPhoneClean(c.mobile, false),
+          String(c.email || ''),
+          String(c.role || ''),
+          String(c.experience || 'Fresher'),
+          String(c.city || 'Pan India'),
+          String(c.status || 'New'),
+          formatDateClean(c.timestamp),
+          String(c.note || '')
         ]);
-        downloadCsvFile(`Proloan_Careers_Export_${new Date().toISOString().slice(0,10)}.csv`, headers, rows);
+
+        const wb = XLSX.utils.book_new();
+        const ws = XLSX.utils.aoa_to_sheet([headers, ...dataRows]);
+
+        // Generous, spacious column widths for Excel
+        ws['!cols'] = [
+          { wch: 18 }, // Application ID
+          { wch: 28 }, // Candidate Name
+          { wch: 22 }, // Mobile Number
+          { wch: 28 }, // Email Address
+          { wch: 24 }, // Role Applied
+          { wch: 18 }, // Experience
+          { wch: 24 }, // City / Location
+          { wch: 20 }, // Recruiting Stage
+          { wch: 24 }, // Submitted Date
+          { wch: 50 }  // Cover Note / Remarks
+        ];
+
+        // Spacious row heights
+        ws['!rows'] = [
+          { hpt: 28 }, // Header height
+          ...dataRows.map(() => ({ hpt: 22 })) // Row height
+        ];
+
+        XLSX.utils.book_append_sheet(wb, ws, 'Career Candidates');
+        XLSX.writeFile(wb, `Proloan_Careers_${dateStr}.xlsx`);
+        showToast(`Exported ${dataRows.length} candidates to spacious Excel (.xlsx)`, 'success');
         return;
       }
 
-      if (!filteredLeads.length) {
-        showToast('No inquiries to export.', 'warning');
+      // Leads export
+      const datasetToExport = filteredLeads.length > 0 ? filteredLeads : currentLeads;
+      if (!datasetToExport.length) {
+        showToast('No inquiries available to export.', 'warning');
         return;
       }
 
-      const headers = ['Ref ID', 'Applicant Name', 'Mobile', 'Loan Product', 'Loan Amount', 'CIBIL Score', 'Bureau Classification', 'City', 'Monthly Income', 'PAN Card', 'Status', 'Lead Source', 'Created At', 'Admin Remarks'];
-      const rows = filteredLeads.map(l => {
+      const headers = [
+        'Ref ID',
+        'Applicant Name',
+        'Mobile Number',
+        'Loan Product',
+        'Loan Amount',
+        'CIBIL Score',
+        'Bureau Tier',
+        'City / Location',
+        'Monthly Income',
+        'PAN Card',
+        'Pipeline Status',
+        'Lead Category',
+        'Submitted Date',
+        'Underwriting Remarks'
+      ];
+
+      const dataRows = datasetToExport.map(l => {
         const cScore = parseCibil(l);
         const cMeta = getCibilClassification(cScore);
         return [
-          `"${l.ref_id || ''}"`,
-          `"${(l.applicant_name || '').replace(/"/g, '""')}"`,
-          `"${l.mobile || ''}"`,
-          `"${l.loan_product || ''}"`,
-          `"${l.loan_amount || ''}"`,
-          `"${cMeta.score}"`,
-          `"${cMeta.tier}"`,
-          `"${(l.city || '').replace(/"/g, '""')}"`,
-          `"${l.monthly_income || ''}"`,
-          `"${l.pan_card || ''}"`,
-          `"${l.status || 'New'}"`,
-          `"${l.lead_category || ''}"`,
-          `"${l.created_at || ''}"`,
-          `"${(l.admin_notes || '').replace(/"/g, '""')}"`
+          String(l.ref_id || ''),
+          String(l.applicant_name || ''),
+          formatPhoneClean(l.mobile, false),
+          String(l.loan_product || 'General Inquiry'),
+          formatAmountClean(l.loan_amount),
+          cMeta.score !== null ? String(cMeta.score) : 'Pending',
+          String(cMeta.tier || 'Unverified'),
+          String(l.city || 'Pan India'),
+          String(l.monthly_income || 'N/A'),
+          String(l.pan_card || 'N/A'),
+          String(l.status || 'New'),
+          String(l.lead_category || 'Website Form'),
+          formatDateClean(l.created_at),
+          String(l.admin_notes || '')
         ];
       });
 
-      downloadCsvFile(`Proloan_Leads_Export_${new Date().toISOString().slice(0,10)}.csv`, headers, rows);
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.aoa_to_sheet([headers, ...dataRows]);
+
+      // Generous, spacious column widths for every column:
+      // Absolutely NO clipped names, NO '########', and NO '9.88E+09'!
+      ws['!cols'] = [
+        { wch: 18 }, // Ref ID (e.g. PL-88231)
+        { wch: 28 }, // Applicant Name (e.g. Rajesh Verma)
+        { wch: 22 }, // Mobile Number (e.g. +91 98112 34567)
+        { wch: 24 }, // Loan Product (e.g. Home Loan)
+        { wch: 20 }, // Loan Amount (e.g. ₹ 45,00,000)
+        { wch: 15 }, // CIBIL Score (e.g. 780)
+        { wch: 22 }, // Bureau Tier (e.g. Prime (750+))
+        { wch: 28 }, // City / Location (e.g. Indirapuram, Ghaziabad)
+        { wch: 22 }, // Monthly Income (e.g. ₹ 1,20,000 / mo)
+        { wch: 16 }, // PAN Card (e.g. BPRPV9876K)
+        { wch: 18 }, // Pipeline Status (e.g. Underwriting)
+        { wch: 22 }, // Lead Category (e.g. Website Lead)
+        { wch: 24 }, // Submitted Date (e.g. 19-Oct-2026 09:33 PM)
+        { wch: 50 }  // Underwriting Remarks
+      ];
+
+      // Spacious row heights
+      ws['!rows'] = [
+        { hpt: 28 }, // Header row (roomy & prominent)
+        ...dataRows.map(() => ({ hpt: 22 })) // Data rows
+      ];
+
+      const sheetName = activeDashboardTab === 'LOANS' ? 'Loans' : activeDashboardTab === 'CONTACT' ? 'Contacts' : 'Leads';
+      XLSX.utils.book_append_sheet(wb, ws, sheetName);
+
+      const filename = activeDashboardTab === 'LOANS'
+        ? `Proloan_Loans_${dateStr}.xlsx`
+        : activeDashboardTab === 'CONTACT'
+          ? `Proloan_Contacts_${dateStr}.xlsx`
+          : `Proloan_Leads_${dateStr}.xlsx`;
+
+      XLSX.writeFile(wb, filename);
+      showToast(`Exported ${dataRows.length} inquiries to spacious Excel (.xlsx)`, 'success');
+    }
+
+    // ── Formatted CSV Exporter (with Fixed Phone Formulas & Readable Dates) ──
+    function exportCurrentViewToCSV() {
+      if (activeDashboardTab === 'CAREERS') {
+        if (!careerData.length) {
+          showToast('No career records available to export.', 'warning');
+          return;
+        }
+        const headers = ['App ID', 'Applicant Name', 'Mobile', 'Email', 'Role', 'Experience', 'City', 'Cover Note', 'Stage', 'Submitted Date'];
+        const rows = careerData.map(c => [
+          formatCsvCell(c.appId),
+          formatCsvCell(c.name),
+          formatCsvCell(formatPhoneClean(c.mobile, true)),
+          formatCsvCell(c.email),
+          formatCsvCell(c.role),
+          formatCsvCell(c.experience || 'Fresher'),
+          formatCsvCell(c.city || 'Pan India'),
+          formatCsvCell(c.note),
+          formatCsvCell(c.status || 'New'),
+          formatCsvCell(formatDateClean(c.timestamp))
+        ]);
+        const dateStr = new Date().toISOString().slice(0, 10);
+        downloadCsvFile(`Proloan_Careers_${dateStr}.csv`, headers, rows);
+        return;
+      }
+
+      const datasetToExport = filteredLeads.length > 0 ? filteredLeads : currentLeads;
+      if (!datasetToExport.length) {
+        showToast('No inquiries available to export.', 'warning');
+        return;
+      }
+
+      const headers = [
+        'Ref ID',
+        'Applicant Name',
+        'Mobile Number',
+        'Loan Product',
+        'Loan Amount',
+        'CIBIL Score',
+        'Bureau Tier',
+        'City / Location',
+        'Monthly Income',
+        'PAN Card',
+        'Pipeline Status',
+        'Lead Category',
+        'Submitted Date',
+        'Underwriting Remarks'
+      ];
+
+      const rows = datasetToExport.map(l => {
+        const cScore = parseCibil(l);
+        const cMeta = getCibilClassification(cScore);
+        return [
+          formatCsvCell(l.ref_id),
+          formatCsvCell(l.applicant_name),
+          formatCsvCell(formatPhoneClean(l.mobile, true)),
+          formatCsvCell(l.loan_product || 'General Inquiry'),
+          formatCsvCell(formatAmountClean(l.loan_amount)),
+          formatCsvCell(cMeta.score !== null ? cMeta.score : 'Pending'),
+          formatCsvCell(cMeta.tier || 'Unverified'),
+          formatCsvCell(l.city || 'Pan India'),
+          formatCsvCell(l.monthly_income || 'N/A'),
+          formatCsvCell(l.pan_card || 'N/A'),
+          formatCsvCell(l.status || 'New'),
+          formatCsvCell(l.lead_category || 'Website Form'),
+          formatCsvCell(formatDateClean(l.created_at)),
+          formatCsvCell(l.admin_notes || '')
+        ];
+      });
+
+      const dateStr = new Date().toISOString().slice(0, 10);
+      const filename = activeDashboardTab === 'LOANS'
+        ? `Proloan_Loans_${dateStr}.csv`
+        : activeDashboardTab === 'CONTACT'
+          ? `Proloan_Contacts_${dateStr}.csv`
+          : `Proloan_Leads_Export_${dateStr}.csv`;
+
+      downloadCsvFile(filename, headers, rows);
     }
 
     function downloadCsvFile(filename, headers, rows) {
-      const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
-      const encodedUri = encodeURI(csvContent);
-      const link = document.createElement('a');
-      link.setAttribute('href', encodedUri);
-      link.setAttribute('download', filename);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      showToast(`Exported ${rows.length} records to ${filename}`, 'success');
+      try {
+        // UTF-8 BOM (\uFEFF) ensures proper rendering in Microsoft Excel & Google Sheets
+        const csvContent = '\uFEFF' + [headers.map(formatCsvCell).join(','), ...rows.map(e => e.join(','))].join('\r\n');
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+
+        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+          window.navigator.msSaveOrOpenBlob(blob, filename);
+          showToast(`Exported ${rows.length} records to ${filename}`, 'success');
+          return;
+        }
+
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', filename);
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => URL.revokeObjectURL(url), 2000);
+        showToast(`Exported ${rows.length} records to ${filename}`, 'success');
+      } catch (err) {
+        console.error('CSV Export Error:', err);
+        showToast('CSV export failed: ' + err.message, 'error');
+      }
     }
 
 

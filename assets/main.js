@@ -2000,12 +2000,20 @@ function handleModalSubmit(e) {
       );
 
       setTimeout(function() {
-        window.open('https://wa.me/918368426125?text=' + waMsg, '_blank');
         const form = document.getElementById('careers-application-form');
         const success = document.getElementById('careers-success-msg');
+        const appIdEl = document.getElementById('career-success-appid');
+        const waBtn = document.getElementById('career-success-wa-btn');
+
+        if (appIdEl) appIdEl.textContent = 'Reference ID: ' + appId;
+        if (waBtn) waBtn.href = 'https://wa.me/918368426125?text=' + waMsg;
+
         if (form) form.classList.add('hidden');
-        if (success) success.classList.remove('hidden');
-      }, 700);
+        if (success) {
+          success.classList.remove('hidden');
+          try { success.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(_) {}
+        }
+      }, 500);
     }
 
     function handleCreditScoreSubmit(e) {

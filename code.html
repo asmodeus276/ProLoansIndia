@@ -10917,10 +10917,10 @@
                   <span>View Open Positions</span>
                   <span class="material-symbols-outlined text-base">arrow_forward</span>
                 </a>
-                <a href="mailto:infoproloanindia@gmail.com" class="inline-flex px-3.5 sm:px-5 py-2.5 sm:py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300 shadow-2xs items-center gap-1.5 transition-all">
-                  <span class="material-symbols-outlined text-base text-[#16A34A]">mail</span>
-                  <span>infoproloanindia@gmail.com</span>
-                </a>
+                <button type="button" onclick="document.getElementById('careers-apply-form').scrollIntoView({behavior:'smooth'})" class="inline-flex px-3.5 sm:px-5 py-2.5 sm:py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300 shadow-2xs items-center gap-1.5 transition-all cursor-pointer">
+                  <span class="material-symbols-outlined text-base text-[#1565C0]">upload_file</span>
+                  <span>Upload Resume &amp; Apply</span>
+                </button>
               </div>
             </div>
           </div>
@@ -11390,15 +11390,32 @@
 
             </form>
 
-            <!-- Success State (hidden by default) -->
-            <div id="careers-success-msg" class="hidden mt-4 p-5 rounded-2xl bg-emerald-50 border border-emerald-200 text-left space-y-2">
-              <div class="flex items-center gap-2">
-                <span class="material-symbols-outlined text-emerald-600 text-2xl">check_circle</span>
-                <span class="text-base font-black text-emerald-900 font-heading">Application Submitted!</span>
+            <!-- Success State (Clean in-page confirmation, no popup) -->
+            <div id="careers-success-msg" class="hidden mt-4 p-6 sm:p-7 rounded-2xl bg-emerald-50 border border-emerald-200 text-left space-y-3 shadow-md animate-fade-in">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                  <span class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-2xl">check_circle</span>
+                  </span>
+                  <div>
+                    <h4 class="text-base font-black text-emerald-950 font-heading">Application &amp; Resume Received!</h4>
+                    <p id="career-success-appid" class="text-xs font-mono font-bold text-emerald-700 mt-0.5">Reference ID: CA-00000</p>
+                  </div>
+                </div>
+                <span class="px-2.5 py-1 rounded-full bg-emerald-200/60 text-emerald-900 text-[10px] font-black uppercase tracking-wider">Under HR Review</span>
               </div>
-              <p class="text-xs text-emerald-800 leading-relaxed">
-                Thank you for your interest in joining Proloan India. Our HR team will review your application and reach out within <strong>24–48 hours</strong>. You can also email us directly at <strong>info@proloanindia.com</strong>.
+              <p class="text-xs text-emerald-900 leading-relaxed">
+                Your profile and resume file have been securely received by our recruitment division and logged in the Proloan India Admin Portal. Our hiring managers will review your experience and connect with you within <strong>24 to 48 hours</strong>.
               </p>
+              <div class="pt-2 border-t border-emerald-200/60 flex flex-wrap items-center gap-3">
+                <a id="career-success-wa-btn" href="#" target="_blank" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-extrabold shadow-sm transition-all hover:scale-105">
+                  <span class="material-symbols-outlined text-sm">chat</span>
+                  <span>Optional: Notify HR on WhatsApp</span>
+                </a>
+                <button type="button" onclick="location.reload()" class="px-4 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200 transition-all cursor-pointer">
+                  Submit Another Profile
+                </button>
+              </div>
             </div>
           </div>
 
@@ -15940,10 +15957,10 @@
         
         <!-- Column 1: Brand Authority & DSA Accreditation (4 cols) -->
         <div class="lg:col-span-4 flex flex-col gap-4">
-          <!-- Logo & Brand Header -->
-          <div class="flex items-center gap-3">
-            <div class="bg-gradient-to-br from-white to-slate-100 rounded-2xl p-2 flex items-center justify-center shrink-0 shadow-lg shadow-black/30 border border-white/20">
-              <img alt="Proloan India Logo" class="h-10 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgLTENfV9qTI8A9WSHCDuC8nv701v0R0lEPYUZxX5d5ryrtWqWhwKFM_j01QPeHkdbf56u941vCpFCe6VRgMuv2NS-CqBiJpc_uvqNPD3PHxOTUl7IJ6ut7MUM5FZqgxXetoZNqFdsyTWC6AeRY2R-qjLkNgIocZsk9_IjNM9dGgOSnjyjlVYPcrcfuLyX3oH5rUXIwjtAbTuGKUnubO2YTsbIM_XmhDxA3A4_jScXqHPYO79nI8xIj9nyZaiBlITa7g" loading="lazy" decoding="async">
+                                        <!-- Logo & Brand Header (Soft Ice-Blue Card #F1F5F9) -->
+          <div class="flex items-center gap-3.5">
+            <div class="p-2.5 rounded-2xl bg-slate-100 border border-slate-200/90 shadow-lg shadow-black/20 flex items-center justify-center shrink-0 group transition-all duration-300 hover:bg-white hover:border-slate-300">
+              <img alt="Proloan India Logo" class="h-10 w-auto object-contain transition-transform duration-200 group-hover:scale-105" src="assets/proloan-logo-transparent.webp" loading="lazy" decoding="async">
             </div>
             <div class="flex flex-col">
               <span class="text-xl sm:text-2xl font-black text-white leading-none font-heading tracking-tight">PROLOAN <span class="text-[#F26522]">INDIA</span></span>
@@ -18728,12 +18745,20 @@ function handleModalSubmit(e) {
       );
 
       setTimeout(function() {
-        window.open('https://wa.me/918368426125?text=' + waMsg, '_blank');
         const form = document.getElementById('careers-application-form');
         const success = document.getElementById('careers-success-msg');
+        const appIdEl = document.getElementById('career-success-appid');
+        const waBtn = document.getElementById('career-success-wa-btn');
+
+        if (appIdEl) appIdEl.textContent = 'Reference ID: ' + appId;
+        if (waBtn) waBtn.href = 'https://wa.me/918368426125?text=' + waMsg;
+
         if (form) form.classList.add('hidden');
-        if (success) success.classList.remove('hidden');
-      }, 700);
+        if (success) {
+          success.classList.remove('hidden');
+          try { success.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(_) {}
+        }
+      }, 500);
     }
 
     function handleCreditScoreSubmit(e) {
@@ -19830,7 +19855,7 @@ function handleModalSubmit(e) {
       <!-- Drawer Header Bar -->
       <div class="px-4 py-2.5 border-b border-slate-100 flex items-center justify-between sticky top-0 bg-white/95 backdrop-blur-sm z-30 shrink-0">
         <div class="flex items-center gap-2.5 min-w-0">
-          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgLTENfV9qTI8A9WSHCDuC8nv701v0R0lEPYUZxX5d5ryrtWqWhwKFM_j01QPeHkdbf56u941vCpFCe6VRgMuv2NS-CqBiJpc_uvqNPD3PHxOTUl7IJ6ut7MUM5FZqgxXetoZNqFdsyTWC6AeRY2R-qjLkNgIocZsk9_IjNM9dGgOSnjyjlVYPcrcfuLyX3oH5rUXIwjtAbTuGKUnubO2YTsbIM_XmhDxA3A4_jScXqHPYO79nI8xIj9nyZaiBlITa7g" alt="Proloan India" class="h-7 w-auto object-contain shrink-0" loading="lazy" decoding="async">
+          <img src="assets/proloan-logo-transparent.webp" alt="Proloan India" class="h-7 w-auto object-contain shrink-0" loading="lazy" decoding="async">
           <div class="min-w-0">
             <div class="font-black text-[#0F2942] text-sm font-heading leading-tight flex items-center gap-1 truncate">
               <span>PROLOAN</span><span class="text-[#F26522]">INDIA</span>
