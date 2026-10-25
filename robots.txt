@@ -1,0 +1,105 @@
+# ==============================================================================
+# PROLOAN INDIA — ROBOTS.TXT
+# Optimized for Traditional Search Engines (Google, Bing) and Generative AI (LLMs)
+# Website: https://proloanindia.in
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Standard Search Engine Crawlers (Google, Bing, Yahoo, DuckDuckGo, Yandex, etc.)
+# ------------------------------------------------------------------------------
+User-agent: *
+Allow: /
+Allow: /assets/
+Allow: /assets/banners/
+Allow: /assets/banks/
+Allow: /assets/fonts/
+Allow: /sitemap.xml
+Allow: /sitemap.html
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+# Disallow Internal Admin Portals, Scratch & Data directories
+Disallow: /portal.html
+Disallow: /portal
+Disallow: /scratch/
+Disallow: /data/
+Disallow: /api/
+Disallow: /*.bak*
+Disallow: /*.json$
+
+# ------------------------------------------------------------------------------
+# 2. Generative Engine Optimization (GEO) & AI Search Crawlers
+# Explicitly allowing LLM citation and search indexers
+# ------------------------------------------------------------------------------
+
+# OpenAI (SearchGPT, ChatGPT Web, GPTBot)
+User-agent: GPTBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /portal.html
+Disallow: /portal
+Disallow: /data/
+Disallow: /scratch/
+
+User-agent: ChatGPT-User
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+# Perplexity AI Search Engine
+User-agent: PerplexityBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /portal.html
+Disallow: /portal
+Disallow: /data/
+Disallow: /scratch/
+
+# Google AI & Gemini Models
+User-agent: Google-Extended
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+# Anthropic Claude
+User-agent: ClaudeBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /portal.html
+Disallow: /portal
+
+User-agent: anthropic-ai
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+# Apple Intelligence
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Cohere AI
+User-agent: cohere-ai
+Allow: /
+
+# ByteDance (Doubao / TikTok AI)
+User-agent: Bytespider
+Allow: /
+
+# Common Crawl (Foundation model pre-training)
+User-agent: CCBot
+Allow: /
+Disallow: /portal.html
+Disallow: /portal
+Disallow: /data/
+
+# ------------------------------------------------------------------------------
+# 3. Sitemaps and LLM Documentation References
+# ------------------------------------------------------------------------------
+Sitemap: https://proloanindia.in/sitemap.xml
+Host: https://proloanindia.in
