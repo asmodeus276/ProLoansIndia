@@ -207,6 +207,12 @@ app.get('/llms-full.txt', (req, res) => {
   res.sendFile(path.join(__dirname, 'llms-full.txt'));
 });
 
+// Google Search Console Site Verification File Endpoint
+app.get('/googlee203887cef7ea8fd.html', (req, res) => {
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.sendFile(path.join(__dirname, 'googlee203887cef7ea8fd.html'));
+});
+
 // Static files with aggressive HTTP caching
 app.use(express.static(path.join(__dirname), {
   etag: true,
