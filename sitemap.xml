@@ -6,7 +6,7 @@
   <!-- 1. Primary Homepage -->
   <url>
     <loc>https://proloanindia.in/</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en-IN" href="https://proloanindia.in/"/>
@@ -21,7 +21,7 @@
   <!-- 2. Professional Loan (Doctor Loans, CA Loans & OD) -->
   <url>
     <loc>https://proloanindia.in/#professional-loan</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -34,7 +34,7 @@
   <!-- 3. MSME & Unsecured Business Loans -->
   <url>
     <loc>https://proloanindia.in/#business-loan</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -47,7 +47,7 @@
   <!-- 4. Home Loans & Balance Transfer -->
   <url>
     <loc>https://proloanindia.in/#home-loan</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -60,7 +60,7 @@
   <!-- 5. Loan Against Property (LAP / Mortgage) -->
   <url>
     <loc>https://proloanindia.in/#lap-loan</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
@@ -73,7 +73,7 @@
   <!-- 6. Instant Personal Loans -->
   <url>
     <loc>https://proloanindia.in/#personal-loan</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -86,7 +86,7 @@
   <!-- 7. Working Capital & Cash Credit (CC/OD) -->
   <url>
     <loc>https://proloanindia.in/#working-capital</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -99,9 +99,9 @@
   <!-- 8. CGTMSE / MSME Scheme -->
   <url>
     <loc>https://proloanindia.in/#od-facility</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
     <image:image>
       <image:loc>https://proloanindia.in/assets/banners/od-clean.jpg</image:loc>
       <image:title>CGTMSE Collateral Free MSME Loans</image:title>
@@ -112,7 +112,7 @@
   <!-- 9. Machinery & Equipment Finance -->
   <url>
     <loc>https://proloanindia.in/#machinery-loan</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
     <image:image>
@@ -125,9 +125,9 @@
   <!-- 10. Car Loans (New & Pre-Owned) -->
   <url>
     <loc>https://proloanindia.in/#car-loan</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.75</priority>
+    <priority>0.80</priority>
     <image:image>
       <image:loc>https://proloanindia.in/assets/banners/car-clean.jpg</image:loc>
       <image:title>New and Used Car Financing</image:title>
@@ -138,9 +138,9 @@
   <!-- 11. Global Education Loans -->
   <url>
     <loc>https://proloanindia.in/#education-loan</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.75</priority>
+    <priority>0.80</priority>
     <image:image>
       <image:loc>https://proloanindia.in/assets/banners/education-clean.jpg</image:loc>
       <image:title>Education Loans for Studies in India and Abroad</image:title>
@@ -151,7 +151,7 @@
   <!-- 12. Partner Banks & NBFCs -->
   <url>
     <loc>https://proloanindia.in/#partners</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
     <image:image>
@@ -164,7 +164,7 @@
   <!-- 13. Application Tracking Portal -->
   <url>
     <loc>https://proloanindia.in/#track</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>always</changefreq>
     <priority>0.85</priority>
   </url>
@@ -172,7 +172,7 @@
   <!-- 14. Financial Blogs & Borrowing Guides -->
   <url>
     <loc>https://proloanindia.in/#blog</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
     <image:image>
@@ -185,7 +185,7 @@
   <!-- 15. About Proloan India -->
   <url>
     <loc>https://proloanindia.in/#about</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <image:image>
@@ -198,7 +198,7 @@
   <!-- 16. Contact Desk & Office Location -->
   <url>
     <loc>https://proloanindia.in/#contact</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
     <image:image>
@@ -211,7 +211,7 @@
   <!-- 17. Careers at Proloan India -->
   <url>
     <loc>https://proloanindia.in/#careers</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
@@ -219,9 +219,25 @@
   <!-- 18. Full HTML Sitemap Directory -->
   <url>
     <loc>https://proloanindia.in/sitemap.html</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.70</priority>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- 19. Generative AI Knowledge Base (llms.txt) -->
+  <url>
+    <loc>https://proloanindia.in/llms.txt</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- 20. Comprehensive Generative AI Underwriting Guide (llms-full.txt) -->
+  <url>
+    <loc>https://proloanindia.in/llms-full.txt</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
   </url>
 
 </urlset>

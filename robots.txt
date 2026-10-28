@@ -32,7 +32,17 @@ Disallow: /*.json$
 # Explicitly allowing LLM citation and search indexers
 # ------------------------------------------------------------------------------
 
-# OpenAI (SearchGPT, ChatGPT Web, GPTBot)
+# OpenAI SearchGPT Indexer (Real-Time Search Results)
+User-agent: OAI-SearchBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /portal.html
+Disallow: /portal
+Disallow: /data/
+Disallow: /scratch/
+
+# OpenAI GPTBot (Foundation Model Training & Ingestion)
 User-agent: GPTBot
 Allow: /
 Allow: /llms.txt
@@ -42,6 +52,7 @@ Disallow: /portal
 Disallow: /data/
 Disallow: /scratch/
 
+# OpenAI ChatGPT User Browse
 User-agent: ChatGPT-User
 Allow: /
 Allow: /llms.txt
@@ -63,7 +74,11 @@ Allow: /
 Allow: /llms.txt
 Allow: /llms-full.txt
 
-# Anthropic Claude
+# Google Other
+User-agent: GoogleOther
+Allow: /
+
+# Anthropic Claude Crawlers
 User-agent: ClaudeBot
 Allow: /
 Allow: /llms.txt
@@ -82,10 +97,26 @@ Allow: /
 
 User-agent: Applebot-Extended
 Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+# Meta AI Crawlers
+User-agent: Meta-ExternalAgent
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+# DuckDuckGo AI Assist
+User-agent: DuckAssistBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
 
 # Cohere AI
 User-agent: cohere-ai
 Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
 
 # ByteDance (Doubao / TikTok AI)
 User-agent: Bytespider

@@ -180,6 +180,33 @@ app.use((req, res, next) => {
   next();
 });
 
+// ── SEO & Generative Engine Optimization (GEO/AEO) Dedicated Endpoints ──
+app.get('/robots.txt', (req, res) => {
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, max-age=86400');
+  res.sendFile(path.join(__dirname, 'robots.txt'));
+});
+
+app.get('/sitemap.xml', (req, res) => {
+  res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, max-age=86400');
+  res.sendFile(path.join(__dirname, 'sitemap.xml'));
+});
+
+app.get('/llms.txt', (req, res) => {
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400');
+  res.sendFile(path.join(__dirname, 'llms.txt'));
+});
+
+app.get('/llms-full.txt', (req, res) => {
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400');
+  res.sendFile(path.join(__dirname, 'llms-full.txt'));
+});
+
 // Static files with aggressive HTTP caching
 app.use(express.static(path.join(__dirname), {
   etag: true,

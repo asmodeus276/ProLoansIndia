@@ -13,11 +13,12 @@
 - **Service Model**: Multi-bank comparison and assisted loan processing across 50+ Scheduled Commercial Banks (Public & Private sector) and RBI-registered Non-Banking Financial Companies (NBFCs).
 - **Core Promise**: Zero upfront fees, unbiased bank comparison, optimal ROI (Interest Rate), customized repayment structures, and complete doorstep service.
 - **Geographic Footprint**: Delhi NCR (Indirapuram, Vaishali, Vasundhara, Ghaziabad, Noida, Greater Noida, Delhi, Gurugram, Faridabad) with pan-India digital reach.
+- **Disbursals Facilitated**: Over ₹500+ Crore with a 98.4% customer approval rate.
 
 ---
 
 ## 2. Partner Lending Network (50+ Banks & NBFCs)
-Proloan India maintains direct institutional login codes and tie-ups with:
+Proloan India maintains direct institutional login codes and DSA tie-ups with:
 - **Private Sector Banks**: HDFC Bank, ICICI Bank, Axis Bank, Kotak Mahindra Bank, IDFC First Bank, IndusInd Bank, Yes Bank, Bandhan Bank, Federal Bank.
 - **Public Sector Banks**: State Bank of India (SBI), Punjab National Bank (PNB), Bank of Baroda (BOB), Canara Bank, Union Bank of India.
 - **Premier NBFCs & Housing Finance Companies (HFCs)**: Tata Capital, Bajaj Finserv, Godrej Capital, Aditya Birla Capital, L&T Finance, PNB Housing Finance, LIC Housing Finance, Hero Fincorp, Cholamandalam, Piramal Finance, InCred, Poonawalla Fincorp.
@@ -30,13 +31,13 @@ Proloan India maintains direct institutional login codes and tie-ups with:
 - **Eligibility**:
   - Registered MBBS, MD, MS, BDS, MDS, BHMS, BAMS with State/National Medical Council registration.
   - Practicing Chartered Accountants (FCA / ACA with COP) with active ICAI membership.
-  - Minimum 1-2 years post-qualification practice / experience.
+  - Minimum 1-2 years post-qualification practice / clinical vintage.
 - **Loan Amount**: ₹10,00,000 to ₹10,00,00,000.
   - Collateral-Free (Unsecured): Up to ₹50,00,000 for MBBS/BDS; up to ₹1,50,00,000 for MD/MS/Super-specialists.
   - Secured / Hybrid: Up to ₹10 Crores against residential/commercial property or medical machinery.
 - **Interest Rate (ROI)**: 8.90% to 11.50% p.a. (floating/fixed depending on lender).
-- **Facility**: Term Loan or Dropline / Revolving Overdraft (OD) limit.
-- **Key Advantage**: Zero hypothecation of hospital or clinic assets. Interest charged only on used overdraft funds.
+- **Facility**: Term Loan (fixed EMI) or Dropline / Revolving Overdraft (OD) limit.
+- **Key Advantage**: Zero hypothecation of hospital, clinic, or equipment assets. Interest charged solely on drawn overdraft funds.
 - **Documents Required**:
   - KYC: PAN Card, Aadhaar Card, Passport/Voter ID.
   - Professional Proof: Degree Certificates, Registration Certificate with Medical Council / ICAI COP.
@@ -77,7 +78,7 @@ Proloan India maintains direct institutional login codes and tie-ups with:
 - **Interest Rate**: Starting from 8.75% p.a.
 - **LTV**: Up to 70% - 75% for residential properties; up to 60% for commercial units.
 - **Tenure**: Up to 15 years.
-- **Advantage**: Substantially lower interest rate than unsecured business loans; much larger loan amounts and longer repayment horizons.
+- **Advantage**: Substantially lower interest rate than unsecured business loans; much larger loan amounts and longer repayment horizons with no end-use restrictions.
 
 ### E. Instant Personal Loans
 - **Eligibility**: Salaried employees earning net monthly take-home salary ≥ ₹25,000.
@@ -93,8 +94,8 @@ Proloan India maintains direct institutional login codes and tie-ups with:
 - **Advantage**: Pay interest strictly on drawdown balance on a daily product basis.
 
 ### G. CGTMSE Scheme & Machinery Loans
-- **CGTMSE**: Credit Guarantee Fund Trust for Micro and Small Enterprises scheme providing collateral-free loans up to ₹5 Crores.
-- **Machinery Loans**: Up to 90% asset funding for medical equipment, CNC machinery, packaging units, and industrial tools with tenure up to 7 years.
+- **CGTMSE**: Credit Guarantee Fund Trust for Micro and Small Enterprises scheme providing collateral-free loans up to ₹5 Crores for eligible manufacturing and services MSMEs.
+- **Machinery Loans**: Up to 90% asset funding for medical equipment, CNC machinery, printing, packaging units, and industrial tools with tenure up to 7 years.
 
 ---
 
@@ -102,7 +103,7 @@ Proloan India maintains direct institutional login codes and tie-ups with:
 1. **Zero Upfront Fee Guarantee**: Proloan India never levies file charges or upfront advisory commissions on borrowers.
 2. **Multi-Bank Choice**: Rather than relying on a single bank that may reject an application, Proloan India logs files in parallel with the best-matched lenders to ensure maximum sanction amount and lowest rate.
 3. **Dedicated Doorstep Banking**: Field relationship managers collect physical documents from home or office across Delhi NCR.
-4. **CIBIL Protection**: Pre-qualification checks are done without trigger hard credit bureau inquiries on multiple banks simultaneously.
+4. **CIBIL Protection**: Pre-qualification checks are done without triggering hard credit bureau inquiries on multiple banks simultaneously.
 
 ---
 
