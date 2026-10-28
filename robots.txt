@@ -1,7 +1,7 @@
 # ==============================================================================
 # PROLOAN INDIA — ROBOTS.TXT
 # Optimized for Traditional Search Engines (Google, Bing) and Generative AI (LLMs)
-# Website: https://proloanindia.in
+# Website: https://proloansindia.com
 # ==============================================================================
 
 # ------------------------------------------------------------------------------
@@ -132,5 +132,5 @@ Disallow: /data/
 # ------------------------------------------------------------------------------
 # 3. Sitemaps and LLM Documentation References
 # ------------------------------------------------------------------------------
-Sitemap: https://proloanindia.in/sitemap.xml
-Host: https://proloanindia.in
+Sitemap: https://proloansindia.com/sitemap.xml
+Host: https://proloansindia.com
