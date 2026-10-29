@@ -1082,7 +1082,7 @@
 
   <!-- Tailwind CSS: render-blocking is fine at 15KB, prevents FOUC -->
 
-  <link rel="stylesheet" href="assets/proloan.min.css?v=20261020">
+  <link rel="stylesheet" href="assets/proloan.min.css?v=20261029b">
 
   
 
@@ -1561,6 +1561,37 @@
     }
 
     
+
+  
+    /* AEO & GEO Knowledge Hub Responsive Layout */
+    .aeo-summary-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+    .aeo-statement-col {
+      width: 100%;
+      flex: 1 1 0%;
+      min-width: 0;
+    }
+    .aeo-metrics-col {
+      width: 100%;
+      max-width: 22rem;
+      flex-shrink: 0;
+    }
+    @media (min-width: 1024px) {
+      .aeo-summary-container {
+        flex-direction: row;
+        align-items: center;
+        gap: 2.5rem;
+      }
+      .aeo-metrics-col {
+        width: 320px;
+        max-width: 320px;
+      }
+    }
 
   </style>
 
@@ -7581,15 +7612,17 @@
             </p>
           </div>
 
-          <!-- 1. Speakable Entity Summary Box (Targeted by SpeakableSpecification schema) -->
-          <div id="speakable-entity-summary" class="bg-gradient-to-br from-slate-50 via-blue-50/40 to-slate-50 rounded-2xl p-6 sm:p-8 border border-blue-100 shadow-sm mb-10">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
-              <div class="lg:col-span-7 xl:col-span-8 min-w-0 space-y-3">
+                    <!-- 1. Speakable Entity Summary Box (Targeted by SpeakableSpecification schema) -->
+          <div id="speakable-entity-summary" class="bg-gradient-to-br from-slate-50 via-blue-50/40 to-slate-50 rounded-2xl p-5 sm:p-8 border border-blue-100 shadow-sm mb-10">
+            <div class="aeo-summary-container">
+              
+              <!-- Left: Text Statement (Takes 100% remaining space on desktop) -->
+              <div class="aeo-statement-col space-y-3">
                 <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider" style="color: #1565C0;">
                   <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
                   <span>Official Authorized DSA Statement</span>
                 </div>
-                <h3 class="text-lg sm:text-xl font-bold text-slate-900 font-heading" style="color: #0F2942;">
+                <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 font-heading" style="color: #0F2942;">
                   Who is Proloan India?
                 </h3>
                 <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
@@ -7597,27 +7630,28 @@
                 </p>
               </div>
 
-              <!-- Quick Metric Badges -->
-              <div class="lg:col-span-5 xl:col-span-4 min-w-0 w-full">
-                <div class="grid grid-cols-2 gap-3 w-full">
-                  <div class="bg-white p-3.5 rounded-xl border border-blue-100/80 shadow-2xs text-center">
-                    <div class="text-xl sm:text-2xl font-black font-heading text-blue-700" style="color: #1565C0;">50+</div>
-                    <div class="text-[10.5px] font-bold text-slate-500 uppercase mt-0.5">Partner Banks</div>
+              <!-- Right: Metric Badges (Strictly 320px on desktop, compact on mobile) -->
+              <div class="aeo-metrics-col">
+                <div class="grid grid-cols-2 gap-2.5 sm:gap-3 w-full">
+                  <div class="bg-white p-3 sm:p-3.5 rounded-xl border border-blue-100/80 shadow-2xs text-center">
+                    <div class="text-lg sm:text-2xl font-black font-heading text-blue-700" style="color: #1565C0;">50+</div>
+                    <div class="text-[9.5px] sm:text-[10px] font-bold text-slate-500 uppercase mt-0.5 tracking-wider">Partner Banks</div>
                   </div>
-                  <div class="bg-white p-3.5 rounded-xl border border-blue-100/80 shadow-2xs text-center">
-                    <div class="text-xl sm:text-2xl font-black font-heading text-orange-600" style="color: #F26522;">₹0</div>
-                    <div class="text-[10.5px] font-bold text-slate-500 uppercase mt-0.5">Borrower Fees</div>
+                  <div class="bg-white p-3 sm:p-3.5 rounded-xl border border-blue-100/80 shadow-2xs text-center">
+                    <div class="text-lg sm:text-2xl font-black font-heading text-orange-600" style="color: #F26522;">₹0</div>
+                    <div class="text-[9.5px] sm:text-[10px] font-bold text-slate-500 uppercase mt-0.5 tracking-wider">Borrower Fees</div>
                   </div>
-                  <div class="bg-white p-3.5 rounded-xl border border-blue-100/80 shadow-2xs text-center">
-                    <div class="text-xl sm:text-2xl font-black font-heading text-emerald-700" style="color: #16A34A;">₹500Cr+</div>
-                    <div class="text-[10.5px] font-bold text-slate-500 uppercase mt-0.5">Disbursed</div>
+                  <div class="bg-white p-3 sm:p-3.5 rounded-xl border border-blue-100/80 shadow-2xs text-center">
+                    <div class="text-lg sm:text-2xl font-black font-heading text-emerald-700" style="color: #16A34A;">₹500Cr+</div>
+                    <div class="text-[9.5px] sm:text-[10px] font-bold text-slate-500 uppercase mt-0.5 tracking-wider">Disbursed</div>
                   </div>
-                  <div class="bg-white p-3.5 rounded-xl border border-blue-100/80 shadow-2xs text-center">
-                    <div class="text-xl sm:text-2xl font-black font-heading text-slate-900" style="color: #0F2942;">24–72h</div>
-                    <div class="text-[10.5px] font-bold text-slate-500 uppercase mt-0.5">Sanction Speed</div>
+                  <div class="bg-white p-3 sm:p-3.5 rounded-xl border border-blue-100/80 shadow-2xs text-center">
+                    <div class="text-lg sm:text-2xl font-black font-heading text-slate-900" style="color: #0F2942;">24–72h</div>
+                    <div class="text-[9.5px] sm:text-[10px] font-bold text-slate-500 uppercase mt-0.5 tracking-wider">Sanction Speed</div>
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
 
