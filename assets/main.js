@@ -762,7 +762,7 @@
               monthly_income: payload['Monthly Income / Tier'],
               pan_card: payload['PAN Card / Tax ID'],
               cibil_notes: payload['Verification / CIBIL Note'],
-              cibil_score: payload['cibil_score'] || null,
+
               lead_category: payload['Lead Category'] || 'Website Lead',
               status: 'New'
             })

@@ -1,5 +1,21 @@
 [
   {
+    "ref_id": "PL-7227",
+    "applicant_name": "Anita",
+    "mobile": "9560115657",
+    "loan_product": "Car Loan",
+    "loan_amount": "₹50 Lakhs - ₹1 Crore",
+    "monthly_income": "Not Disclosed",
+    "city": "Ghaziabad",
+    "pan_card": "6PTPA4680N",
+    "cibil_score": 780,
+    "cibil_notes": "CIBIL: 780 Prime | PAN: 6PTPA4680N • Self-Reported via Fast-Track Loan Modal",
+    "lead_category": "Fast-Track Loan Modal",
+    "status": "New",
+    "admin_notes": "Prime Profile. Fast-Track Car Loan Inquirer.",
+    "created_at": "2026-10-29T00:56:00.000Z"
+  },
+  {
     "ref_id": "PL-49210",
     "applicant_name": "Aman Singhania",
     "mobile": "9876543210",
