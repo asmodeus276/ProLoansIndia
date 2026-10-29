@@ -32,3 +32,8 @@ Thumbs.db
 
 
 lh-*.json
+
+# Uploaded Resumes
+data/resumes/*
+!data/resumes/.gitkeep
+

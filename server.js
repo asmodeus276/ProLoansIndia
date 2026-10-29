@@ -31,6 +31,7 @@ if (fs.existsSync(envPath)) {
 }
 
 const app = express();
+app.set('trust proxy', true);
 const PORT = process.env.PORT || 3000;
 
 // Gmail SMTP Configuration from environment
@@ -55,22 +56,32 @@ transporter.verify(function (error, success) {
   }
 });
 
-// ── Multer — memory storage for resume uploads (max 5 MB) ──
+// ── Multer — memory storage for resume uploads (max 10 MB, robust file detection) ──
 const upload = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: 5 * 1024 * 1024 },
+  limits: { fileSize: 10 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
-    const allowed = ['application/pdf', 'application/msword',
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-    if (allowed.includes(file.mimetype)) cb(null, true);
-    else cb(new Error('Only PDF, DOC, DOCX files are allowed.'));
+    const orig = (file.originalname || '').toLowerCase();
+    const mime = (file.mimetype || '').toLowerCase();
+    const ext = path.extname(orig);
+    const isPdf = ext === '.pdf' || mime.includes('pdf');
+    const isDoc = ext === '.doc' || ext === '.docx' || mime.includes('msword') || mime.includes('word') || mime.includes('officedocument');
+    if (isPdf || isDoc || ['.pdf', '.doc', '.docx'].includes(ext)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Invalid file type. Please upload a PDF, DOC, or DOCX resume document.'));
+    }
   }
 });
 
-// ── Data Persistence Setup (data/leads.json & data/careers.json) ──
+// ── Data Persistence Setup (data/leads.json, data/careers.json, data/resumes/) ──
 const DATA_DIR = path.join(__dirname, 'data');
 if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
+}
+const RESUMES_DIR = path.join(DATA_DIR, 'resumes');
+if (!fs.existsSync(RESUMES_DIR)) {
+  fs.mkdirSync(RESUMES_DIR, { recursive: true });
 }
 const LEADS_FILE = path.join(DATA_DIR, 'leads.json');
 const CAREERS_FILE = path.join(DATA_DIR, 'careers.json');
@@ -419,10 +430,18 @@ app.delete('/api/leads/:refId', (req, res) => {
 
 
 // ── Career Application Endpoint ──────────────────────────────────────────────
-app.post('/api/career-apply', upload.single('resume'), async (req, res) => {
+app.post('/api/career-apply', (req, res, next) => {
+  upload.single('resume')(req, res, (err) => {
+    if (err) {
+      console.warn('⚠️ Multer resume upload note:', err.message);
+      return res.status(400).json({ success: false, message: err.message });
+    }
+    next();
+  });
+}, async (req, res) => {
   try {
     const body = req.body;
-    const file = req.file; // Buffer of the uploaded resume
+    const file = req.file;
 
     const name     = (body.name     || '').trim();
     const mobile   = (body.mobile   || '').trim();
@@ -431,25 +450,37 @@ app.post('/api/career-apply', upload.single('resume'), async (req, res) => {
     const exp      = (body.experience || '').trim();
     const city     = (body.city     || '').trim();
     const note     = (body.note     || '').trim();
-    const appId    = body.appId || ('CA-' + Math.floor(10000 + Math.random() * 90000));
+    const appId    = (body.appId || ('CA-' + Math.floor(10000 + Math.random() * 90000))).trim();
     const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
 
     if (!name)   return res.status(400).json({ success: false, message: 'Name is required.' });
     if (!mobile) return res.status(400).json({ success: false, message: 'Mobile is required.' });
     if (!email)  return res.status(400).json({ success: false, message: 'Email is required.' });
     if (!role)   return res.status(400).json({ success: false, message: 'Role is required.' });
-    if (!file)   return res.status(400).json({ success: false, message: 'Resume file is required.' });
+    if (!file || !file.buffer || file.buffer.length === 0) {
+      return res.status(400).json({ success: false, message: 'Resume file is required.' });
+    }
 
-    // Determine safe filename and robust MIME type
-    const origName = file.originalname || 'Resume.pdf';
-    const isPdf = (file.mimetype && file.mimetype.toLowerCase().includes('pdf')) || origName.toLowerCase().endsWith('.pdf');
+    // Determine safe, clean filename and robust MIME type
+    const origName = (file.originalname || 'Resume.pdf').replace(/[\\/:*?"<>|]/g, '_');
+    const ext = (path.extname(origName) || '.pdf').toLowerCase();
+    const isPdf = ext === '.pdf' || (file.mimetype && file.mimetype.toLowerCase().includes('pdf'));
     let safeResumeName = origName;
     if (isPdf && !safeResumeName.toLowerCase().endsWith('.pdf')) {
       safeResumeName += '.pdf';
     }
     const safeMime = isPdf ? 'application/pdf' : (file.mimetype || 'application/octet-stream');
 
-    // ── Store in memory (admin panel reads this) ──
+    // ── Save physical copy on disk in data/resumes ──
+    const physicalFilename = `${appId}_${safeResumeName}`;
+    const physicalPath = path.join(RESUMES_DIR, physicalFilename);
+    try {
+      fs.writeFileSync(physicalPath, file.buffer);
+    } catch(fsErr) {
+      console.warn('⚠️ Could not save physical resume file:', fsErr.message);
+    }
+
+    // ── Store in memory & data/careers.json ──
     const application = {
       appId, name, mobile, email, role, experience: exp,
       city, note,
@@ -459,13 +490,50 @@ app.post('/api/career-apply', upload.single('resume'), async (req, res) => {
       timestamp, status: 'New'
     };
     careerApplications.unshift(application);
-    if (careerApplications.length > 200) careerApplications.length = 200; // cap at 200
+    if (careerApplications.length > 200) careerApplications.length = 200;
     writeJsonFile(CAREERS_FILE, careerApplications);
 
-    // Build public/LAN view URL for Gmail email button
-    const host = req.get('host') || 'localhost:' + PORT;
-    const protocol = req.protocol || 'http';
-    const resumeViewUrl = `${protocol}://${host}/api/career-resume/${appId}`;
+    // ── Auto-record to data/leads.json for Unified Staff Portal view ──
+    try {
+      const leads = readJsonFile(LEADS_FILE, []);
+      const careerLeadEntry = {
+        ref_id: appId,
+        applicant_name: name,
+        mobile: mobile,
+        loan_product: 'Career Application — ' + role,
+        loan_amount: 'N/A',
+        monthly_income: exp || 'Fresher',
+        city: city || 'Delhi NCR',
+        pan_card: email,
+        cibil_notes: `Resume: ${safeResumeName}${note ? ' | Note: ' + note : ''}`,
+        cibil_score: null,
+        lead_category: 'Career Application',
+        status: 'New',
+        admin_notes: `Candidate applied for ${role}. Experience: ${exp || 'Fresher'}. Location: ${city || 'Delhi NCR'}. Resume file: ${safeResumeName}`,
+        resume_name: safeResumeName,
+        created_at: new Date().toISOString()
+      };
+      const existingIdx = leads.findIndex(l => (l.ref_id || '').toLowerCase() === appId.toLowerCase());
+      if (existingIdx >= 0) {
+        leads[existingIdx] = { ...leads[existingIdx], ...careerLeadEntry };
+      } else {
+        leads.unshift(careerLeadEntry);
+      }
+      writeJsonFile(LEADS_FILE, leads.slice(0, 500));
+    } catch(lErr) {
+      console.warn('⚠️ Could not record career lead to leads.json:', lErr.message);
+    }
+
+    // ── Resolve best public view URL for Gmail email button ──
+    const configuredBase = (process.env.PUBLIC_URL || process.env.BASE_URL || '').trim();
+    let baseUrl = configuredBase;
+    if (!baseUrl) {
+      const proto = (req.headers['x-forwarded-proto'] || req.protocol || 'http').split(',')[0].trim();
+      const host = req.get('host') || ('localhost:' + PORT);
+      baseUrl = `${proto}://${host}`;
+    }
+    const resumeViewUrl = `${baseUrl}/api/career-resume/${appId}`;
+    const portalCandidateUrl = `${baseUrl}/portal.html?tab=careers&id=${appId}`;
 
     // ── Build HTML email body ──
     rowCount = 0;
@@ -491,11 +559,27 @@ app.post('/api/career-apply', upload.single('resume'), async (req, res) => {
     <h1 style="margin:0;color:#ffffff;font-size:26px;font-weight:700;">Proloan India</h1>
     <p style="margin:6px 0 0;color:#93c5fd;font-size:13px;letter-spacing:1px;text-transform:uppercase;">New Career Application</p>
   </td></tr>
-  <tr><td style="background:#eff6ff;border-left:4px solid #2563eb;padding:16px 40px;text-align:center;">
-    <p style="margin:0 0 10px;color:#1e40af;font-size:14px;font-weight:700;">📄 Candidate Resume is Attached Below &amp; Ready to View</p>
-    <a href="${resumeViewUrl}" target="_blank" style="display:inline-block;padding:11px 24px;background:#2563eb;color:#ffffff;text-decoration:none;font-weight:700;font-size:13px;border-radius:8px;box-shadow:0 2px 8px rgba(37,99,235,0.3);">
-      🔗 Click to Open Resume in Browser (PDF)
-    </a>
+  <tr><td style="background:#eff6ff;border-left:4px solid #2563eb;padding:20px 36px;text-align:center;">
+    <div style="display:inline-block;background:#dbeafe;color:#1e40af;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;margin-bottom:12px;">
+      📎 Candidate Resume Attached: ${safeResumeName}
+    </div>
+    <p style="margin:0 0 14px;color:#1e3a5f;font-size:14px;font-weight:600;line-height:1.5;">
+      The applicant's resume is <strong>attached directly to this email</strong> (see below in Gmail) and saved in the Proloan India Admin Portal.
+    </p>
+    <table cellpadding="0" cellspacing="0" style="margin:0 auto;">
+      <tr>
+        <td style="padding:4px 6px;">
+          <a href="${resumeViewUrl}" target="_blank" style="display:inline-block;padding:11px 22px;background:#2563eb;color:#ffffff;text-decoration:none;font-weight:700;font-size:13px;border-radius:8px;box-shadow:0 2px 8px rgba(37,99,235,0.3);">
+            🔗 Open Resume PDF in Browser
+          </a>
+        </td>
+        <td style="padding:4px 6px;">
+          <a href="${portalCandidateUrl}" target="_blank" style="display:inline-block;padding:11px 22px;background:#0f172a;color:#ffffff;text-decoration:none;font-weight:700;font-size:13px;border-radius:8px;border:1px solid #334155;">
+            👥 View in Admin Portal
+          </a>
+        </td>
+      </tr>
+    </table>
   </td></tr>
   <tr><td style="padding:32px 40px;">
     <h2 style="margin:0 0 20px;color:#1e3a5f;font-size:18px;font-weight:700;border-bottom:2px solid #e5e7eb;padding-bottom:10px;">Applicant Details</h2>
@@ -508,31 +592,32 @@ app.post('/api/career-apply', upload.single('resume'), async (req, res) => {
 </td></tr></table>
 </body></html>`;
 
-    // ── Email attachments with verified PDF headers ──
-    const attachments = [];
-    if (file) {
-      attachments.push({
-        filename: safeResumeName,
-        content: file.buffer,
-        contentType: safeMime,
-        contentDisposition: 'attachment'
-      });
-    }
+    // ── Email attachments with clean ASCII filename and verified headers ──
+    const cleanAttachName = safeResumeName.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const attachments = [{
+      filename: cleanAttachName,
+      content: file.buffer,
+      contentType: safeMime
+    }];
 
     // ── Send email with 15-second timeout ──
-    await Promise.race([
-      transporter.sendMail({
-        from: `"Proloan India HR" <${GMAIL_USER}>`,
-        to: LEAD_RECIPIENT,
-        replyTo: email,
-        subject: `📋 [CAREER] ${role} — ${name} | ${appId}`,
-        html: htmlBody,
-        attachments
-      }),
-      new Promise((_, reject) => setTimeout(() => reject(new Error('SMTP timeout after 15s')), 15000))
-    ]);
+    try {
+      await Promise.race([
+        transporter.sendMail({
+          from: `"Proloan India HR" <${GMAIL_USER}>`,
+          to: LEAD_RECIPIENT,
+          replyTo: email,
+          subject: `📋 [CAREER] ${role} — ${name} | ${appId}`,
+          html: htmlBody,
+          attachments
+        }),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('SMTP timeout after 15s')), 15000))
+      ]);
+      console.log(`✅ Career application emailed — ${appId} | ${name} | ${role} | ${timestamp}`);
+    } catch(smtpErr) {
+      console.warn(`⚠️ Career application saved, but SMTP failed: ${smtpErr.message}`);
+    }
 
-    console.log(`✅ Career application emailed — ${appId} | ${name} | ${role} | ${timestamp}`);
     return res.json({ success: true, message: 'Application submitted successfully!', appId, resumeUrl: resumeViewUrl });
 
   } catch (err) {
@@ -553,48 +638,143 @@ app.get('/api/career-applications', (req, res) => {
     city: a.city,
     note: a.note,
     resumeName: a.resumeName,
-    hasResume: !!a.resumeBase64,
+    hasResume: !!(a.resumeBase64 || a.resumeName),
     timestamp: a.timestamp,
     status: a.status
   }));
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.json({ success: true, applications: light });
 });
 
 // ── Admin & User: View or Download resume by appId (supports inline PDF view) ──
 const handleResumeRequest = (req, res) => {
   const rawId = (req.params.appId || '').trim();
-  const cleanAppId = rawId.replace(/\.pdf$/i, '').trim().toLowerCase();
+  const cleanAppId = rawId.replace(/\.(pdf|doc|docx)$/i, '').trim().toLowerCase();
 
-  const app_ = careerApplications.find(a => 
+  // 1. Search in memory careerApplications
+  let app_ = careerApplications.find(a => 
     (a.appId || '').toLowerCase() === cleanAppId || 
     (a.appId || '').toLowerCase() === rawId.toLowerCase()
   );
 
-  if (!app_ || !app_.resumeBase64) {
+  // 2. Fallback to reading CAREERS_FILE from disk
+  if (!app_) {
+    const diskApps = readJsonFile(CAREERS_FILE, []);
+    app_ = diskApps.find(a => 
+      (a.appId || '').toLowerCase() === cleanAppId || 
+      (a.appId || '').toLowerCase() === rawId.toLowerCase()
+    );
+  }
+
+  // 3. Search physical file in RESUMES_DIR
+  let fileBuf = null;
+  let safeFilename = app_?.resumeName || `${cleanAppId}_resume.pdf`;
+  let mimeType = app_?.resumeMime || 'application/pdf';
+
+  if (fs.existsSync(RESUMES_DIR)) {
+    try {
+      const diskFiles = fs.readdirSync(RESUMES_DIR);
+      const matched = diskFiles.find(f => {
+        const lower = f.toLowerCase();
+        return lower.startsWith(cleanAppId + '_') || lower === `${cleanAppId}.pdf` || lower.startsWith(rawId.toLowerCase() + '_');
+      });
+      if (matched) {
+        fileBuf = fs.readFileSync(path.join(RESUMES_DIR, matched));
+        if (!app_) {
+          safeFilename = matched.replace(new RegExp(`^${cleanAppId}_`, 'i'), '');
+        }
+      }
+    } catch(e) {}
+  }
+
+  if (!fileBuf && app_ && app_.resumeBase64) {
+    fileBuf = Buffer.from(app_.resumeBase64, 'base64');
+  }
+
+  if (!fileBuf) {
     return res.status(404).send(`
       <!DOCTYPE html><html><body style="font-family:sans-serif;text-align:center;padding:50px;background:#0f172a;color:#cbd5e1;">
         <h2 style="color:#f87171;">Resume Not Found</h2>
         <p>No resume uploaded for application reference: <strong>${rawId}</strong></p>
+        <p style="font-size:12px;color:#94a3b8;">Please verify the Application ID or submit a new profile via the Careers portal.</p>
       </body></html>
     `);
   }
 
-  const buf = Buffer.from(app_.resumeBase64, 'base64');
-  const safeFilename = app_.resumeName || `${app_.appId}_resume.pdf`;
-  const isPdf = (app_.resumeMime && app_.resumeMime.includes('pdf')) || safeFilename.toLowerCase().endsWith('.pdf');
-  const contentType = isPdf ? 'application/pdf' : (app_.resumeMime || 'application/octet-stream');
-
   const isDownload = req.query.download === 'true' || req.query.dl === '1';
-  const disposition = isDownload ? 'attachment' : 'inline';
+  const isPdf = safeFilename.toLowerCase().endsWith('.pdf') || (mimeType && mimeType.includes('pdf'));
+  const contentType = isPdf ? 'application/pdf' : mimeType;
+  const cleanHeaderName = safeFilename.replace(/["\r\n\\]/g, '_');
 
-  res.set('Content-Type', contentType);
-  res.set('Content-Disposition', `${disposition}; filename="${encodeURIComponent(safeFilename)}"; filename*=UTF-8''${encodeURIComponent(safeFilename)}`);
-  res.set('Cache-Control', 'public, max-age=3600');
-  res.send(buf);
+  // Allow embedding in admin portal iframe across origins & dev ports
+  res.removeHeader('X-Frame-Options');
+  res.setHeader('Content-Security-Policy', "frame-ancestors 'self' *");
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Content-Type', contentType);
+  res.setHeader('Content-Length', fileBuf.length);
+  res.setHeader('Cache-Control', 'public, max-age=3600');
+
+  if (isDownload) {
+    res.setHeader('Content-Disposition', `attachment; filename="${cleanHeaderName}"`);
+  } else {
+    // For inline PDF preview: keep disposition as inline
+    res.setHeader('Content-Disposition', `inline; filename="${cleanHeaderName}"`);
+  }
+
+  res.send(fileBuf);
 };
 
 app.get('/api/career-resume/:appId', handleResumeRequest);
 app.get('/api/career-resume/:appId.pdf', handleResumeRequest);
+app.get('/api/career-resume/:appId/download', (req, res) => {
+  req.query.download = 'true';
+  handleResumeRequest(req, res);
+});
+
+// ── Admin: Base64 JSON Endpoint for In-Portal Zero-Block Preview ──
+app.get('/api/career-resume-base64/:appId', (req, res) => {
+  const rawId = (req.params.appId || '').trim();
+  const cleanAppId = rawId.replace(/\.(pdf|doc|docx)$/i, '').trim().toLowerCase();
+
+  let app_ = careerApplications.find(a => 
+    (a.appId || '').toLowerCase() === cleanAppId || 
+    (a.appId || '').toLowerCase() === rawId.toLowerCase()
+  );
+  if (!app_) {
+    const diskApps = readJsonFile(CAREERS_FILE, []);
+    app_ = diskApps.find(a => 
+      (a.appId || '').toLowerCase() === cleanAppId || 
+      (a.appId || '').toLowerCase() === rawId.toLowerCase()
+    );
+  }
+
+  let base64 = app_?.resumeBase64;
+  let filename = app_?.resumeName || `${cleanAppId}_resume.pdf`;
+  let mime = app_?.resumeMime || 'application/pdf';
+
+  if (!base64 && fs.existsSync(RESUMES_DIR)) {
+    try {
+      const diskFiles = fs.readdirSync(RESUMES_DIR);
+      const matched = diskFiles.find(f => {
+        const lower = f.toLowerCase();
+        return lower.startsWith(cleanAppId + '_') || lower === `${cleanAppId}.pdf` || lower.startsWith(rawId.toLowerCase() + '_');
+      });
+      if (matched) {
+        const buf = fs.readFileSync(path.join(RESUMES_DIR, matched));
+        base64 = buf.toString('base64');
+        filename = matched.replace(new RegExp(`^${cleanAppId}_`, 'i'), '');
+      }
+    } catch(e) {}
+  }
+
+  if (!base64) {
+    return res.status(404).json({ success: false, message: 'Resume not found' });
+  }
+
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.json({ success: true, appId: rawId, filename, mime, base64 });
+});
 
 // ── Admin: Update career application status ──
 app.post('/api/career-status', (req, res) => {

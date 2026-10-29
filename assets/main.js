@@ -1872,6 +1872,7 @@ function handleModalSubmit(e) {
     // CAREERS APPLICATION HANDLER
     // ============================
     function handleCareersSubmit(e) {
+      window.handleCareersSubmit = handleCareersSubmit;
       e.preventDefault();
 
       const name     = (document.getElementById('career-name')?.value || '').trim();
