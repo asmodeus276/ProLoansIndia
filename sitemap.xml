@@ -6,7 +6,7 @@
   <!-- 1. Primary Homepage -->
   <url>
     <loc>https://proloansindia.com/</loc>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en-IN" href="https://proloansindia.com/"/>
@@ -20,21 +20,21 @@
 
   <!-- 2. Professional Loan (Doctor Loans, CA Loans & OD) -->
   <url>
-    <loc>https://proloansindia.com/#professional-loan</loc>
-    <lastmod>2026-10-28</lastmod>
+    <loc>https://proloansindia.com/?page=professional-loan</loc>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
       <image:loc>https://proloansindia.com/assets/banners/doctor-clean.jpg</image:loc>
       <image:title>Doctor Loans and Revolving Overdraft Facility</image:title>
-      <image:caption>Unsecured doctor loans up to 10 Crore with lowest interest rates</image:caption>
+      <image:caption>Unsecured doctor loans up to 10 Crore with lowest interest rates starting at 8.90%</image:caption>
     </image:image>
   </url>
 
   <!-- 3. MSME & Unsecured Business Loans -->
   <url>
-    <loc>https://proloansindia.com/#business-loan</loc>
-    <lastmod>2026-10-28</lastmod>
+    <loc>https://proloansindia.com/?page=business-loan</loc>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -46,34 +46,34 @@
 
   <!-- 4. Home Loans & Balance Transfer -->
   <url>
-    <loc>https://proloansindia.com/#home-loan</loc>
-    <lastmod>2026-10-28</lastmod>
+    <loc>https://proloansindia.com/?page=home-loan</loc>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
       <image:loc>https://proloansindia.com/assets/banners/home-clean.jpg</image:loc>
       <image:title>Affordable Home Loans and Balance Transfer</image:title>
-      <image:caption>Low ROI home loans starting at 8.35% with doorstep service</image:caption>
+      <image:caption>Low ROI home loans starting at 8.35% with doorstep service and top-up</image:caption>
     </image:image>
   </url>
 
   <!-- 5. Loan Against Property (LAP / Mortgage) -->
   <url>
-    <loc>https://proloansindia.com/#lap-loan</loc>
-    <lastmod>2026-10-28</lastmod>
+    <loc>https://proloansindia.com/?page=lap-loan</loc>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
       <image:loc>https://proloansindia.com/assets/banners/lap-clean.jpg</image:loc>
       <image:title>Loan Against Property Mortgage Funding</image:title>
-      <image:caption>High LTV loans against residential and commercial property</image:caption>
+      <image:caption>High LTV loans against residential and commercial property up to 50 Crore</image:caption>
     </image:image>
   </url>
 
   <!-- 6. Instant Personal Loans -->
   <url>
-    <loc>https://proloansindia.com/#personal-loan</loc>
-    <lastmod>2026-10-28</lastmod>
+    <loc>https://proloansindia.com/?page=personal-loan</loc>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -85,8 +85,8 @@
 
   <!-- 7. Working Capital & Cash Credit (CC/OD) -->
   <url>
-    <loc>https://proloansindia.com/#working-capital</loc>
-    <lastmod>2026-10-28</lastmod>
+    <loc>https://proloansindia.com/?page=working-capital</loc>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -98,146 +98,126 @@
 
   <!-- 8. CGTMSE / MSME Scheme -->
   <url>
-    <loc>https://proloansindia.com/#od-facility</loc>
-    <lastmod>2026-10-28</lastmod>
+    <loc>https://proloansindia.com/?page=od-facility</loc>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
       <image:loc>https://proloansindia.com/assets/banners/od-clean.jpg</image:loc>
-      <image:title>CGTMSE Collateral Free MSME Loans</image:title>
-      <image:caption>Government backed credit guarantee loans up to 5 Crores</image:caption>
+      <image:title>CGTMSE Collateral Free Loans</image:title>
+      <image:caption>Government credit guarantee loans up to 5 Crores</image:caption>
     </image:image>
   </url>
 
-  <!-- 9. Machinery & Equipment Finance -->
+  <!-- 9. Commercial Machinery & Equipment Loan -->
   <url>
-    <loc>https://proloansindia.com/#machinery-loan</loc>
-    <lastmod>2026-10-28</lastmod>
+    <loc>https://proloansindia.com/?page=machinery-loan</loc>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
     <image:image>
       <image:loc>https://proloansindia.com/assets/banners/machinery-clean.jpg</image:loc>
-      <image:title>Machinery and Medical Equipment Loans</image:title>
-      <image:caption>Up to 90 percent asset funding for manufacturing and healthcare</image:caption>
+      <image:title>Machinery and Industrial Equipment Financing</image:title>
+      <image:caption>Heavy equipment financing for manufacturing and medical clinics</image:caption>
     </image:image>
   </url>
 
-  <!-- 10. Car Loans (New & Pre-Owned) -->
+  <!-- 10. New & Used Car Vehicle Loan -->
   <url>
-    <loc>https://proloansindia.com/#car-loan</loc>
-    <lastmod>2026-10-28</lastmod>
+    <loc>https://proloansindia.com/?page=car-loan</loc>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
     <image:image>
       <image:loc>https://proloansindia.com/assets/banners/car-clean.jpg</image:loc>
-      <image:title>New and Used Car Financing</image:title>
-      <image:caption>Competitive automotive loans with high on-road funding</image:caption>
+      <image:title>New and Used Car Vehicle Loans</image:title>
+      <image:caption>Lowest interest car loans with quick sanction and minimal documentation</image:caption>
     </image:image>
   </url>
 
-  <!-- 11. Global Education Loans -->
+  <!-- 11. Domestic & International Education Loans -->
   <url>
-    <loc>https://proloansindia.com/#education-loan</loc>
-    <lastmod>2026-10-28</lastmod>
+    <loc>https://proloansindia.com/?page=education-loan</loc>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
     <image:image>
       <image:loc>https://proloansindia.com/assets/banners/education-clean.jpg</image:loc>
-      <image:title>Education Loans for Studies in India and Abroad</image:title>
-      <image:caption>Comprehensive student funding for premier global universities</image:caption>
+      <image:title>Higher Education Loans for India and Abroad</image:title>
+      <image:caption>Comprehensive student education funding up to 1.5 Crores</image:caption>
     </image:image>
   </url>
 
-  <!-- 12. Partner Banks & NBFCs -->
+  <!-- 12. Partner Banks & NBFC Network -->
   <url>
-    <loc>https://proloansindia.com/#partners</loc>
-    <lastmod>2026-10-28</lastmod>
+    <loc>https://proloansindia.com/?page=partners</loc>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-    <image:image>
-      <image:loc>https://proloansindia.com/assets/banners/partners-clean.jpg</image:loc>
-      <image:title>50 Plus Leading Partner Banks and NBFCs</image:title>
-      <image:caption>Direct lending tie-ups with HDFC, SBI, ICICI, Axis, Tata Capital</image:caption>
-    </image:image>
+    <priority>0.75</priority>
   </url>
 
-  <!-- 13. Application Tracking Portal -->
+  <!-- 13. Real-Time Application Tracking -->
   <url>
-    <loc>https://proloansindia.com/#track</loc>
-    <lastmod>2026-10-28</lastmod>
-    <changefreq>always</changefreq>
+    <loc>https://proloansindia.com/?page=track</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
 
-  <!-- 14. Financial Blogs & Borrowing Guides -->
+  <!-- 14. Financial Knowledge Hub & Guides -->
   <url>
-    <loc>https://proloansindia.com/#blog</loc>
-    <lastmod>2026-10-28</lastmod>
+    <loc>https://proloansindia.com/?page=blog</loc>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
-    <image:image>
-      <image:loc>https://proloansindia.com/assets/banners/blog-clean.jpg</image:loc>
-      <image:title>Financial Insights and Loan Guides</image:title>
-      <image:caption>Expert advice on interest rates, CIBIL scores, and loan structuring</image:caption>
-    </image:image>
+    <priority>0.85</priority>
   </url>
 
   <!-- 15. About Proloan India -->
   <url>
-    <loc>https://proloansindia.com/#about</loc>
-    <lastmod>2026-10-28</lastmod>
+    <loc>https://proloansindia.com/?page=about</loc>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
-    <image:image>
-      <image:loc>https://proloansindia.com/assets/banners/about-clean.jpg</image:loc>
-      <image:title>About Proloan India Financial Advisory</image:title>
-      <image:caption>Our mission, leadership, and multi-bank advisory framework</image:caption>
-    </image:image>
   </url>
 
-  <!-- 16. Contact Desk & Office Location -->
+  <!-- 16. Contact & Advisory Desk -->
   <url>
-    <loc>https://proloansindia.com/#contact</loc>
-    <lastmod>2026-10-28</lastmod>
+    <loc>https://proloansindia.com/?page=contact</loc>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
-    <image:image>
-      <image:loc>https://proloansindia.com/assets/banners/contact-clean.jpg</image:loc>
-      <image:title>Contact Proloan India Indirapuram Desk</image:title>
-      <image:caption>Branch location at Himalaya Legend, Indirapuram, Ghaziabad</image:caption>
-    </image:image>
   </url>
 
-  <!-- 17. Careers at Proloan India -->
+  <!-- 17. Careers & DSA Partnerships -->
   <url>
-    <loc>https://proloansindia.com/#careers</loc>
-    <lastmod>2026-10-28</lastmod>
+    <loc>https://proloansindia.com/?page=careers</loc>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
 
-  <!-- 18. Full HTML Sitemap Directory -->
+  <!-- 18. HTML Sitemap Index -->
   <url>
     <loc>https://proloansindia.com/sitemap.html</loc>
-    <lastmod>2026-10-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.75</priority>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
   </url>
 
-  <!-- 19. Generative AI Knowledge Base (llms.txt) -->
+  <!-- 19. Generative AI Engine Documentation (GEO) -->
   <url>
     <loc>https://proloansindia.com/llms.txt</loc>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.70</priority>
   </url>
 
-  <!-- 20. Comprehensive Generative AI Underwriting Guide (llms-full.txt) -->
+  <!-- 20. Comprehensive Generative AI Documentation -->
   <url>
     <loc>https://proloansindia.com/llms-full.txt</loc>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.65</priority>
   </url>
 
 </urlset>
