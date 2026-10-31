@@ -650,11 +650,14 @@ app.get('/api/career-applications', (req, res) => {
 const handleResumeRequest = (req, res) => {
   const rawId = (req.params.appId || '').trim();
   const cleanAppId = rawId.replace(/\.(pdf|doc|docx)$/i, '').trim().toLowerCase();
+  const reqFile = (req.query.file || req.query.filename || '').trim();
+  const reqAltId = (req.query.altId || '').trim().toLowerCase();
 
   // 1. Search in memory careerApplications
   let app_ = careerApplications.find(a => 
     (a.appId || '').toLowerCase() === cleanAppId || 
-    (a.appId || '').toLowerCase() === rawId.toLowerCase()
+    (a.appId || '').toLowerCase() === rawId.toLowerCase() ||
+    (reqAltId && (a.appId || '').toLowerCase() === reqAltId)
   );
 
   // 2. Fallback to reading CAREERS_FILE from disk
@@ -662,13 +665,34 @@ const handleResumeRequest = (req, res) => {
     const diskApps = readJsonFile(CAREERS_FILE, []);
     app_ = diskApps.find(a => 
       (a.appId || '').toLowerCase() === cleanAppId || 
-      (a.appId || '').toLowerCase() === rawId.toLowerCase()
+      (a.appId || '').toLowerCase() === rawId.toLowerCase() ||
+      (reqAltId && (a.appId || '').toLowerCase() === reqAltId)
     );
+  }
+
+  // 2b. Fallback to checking data/leads.json to extract resume filename
+  let leadResumeName = '';
+  if (!app_) {
+    try {
+      const diskLeads = readJsonFile(LEADS_FILE, []);
+      const matchedLead = diskLeads.find(l => 
+        (l.ref_id || '').toLowerCase() === cleanAppId || 
+        (l.ref_id || '').toLowerCase() === rawId.toLowerCase() ||
+        (reqAltId && (l.ref_id || '').toLowerCase() === reqAltId)
+      );
+      if (matchedLead) {
+        leadResumeName = matchedLead.resume_name || '';
+        if (!leadResumeName && matchedLead.cibil_notes) {
+          const m = matchedLead.cibil_notes.match(/Resume:\s*([^\s|]+\.(pdf|doc|docx))/i);
+          if (m && m[1]) leadResumeName = m[1].trim();
+        }
+      }
+    } catch(_) {}
   }
 
   // 3. Search physical file in RESUMES_DIR
   let fileBuf = null;
-  let safeFilename = app_?.resumeName || `${cleanAppId}_resume.pdf`;
+  let safeFilename = app_?.resumeName || leadResumeName || reqFile || `${cleanAppId}_resume.pdf`;
   let mimeType = app_?.resumeMime || 'application/pdf';
 
   if (fs.existsSync(RESUMES_DIR)) {
@@ -676,15 +700,48 @@ const handleResumeRequest = (req, res) => {
       const diskFiles = fs.readdirSync(RESUMES_DIR);
       const matched = diskFiles.find(f => {
         const lower = f.toLowerCase();
-        return lower.startsWith(cleanAppId + '_') || lower === `${cleanAppId}.pdf` || lower.startsWith(rawId.toLowerCase() + '_');
+        if (lower.startsWith(cleanAppId + '_') || lower === `${cleanAppId}.pdf` || lower.startsWith(rawId.toLowerCase() + '_')) return true;
+        if (reqAltId && (lower.startsWith(reqAltId + '_') || lower === `${reqAltId}.pdf` || lower.startsWith(reqAltId.toLowerCase() + '_'))) return true;
+        if (leadResumeName && lower === leadResumeName.toLowerCase()) return true;
+        if (reqFile && lower === reqFile.toLowerCase()) return true;
+        if (safeFilename && lower === safeFilename.toLowerCase()) return true;
+        return false;
       });
       if (matched) {
         fileBuf = fs.readFileSync(path.join(RESUMES_DIR, matched));
-        if (!app_) {
-          safeFilename = matched.replace(new RegExp(`^${cleanAppId}_`, 'i'), '');
-        }
+        safeFilename = matched;
       }
     } catch(e) {}
+  }
+
+  // 4. Fallback search in user's Downloads folder
+  if (!fileBuf) {
+    try {
+      const os = require('os');
+      const downloadsDir = path.join(os.homedir(), 'Downloads');
+      if (fs.existsSync(downloadsDir)) {
+        const dlFiles = fs.readdirSync(downloadsDir);
+        const dlMatched = dlFiles.find(f => {
+          const lower = f.toLowerCase();
+          if (leadResumeName && lower === leadResumeName.toLowerCase()) return true;
+          if (reqFile && lower === reqFile.toLowerCase()) return true;
+          if (lower.startsWith(cleanAppId + '_') || lower === `${cleanAppId}.pdf`) return true;
+          if (reqAltId && (lower.startsWith(reqAltId + '_') || lower === `${reqAltId}.pdf`)) return true;
+          return false;
+        });
+        if (dlMatched) {
+          const dlSource = path.join(downloadsDir, dlMatched);
+          fileBuf = fs.readFileSync(dlSource);
+          safeFilename = dlMatched;
+          // Auto-persist into RESUMES_DIR for future instant serving
+          try {
+            if (!fs.existsSync(RESUMES_DIR)) fs.mkdirSync(RESUMES_DIR, { recursive: true });
+            fs.copyFileSync(dlSource, path.join(RESUMES_DIR, dlMatched));
+            fs.copyFileSync(dlSource, path.join(RESUMES_DIR, `${cleanAppId}.pdf`));
+          } catch(_) {}
+        }
+      }
+    } catch(_) {}
   }
 
   if (!fileBuf && app_ && app_.resumeBase64) {
@@ -736,21 +793,25 @@ app.get('/api/career-resume/:appId/download', (req, res) => {
 app.get('/api/career-resume-base64/:appId', (req, res) => {
   const rawId = (req.params.appId || '').trim();
   const cleanAppId = rawId.replace(/\.(pdf|doc|docx)$/i, '').trim().toLowerCase();
+  const reqFile = (req.query.file || req.query.filename || '').trim();
+  const reqAltId = (req.query.altId || '').trim().toLowerCase();
 
   let app_ = careerApplications.find(a => 
     (a.appId || '').toLowerCase() === cleanAppId || 
-    (a.appId || '').toLowerCase() === rawId.toLowerCase()
+    (a.appId || '').toLowerCase() === rawId.toLowerCase() ||
+    (reqAltId && (a.appId || '').toLowerCase() === reqAltId)
   );
   if (!app_) {
     const diskApps = readJsonFile(CAREERS_FILE, []);
     app_ = diskApps.find(a => 
       (a.appId || '').toLowerCase() === cleanAppId || 
-      (a.appId || '').toLowerCase() === rawId.toLowerCase()
+      (a.appId || '').toLowerCase() === rawId.toLowerCase() ||
+      (reqAltId && (a.appId || '').toLowerCase() === reqAltId)
     );
   }
 
   let base64 = app_?.resumeBase64;
-  let filename = app_?.resumeName || `${cleanAppId}_resume.pdf`;
+  let filename = app_?.resumeName || reqFile || `${cleanAppId}_resume.pdf`;
   let mime = app_?.resumeMime || 'application/pdf';
 
   if (!base64 && fs.existsSync(RESUMES_DIR)) {
@@ -758,12 +819,15 @@ app.get('/api/career-resume-base64/:appId', (req, res) => {
       const diskFiles = fs.readdirSync(RESUMES_DIR);
       const matched = diskFiles.find(f => {
         const lower = f.toLowerCase();
-        return lower.startsWith(cleanAppId + '_') || lower === `${cleanAppId}.pdf` || lower.startsWith(rawId.toLowerCase() + '_');
+        if (lower.startsWith(cleanAppId + '_') || lower === `${cleanAppId}.pdf` || lower.startsWith(rawId.toLowerCase() + '_')) return true;
+        if (reqAltId && (lower.startsWith(reqAltId + '_') || lower === `${reqAltId}.pdf`)) return true;
+        if (reqFile && lower === reqFile.toLowerCase()) return true;
+        return false;
       });
       if (matched) {
         const buf = fs.readFileSync(path.join(RESUMES_DIR, matched));
         base64 = buf.toString('base64');
-        filename = matched.replace(new RegExp(`^${cleanAppId}_`, 'i'), '');
+        filename = matched;
       }
     } catch(e) {}
   }
@@ -776,7 +840,6 @@ app.get('/api/career-resume-base64/:appId', (req, res) => {
   res.json({ success: true, appId: rawId, filename, mime, base64 });
 });
 
-// ── Admin: Update career application status ──
 app.post('/api/career-status', (req, res) => {
   const { appId, status } = req.body;
   const app_ = careerApplications.find(a => a.appId === appId);

@@ -1568,7 +1568,7 @@ create policy "Admin all" on public.leads for all using (true);</pre>
                   <span class="material-symbols-outlined text-base">work</span>
                   <span>${lead.loan_product || 'Career Application'}</span>
                 </div>
-                <button type="button" onclick="viewResumeModal('${lead.ref_id}', '${(lead.applicant_name || 'Candidate').replace(/'/g, "\\'")}', '${(lead.resume_name || lead.resumeName || lead['Resume File'] || 'Resume.pdf').replace(/'/g, "\\'")}')" class="mt-1.5 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-orange-500/20 hover:bg-orange-500/35 text-orange-300 text-[11px] font-bold border border-orange-500/35 transition-all cursor-pointer shadow-sm hover:scale-105">
+                <button type="button" onclick="viewResumeModal('${lead.ref_id}', '${(lead.applicant_name || 'Candidate').replace(/'/g, "\\'")}', '${((lead.resume_name || lead.resumeName || (lead.cibil_notes && lead.cibil_notes.match(/Resume:\\s*([^\\s|]+\\.(pdf|doc|docx))/i) ? lead.cibil_notes.match(/Resume:\\s*([^\\s|]+\\.(pdf|doc|docx))/i)[1] : '') || lead['Resume File'] || 'Resume.pdf')).replace(/'/g, "\\'")}')" class="mt-1.5 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-orange-500/20 hover:bg-orange-500/35 text-orange-300 text-[11px] font-bold border border-orange-500/35 transition-all cursor-pointer shadow-sm hover:scale-105">
                   <span class="material-symbols-outlined text-xs">picture_as_pdf</span>
                   <span>Open Resume PDF</span>
                 </button>
@@ -1698,7 +1698,7 @@ create policy "Admin all" on public.leads for all using (true);</pre>
         }
         careerBtnEl.innerHTML = `
           <span class="text-xs text-orange-300 font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-sm">picture_as_pdf</span>Candidate Resume Attached</span>
-          <button type="button" onclick="viewResumeModal('${lead.ref_id}', '${(lead.applicant_name || 'Candidate').replace(/'/g, "\\'")}', '${(lead.resume_name || lead.resumeName || lead['Resume File'] || 'Resume.pdf').replace(/'/g, "\\'")}')" class="px-3.5 py-1.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs flex items-center gap-1 transition-all cursor-pointer shadow-md">
+          <button type="button" onclick="viewResumeModal('${lead.ref_id}', '${(lead.applicant_name || 'Candidate').replace(/'/g, "\\'")}', '${((lead.resume_name || lead.resumeName || (lead.cibil_notes && lead.cibil_notes.match(/Resume:\\s*([^\\s|]+\\.(pdf|doc|docx))/i) ? lead.cibil_notes.match(/Resume:\\s*([^\\s|]+\\.(pdf|doc|docx))/i)[1] : '') || lead['Resume File'] || 'Resume.pdf')).replace(/'/g, "\\'")}')" class="px-3.5 py-1.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs flex items-center gap-1 transition-all cursor-pointer shadow-md">
             <span class="material-symbols-outlined text-sm">visibility</span>
             <span>Open Resume PDF</span>
           </button>
@@ -1956,8 +1956,11 @@ create policy "Admin all" on public.leads for all using (true);</pre>
       const apiBase = (window.location.protocol === 'file:' || (window.location.port && window.location.port !== '3000' && window.location.hostname === 'localhost'))
         ? 'http://localhost:3000' : '';
 
-      const pdfUrl = apiBase + '/api/career-resume/' + cleanId;
-      const dlUrl = apiBase + '/api/career-resume/' + cleanId + '?download=true';
+      const altIdMatch = safeDocName.match(/(CA-\d+)/i);
+      const altId = altIdMatch ? encodeURIComponent(altIdMatch[1].toLowerCase()) : '';
+      const queryParams = '?file=' + encodeURIComponent(safeDocName) + (altId ? '&altId=' + altId : '');
+      const pdfUrl = apiBase + '/api/career-resume/' + cleanId + queryParams;
+      const dlUrl = apiBase + '/api/career-resume/' + cleanId + queryParams + '&download=true';
 
       if (title) title.textContent = safeName + ' — Resume';
       if (sub) sub.textContent = 'Application ID: ' + rawAppId + ' • ' + safeDocName;
