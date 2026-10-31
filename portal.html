@@ -2018,7 +2018,7 @@ create policy "Admin all" on public.leads for all using (true);</pre>
 
         // Fallback 1: Try base64 endpoint
         try {
-          const b64Res = await fetch(apiBase + '/api/career-resume-base64/' + cleanId);
+          const b64Res = await fetch(apiBase + '/api/career-resume-base64/' + cleanId + queryParams);
           if (b64Res.ok) {
             const data = await b64Res.json();
             if (data && data.base64) {
