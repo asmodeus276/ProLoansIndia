@@ -186,3 +186,4 @@ credit card reward points
 3. Value: Assign `₹1,000` (or leave dynamic).
 4. Tag setup: Use the Google Tag already installed in your website header (`gtag.js`).
 5. Copy your **Conversion ID (`AW-XXXXXXXXX`)** and **Conversion Label (`YYYYYYYYYYYY`)** and paste them into your site configuration.
+
