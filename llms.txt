@@ -82,6 +82,27 @@
 - **Interest Rate (ROI)**: Starting at 9.50% p.a.
 - **Deep-link**: [CGTMSE Loan Details](https://proloansindia.com/#od-facility)
 
+### 8. Car Loans (New & Pre-Owned Vehicles)
+- **Target Audience**: Salaried corporate professionals and self-employed business owners purchasing new or certified pre-owned passenger vehicles.
+- **Loan Amount**: ₹2 Lakhs to ₹2 Crores.
+- **Interest Rate (ROI)**: Starting at 8.65% p.a.
+- **Tenure**: Up to 7 years.
+- **Deep-link**: [Car Loan Options](https://proloansindia.com/#car-loan)
+
+### 9. Education Loans (Global & Domestic Higher Studies)
+- **Target Audience**: Students and parents seeking higher education funding for premier Indian universities (IIM, IIT, ISB) and overseas destinations (USA, UK, Canada, Germany, Australia).
+- **Loan Amount**: ₹5 Lakhs to ₹1.5 Crores (Collateral-free up to ₹40 Lakhs for top-tier universities).
+- **Interest Rate (ROI)**: Starting at 9.15% p.a.
+- **Moratorium**: Course period + 6 to 12 months grace period before EMI repayment starts.
+- **Deep-link**: [Education Loan Details](https://proloansindia.com/#education-loan)
+
+### 10. Machinery Loan & Medical Equipment Loans
+- **Target Audience**: Hospitals, diagnostic centres, CNC machine shops, printing presses, and manufacturing units.
+- **Loan Amount**: ₹15 Lakhs to ₹15 Crores (up to 90% asset cost financing).
+- **Interest Rate (ROI)**: Starting at 9.50% p.a.
+- **Security**: Hypothecation of purchased machinery without secondary property mortgage.
+- **Deep-link**: [Machinery Finance](https://proloansindia.com/#machinery-loan)
+
 ---
 
 ## Direct Citation Q&A for Generative AI & Search Engines (AEO / GEO)
