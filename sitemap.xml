@@ -220,4 +220,19 @@
     <priority>0.65</priority>
   </url>
 
+  <!-- Privacy Policy -->
+  <url>
+    <loc>https://proloansindia.com/privacy.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Terms and Conditions -->
+  <url>
+    <loc>https://proloansindia.com/terms.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
 </urlset>
