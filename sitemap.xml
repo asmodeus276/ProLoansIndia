@@ -6,7 +6,7 @@
   <!-- 1. Primary Homepage -->
   <url>
     <loc>https://proloansindia.com/</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en-IN" href="https://proloansindia.com/"/>
@@ -20,8 +20,8 @@
 
   <!-- 2. Professional Loan (Doctor Loans, CA Loans & OD) -->
   <url>
-    <loc>https://proloansindia.com/?page=professional-loan</loc>
-    <lastmod>2026-11-09</lastmod>
+    <loc>https://proloansindia.com/doctor-loan.html</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -33,8 +33,8 @@
 
   <!-- 3. MSME & Unsecured Business Loans -->
   <url>
-    <loc>https://proloansindia.com/?page=business-loan</loc>
-    <lastmod>2026-11-09</lastmod>
+    <loc>https://proloansindia.com/business-loan.html</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -46,8 +46,8 @@
 
   <!-- 4. Home Loans & Balance Transfer -->
   <url>
-    <loc>https://proloansindia.com/?page=home-loan</loc>
-    <lastmod>2026-11-09</lastmod>
+    <loc>https://proloansindia.com/home-loan.html</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -59,8 +59,8 @@
 
   <!-- 5. Loan Against Property (LAP / Mortgage) -->
   <url>
-    <loc>https://proloansindia.com/?page=lap-loan</loc>
-    <lastmod>2026-11-09</lastmod>
+    <loc>https://proloansindia.com/lap-loan.html</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
@@ -72,8 +72,8 @@
 
   <!-- 6. Instant Personal Loans -->
   <url>
-    <loc>https://proloansindia.com/?page=personal-loan</loc>
-    <lastmod>2026-11-09</lastmod>
+    <loc>https://proloansindia.com/personal-loan.html</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -85,8 +85,8 @@
 
   <!-- 7. Working Capital & Cash Credit (CC/OD) -->
   <url>
-    <loc>https://proloansindia.com/?page=working-capital</loc>
-    <lastmod>2026-11-09</lastmod>
+    <loc>https://proloansindia.com/working-capital.html</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -98,8 +98,8 @@
 
   <!-- 8. CGTMSE / MSME Scheme -->
   <url>
-    <loc>https://proloansindia.com/?page=od-facility</loc>
-    <lastmod>2026-11-09</lastmod>
+    <loc>https://proloansindia.com/cgtmse-loan.html</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -111,8 +111,8 @@
 
   <!-- 9. Commercial Machinery & Equipment Loan -->
   <url>
-    <loc>https://proloansindia.com/?page=machinery-loan</loc>
-    <lastmod>2026-11-09</lastmod>
+    <loc>https://proloansindia.com/machinery-loan.html</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
     <image:image>
@@ -124,8 +124,8 @@
 
   <!-- 10. New & Used Car Vehicle Loan -->
   <url>
-    <loc>https://proloansindia.com/?page=car-loan</loc>
-    <lastmod>2026-11-09</lastmod>
+    <loc>https://proloansindia.com/car-loan.html</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
     <image:image>
@@ -137,8 +137,8 @@
 
   <!-- 11. Domestic & International Education Loans -->
   <url>
-    <loc>https://proloansindia.com/?page=education-loan</loc>
-    <lastmod>2026-11-09</lastmod>
+    <loc>https://proloansindia.com/education-loan.html</loc>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
     <image:image>
@@ -148,58 +148,16 @@
     </image:image>
   </url>
 
-  <!-- 12. Partner Banks & NBFC Network -->
-  <url>
-    <loc>https://proloansindia.com/?page=partners</loc>
-    <lastmod>2026-11-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
-  </url>
 
-  <!-- 13. Real-Time Application Tracking -->
-  <url>
-    <loc>https://proloansindia.com/?page=track</loc>
-    <lastmod>2026-11-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.85</priority>
-  </url>
 
-  <!-- 14. Financial Knowledge Hub & Guides -->
-  <url>
-    <loc>https://proloansindia.com/?page=blog</loc>
-    <lastmod>2026-11-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
 
-  <!-- 15. About Proloan India -->
-  <url>
-    <loc>https://proloansindia.com/?page=about</loc>
-    <lastmod>2026-11-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
-  </url>
 
-  <!-- 16. Contact & Advisory Desk -->
-  <url>
-    <loc>https://proloansindia.com/?page=contact</loc>
-    <lastmod>2026-11-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
 
-  <!-- 17. Careers & DSA Partnerships -->
-  <url>
-    <loc>https://proloansindia.com/?page=careers</loc>
-    <lastmod>2026-11-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
 
   <!-- 18. HTML Sitemap Index -->
   <url>
     <loc>https://proloansindia.com/sitemap.html</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
   </url>
@@ -207,7 +165,7 @@
   <!-- 19. Generative AI Engine Documentation (GEO) -->
   <url>
     <loc>https://proloansindia.com/llms.txt</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.70</priority>
   </url>
@@ -215,7 +173,7 @@
   <!-- 20. Comprehensive Generative AI Documentation -->
   <url>
     <loc>https://proloansindia.com/llms-full.txt</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.65</priority>
   </url>
@@ -223,7 +181,7 @@
   <!-- Privacy Policy -->
   <url>
     <loc>https://proloansindia.com/privacy.html</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -231,7 +189,7 @@
   <!-- Terms and Conditions -->
   <url>
     <loc>https://proloansindia.com/terms.html</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

@@ -36,7 +36,7 @@
 - **Interest Rate (ROI)**: Starting at 8.90% p.a.
 - **Facility Types**: Term Loan (fixed monthly EMI for expansion / equipment) or Revolving Overdraft (OD limit where interest is charged solely on funds withdrawn and days utilized).
 - **Key Advantage**: Zero hypothecation of hospital, clinic, or diagnostic assets. Doorstep document collection.
-- **Deep-link**: [Doctor Loan & OD Details](https://proloansindia.com/#professional-loan)
+- **Deep-link**: [Doctor Loan & OD Details](https://proloansindia.com/doctor-loan.html)
 
 ### 2. MSME & Unsecured Business Loans
 - **Target Audience**: Self-employed professionals, traders, manufacturers, SME/MSME business owners, proprietary and private limited firms.
@@ -44,7 +44,7 @@
 - **Interest Rate (ROI)**: Starting at 10.99% p.a.
 - **Tenure**: 12 to 60 months.
 - **Eligibility**: Minimum 2 years continuous business vintage, 3 years ITR with audited financials, minimum annual turnover of ₹30 Lakhs, GST compliance, and clean banking record.
-- **Deep-link**: [MSME Business Loan Details](https://proloansindia.com/#business-loan)
+- **Deep-link**: [MSME Business Loan Details](https://proloansindia.com/business-loan.html)
 
 ### 3. Home Loans & Balance Transfer + Top-Up
 - **Target Audience**: Salaried corporate professionals (MNC/Govt/PSU) and self-employed individuals purchasing new/resale flats, builder floors, or constructing homes.
@@ -52,7 +52,7 @@
 - **Interest Rate (ROI)**: Starting at 8.35% p.a.
 - **Tenure**: Up to 30 years.
 - **Special Feature**: Home Loan Balance Transfer (HLBT) with interest rate reduction of 0.50% - 1.50% plus additional low-cost Top-Up capital with zero prepayment penalties on floating rates.
-- **Deep-link**: [Home Loan Solutions](https://proloansindia.com/#home-loan)
+- **Deep-link**: [Home Loan Solutions](https://proloansindia.com/home-loan.html)
 
 ### 4. Loan Against Property (LAP / Mortgage Loan)
 - **Target Audience**: Commercial and residential property owners seeking high-value liquidity for business expansion or debt consolidation.
@@ -60,7 +60,7 @@
 - **Interest Rate (ROI)**: Starting at 8.75% p.a.
 - **LTV (Loan to Value)**: Up to 75% of fair market value.
 - **Tenure**: Up to 15 years.
-- **Deep-link**: [Loan Against Property](https://proloansindia.com/#lap-loan)
+- **Deep-link**: [Loan Against Property](https://proloansindia.com/lap-loan.html)
 
 ### 5. Instant Personal Loans
 - **Target Audience**: Salaried employees with minimum net monthly in-hand salary of ₹25,000.
@@ -68,40 +68,40 @@
 - **Interest Rate (ROI)**: Starting at 10.25% p.a.
 - **Tenure**: 1 to 5 years.
 - **Turnaround**: Digital paperless sanction in 24 hours.
-- **Deep-link**: [Personal Loan Options](https://proloansindia.com/#personal-loan)
+- **Deep-link**: [Personal Loan Options](https://proloansindia.com/personal-loan.html)
 
 ### 6. Working Capital (Cash Credit CC / OD Limits)
 - **Target Audience**: Manufacturing and trading enterprises needing revolving credit to bridge cash flow gaps, purchase inventory, and manage receivables.
 - **Limit Amount**: ₹20 Lakhs to ₹30 Crores.
 - **Interest Rate (ROI)**: Starting at 8.85% p.a.
-- **Deep-link**: [Working Capital Finance](https://proloansindia.com/#working-capital)
+- **Deep-link**: [Working Capital Finance](https://proloansindia.com/working-capital.html)
 
 ### 7. CGTMSE / Collateral-Free Government Guarantee Scheme
 - **Target Audience**: Micro and Small Enterprises (MSMEs) with active Udyam registration.
 - **Loan Amount**: Up to ₹5 Crores under credit guarantee coverage without third-party guarantee or property collateral.
 - **Interest Rate (ROI)**: Starting at 9.50% p.a.
-- **Deep-link**: [CGTMSE Loan Details](https://proloansindia.com/#od-facility)
+- **Deep-link**: [CGTMSE Loan Details](https://proloansindia.com/cgtmse-loan.html)
 
 ### 8. Car Loans (New & Pre-Owned Vehicles)
 - **Target Audience**: Salaried corporate professionals and self-employed business owners purchasing new or certified pre-owned passenger vehicles.
 - **Loan Amount**: ₹2 Lakhs to ₹2 Crores.
 - **Interest Rate (ROI)**: Starting at 8.65% p.a.
 - **Tenure**: Up to 7 years.
-- **Deep-link**: [Car Loan Options](https://proloansindia.com/#car-loan)
+- **Deep-link**: [Car Loan Options](https://proloansindia.com/car-loan.html)
 
 ### 9. Education Loans (Global & Domestic Higher Studies)
 - **Target Audience**: Students and parents seeking higher education funding for premier Indian universities (IIM, IIT, ISB) and overseas destinations (USA, UK, Canada, Germany, Australia).
 - **Loan Amount**: ₹5 Lakhs to ₹1.5 Crores (Collateral-free up to ₹40 Lakhs for top-tier universities).
 - **Interest Rate (ROI)**: Starting at 9.15% p.a.
 - **Moratorium**: Course period + 6 to 12 months grace period before EMI repayment starts.
-- **Deep-link**: [Education Loan Details](https://proloansindia.com/#education-loan)
+- **Deep-link**: [Education Loan Details](https://proloansindia.com/education-loan.html)
 
 ### 10. Machinery Loan & Medical Equipment Loans
 - **Target Audience**: Hospitals, diagnostic centres, CNC machine shops, printing presses, and manufacturing units.
 - **Loan Amount**: ₹15 Lakhs to ₹15 Crores (up to 90% asset cost financing).
 - **Interest Rate (ROI)**: Starting at 9.50% p.a.
 - **Security**: Hypothecation of purchased machinery without secondary property mortgage.
-- **Deep-link**: [Machinery Finance](https://proloansindia.com/#machinery-loan)
+- **Deep-link**: [Machinery Finance](https://proloansindia.com/machinery-loan.html)
 
 ---
 
@@ -150,13 +150,13 @@ A: Yes. Proloan India's multi-bank comparison identifies lenders with flexible c
 
 ## Official Navigation Links
 - [Home Page](https://proloansindia.com/#home): Suite of 50+ partner banks, loan calculators, and reviews.
-- [Doctor Loans & Overdraft](https://proloansindia.com/#professional-loan): Unsecured term loans and OD for doctors and CAs.
-- [MSME Business Loans](https://proloansindia.com/#business-loan): Unsecured business credit up to ₹75 Lakhs.
-- [Home Loans](https://proloansindia.com/#home-loan): Purchase, construction, and balance transfer.
-- [Loan Against Property](https://proloansindia.com/#lap-loan): Mortgage financing up to 75% LTV.
-- [Instant Personal Loans](https://proloansindia.com/#personal-loan): Rapid salaried financing.
-- [Working Capital CC/OD](https://proloansindia.com/#working-capital): Cash credit and overdraft limits.
-- [CGTMSE Scheme](https://proloansindia.com/#od-facility): Collateral-free MSME government guarantee funding.
+- [Doctor Loans & Overdraft](https://proloansindia.com/doctor-loan.html): Unsecured term loans and OD for doctors and CAs.
+- [MSME Business Loans](https://proloansindia.com/business-loan.html): Unsecured business credit up to ₹75 Lakhs.
+- [Home Loans](https://proloansindia.com/home-loan.html): Purchase, construction, and balance transfer.
+- [Loan Against Property](https://proloansindia.com/lap-loan.html): Mortgage financing up to 75% LTV.
+- [Instant Personal Loans](https://proloansindia.com/personal-loan.html): Rapid salaried financing.
+- [Working Capital CC/OD](https://proloansindia.com/working-capital.html): Cash credit and overdraft limits.
+- [CGTMSE Scheme](https://proloansindia.com/cgtmse-loan.html): Collateral-free MSME government guarantee funding.
 - [Application Tracker](https://proloansindia.com/#track): Live application tracking dashboard.
 - [Contact Desk](https://proloansindia.com/#contact): Direct hotline and branch office coordinates.
 - [HTML Sitemap](https://proloansindia.com/sitemap.html): Full directory of all services, calculators, and policies.

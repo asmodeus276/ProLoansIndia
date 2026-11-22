@@ -224,6 +224,45 @@ app.get('/googlee203887cef7ea8fd.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'googlee203887cef7ea8fd.html'));
 });
 
+// Clean Product Page URLs & 301 Redirects for Legacy Query Parameters
+const PRODUCT_ROUTES = {
+  'professional-loan': '/doctor-loan.html',
+  'doctor-loan': '/doctor-loan.html',
+  'business-loan': '/business-loan.html',
+  'home-loan': '/home-loan.html',
+  'lap-loan': '/lap-loan.html',
+  'personal-loan': '/personal-loan.html',
+  'working-capital': '/working-capital.html',
+  'od-facility': '/cgtmse-loan.html',
+  'cgtmse-loan': '/cgtmse-loan.html',
+  'machinery-loan': '/machinery-loan.html',
+  'car-loan': '/car-loan.html',
+  'education-loan': '/education-loan.html'
+};
+
+// 301 Permanent Redirect for legacy query parameter URLs (resolves GSC Alternate page canonical issue)
+app.use((req, res, next) => {
+  if (req.path === '/' && req.query.page) {
+    const page = String(req.query.page).toLowerCase().trim();
+    if (PRODUCT_ROUTES[page]) {
+      return res.redirect(301, PRODUCT_ROUTES[page]);
+    }
+    if (page === 'privacy') return res.redirect(301, '/privacy.html');
+    if (page === 'terms') return res.redirect(301, '/terms.html');
+    if (['about', 'contact', 'partners', 'blog', 'careers', 'track'].includes(page)) {
+      return res.redirect(301, '/#' + page);
+    }
+  }
+  next();
+});
+
+// Clean path aliases (e.g., /doctor-loan -> doctor-loan.html)
+Object.entries(PRODUCT_ROUTES).forEach(([slug, targetHtml]) => {
+  app.get('/' + slug, (req, res) => {
+    res.sendFile(path.join(__dirname, targetHtml.replace(/^\//, '')));
+  });
+});
+
 // Static files with aggressive HTTP caching
 app.use(express.static(path.join(__dirname), {
   etag: true,
