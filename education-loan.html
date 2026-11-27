@@ -737,25 +737,25 @@
 
           <!-- PRIORITY ORDER: 1.Professional > 2.Home > 3.Personal > 4.Business > 5.Car > 6.Education > 7.Machinery > 8.Loan Against Property > 9.Working Capital > 10.CGT/MSME -->
 
-          <a href="/doctor-loan.html" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Professional Loan</a>
+          <a href="/doctor-loan.html" onclick="if(window.location.pathname==='/'||window.location.pathname==='/index.html'){switchPage('professional-loan');return false;}" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Professional Loan</a>
 
-          <a href="/home-loan.html" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Home Loan</a>
+          <a href="/home-loan.html" onclick="if(window.location.pathname==='/'||window.location.pathname==='/index.html'){switchPage('home-loan');return false;}" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Home Loan</a>
 
-          <a href="/personal-loan.html" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Personal Loan</a>
+          <a href="/personal-loan.html" onclick="if(window.location.pathname==='/'||window.location.pathname==='/index.html'){switchPage('personal-loan');return false;}" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Personal Loan</a>
 
-          <a href="/business-loan.html" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Business Loan</a>
+          <a href="/business-loan.html" onclick="if(window.location.pathname==='/'||window.location.pathname==='/index.html'){switchPage('business-loan');return false;}" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Business Loan</a>
 
-          <a href="/car-loan.html" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Car Loan</a>
+          <a href="/car-loan.html" onclick="if(window.location.pathname==='/'||window.location.pathname==='/index.html'){switchPage('car-loan');return false;}" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Car Loan</a>
 
-          <a href="/education-loan.html" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Education Loan</a>
+          <a href="/education-loan.html" onclick="if(window.location.pathname==='/'||window.location.pathname==='/index.html'){switchPage('education-loan');return false;}" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Education Loan</a>
 
-          <a href="/machinery-loan.html" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Machinery Loan</a>
+          <a href="/machinery-loan.html" onclick="if(window.location.pathname==='/'||window.location.pathname==='/index.html'){switchPage('machinery-loan');return false;}" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Machinery Loan</a>
 
-          <a href="/lap-loan.html" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Loan Against Property</a>
+          <a href="/lap-loan.html" onclick="if(window.location.pathname==='/'||window.location.pathname==='/index.html'){switchPage('lap-loan');return false;}" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Loan Against Property</a>
 
-          <a href="/working-capital.html" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Working Capital</a>
+          <a href="/working-capital.html" onclick="if(window.location.pathname==='/'||window.location.pathname==='/index.html'){switchPage('working-capital');return false;}" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">Working Capital</a>
 
-          <a href="/cgtmse-loan.html" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">CGT/MSME</a>
+          <a href="/cgtmse-loan.html" onclick="if(window.location.pathname==='/'||window.location.pathname==='/index.html'){switchPage('od-facility');return false;}" class="nav-item text-white/90 hover:text-white transition-colors cursor-pointer py-0.5">CGT/MSME</a>
 
         </div>
 
@@ -1258,14 +1258,20 @@
                   <div class="pt-1">
 
                     <div class="flex justify-between items-center gap-2 mb-1.5">
-
                       <label class="text-xs font-bold uppercase tracking-wider text-slate-700">Required Loan Amount</label>
-
-                      <span id="loan-amt-disp-education-loan" class="text-base font-bold text-[#1565C0] whitespace-nowrap">₹25,00,000</span>
-
+                      <div class="relative flex items-center">
+                        <span class="text-xs font-bold text-[#1565C0] mr-1">₹</span>
+                        <input type="text" id="loan-amt-input-education-loan" name="loan_amount" value="25,00,000" oninput="onCustomLoanAmountInput('education-loan', 8.5)" class="w-32 bg-white border border-blue-200 rounded-lg px-2 py-0.5 text-right text-sm font-bold text-[#1565C0] focus:outline-none focus:ring-1 focus:ring-[#1565C0] shadow-2xs" placeholder="25,00,000">
+                      </div>
                     </div>
-
-                    <input type="range" id="loan-amt-slider-education-loan" min="100000" max="15000000" step="50000" value="2500000" oninput="updateLoanCardEmi('education-loan', 8.5)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#1565C0]" aria-label="loan amt slider education loan">
+                    <input type="range" id="loan-amt-slider-education-loan" min="100000" max="100000000" step="50000" value="2500000" oninput="updateLoanCardEmi('education-loan', 8.5)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#1565C0]" aria-label="loan amt slider education-loan">
+                    <!-- Quick 1-Tap Amount Chips -->
+                    <div class="flex flex-wrap gap-1.5 mt-2">
+                      <button type="button" onclick="setQuickCardAmount('education-loan', 1000000, 8.5)" class="px-2 py-0.5 rounded text-[10.5px] font-bold bg-white hover:bg-blue-50 text-slate-700 hover:text-[#1565C0] border border-slate-200 transition-colors cursor-pointer">₹10 Lakhs</button>
+                      <button type="button" onclick="setQuickCardAmount('education-loan', 2500000, 8.5)" class="px-2 py-0.5 rounded text-[10.5px] font-bold bg-white hover:bg-blue-50 text-slate-700 hover:text-[#1565C0] border border-slate-200 transition-colors cursor-pointer">₹25 Lakhs</button>
+                      <button type="button" onclick="setQuickCardAmount('education-loan', 5000000, 8.5)" class="px-2 py-0.5 rounded text-[10.5px] font-bold bg-white hover:bg-blue-50 text-slate-700 hover:text-[#1565C0] border border-slate-200 transition-colors cursor-pointer">₹50 Lakhs</button>
+                      <button type="button" onclick="setQuickCardAmount('education-loan', 10000000, 8.5)" class="px-2 py-0.5 rounded text-[10.5px] font-bold bg-white hover:bg-blue-50 text-slate-700 hover:text-[#1565C0] border border-slate-200 transition-colors cursor-pointer">₹1 Crore</button>
+                    </div>
 
                     <div class="flex justify-between text-[11px] text-slate-400 font-medium mt-1">
 
@@ -2326,8 +2332,6 @@
     
   </main>
 
-  
-
   <footer class="content-visibility-auto w-full bg-[#050D1A] text-slate-300 pt-16 sm:pt-20 pb-12 border-t border-slate-800/80 relative overflow-hidden">
 
     <!-- Subtle Ambient Top Light Bar -->
@@ -2982,17 +2986,1852 @@
   </footer>
 
   
+
+
+
+
+
+
+
+  <!-- UNIVERSAL LOAN APPLICATION & CONSULTATION MODAL -->
+
+  
+
+  <!-- ========================================================================= -->
+
+  <!-- COMPREHENSIVE LEGAL, PRIVACY & TERMS MODAL DIALOG                          -->
+
+  <!-- ========================================================================= -->
+
+  <div id="legal-modal" class="fixed inset-0 z-50 items-center justify-center p-3 sm:p-6 bg-slate-950/80 backdrop-blur-sm hidden" style="z-index: 10000;">
+
+    <div class="relative bg-white w-full max-w-4xl max-h-[90vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-scale-up border border-slate-200">
+
+      
+
+      <!-- Modal Header with Tab Selector -->
+
+      <div class="p-5 sm:p-6 bg-gradient-to-r from-[#0B1528] to-[#1565C0] text-white shrink-0">
+
+        <div class="flex items-center justify-between gap-4 mb-4">
+
+          <div class="flex items-center gap-2.5">
+
+            <span class="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-[#F26522]">
+
+              <span class="material-symbols-outlined text-xl">policy</span>
+
+            </span>
+
+            <div>
+
+              <h3 class="text-lg sm:text-xl font-black text-white font-heading leading-tight" id="legal-modal-title">Legal &amp; Regulatory Documentation</h3>
+
+              <p class="text-xs text-blue-100">ProLoan India • Registered Multi-Bank DSA &amp; Credit Intermediary</p>
+
+            </div>
+
+          </div>
+
+          <button type="button" onclick="closeLegalModal()" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all cursor-pointer">
+
+            <span class="material-symbols-outlined text-lg">close</span>
+
+          </button>
+
+        </div>
+
+
+
+        <!-- Tab Switcher Buttons -->
+
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 text-xs font-bold">
+
+          <button type="button" onclick="switchLegalTab('privacy')" id="ltab-privacy" class="px-3.5 py-1.5 rounded-xl bg-[#F26522] text-white shadow-xs transition-all cursor-pointer whitespace-nowrap">
+
+            1. Privacy Policy
+
+          </button>
+
+          <button type="button" onclick="switchLegalTab('terms')" id="ltab-terms" class="px-3.5 py-1.5 rounded-xl bg-white/15 text-white/90 hover:bg-white/25 transition-all cursor-pointer whitespace-nowrap">
+
+            2. Terms &amp; Conditions
+
+          </button>
+
+          <button type="button" onclick="switchLegalTab('disclaimers')" id="ltab-disclaimers" class="px-3.5 py-1.5 rounded-xl bg-white/15 text-white/90 hover:bg-white/25 transition-all cursor-pointer whitespace-nowrap">
+
+            3. Lending Disclaimers &amp; APR
+
+          </button>
+
+          <button type="button" onclick="switchLegalTab('grievance')" id="ltab-grievance" class="px-3.5 py-1.5 rounded-xl bg-white/15 text-white/90 hover:bg-white/25 transition-all cursor-pointer whitespace-nowrap">
+
+            4. Grievance &amp; Fair Practices
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- Scrollable Tab Content Container -->
+
+      <div class="p-6 sm:p-8 overflow-y-auto space-y-6 text-xs text-slate-700 leading-relaxed max-h-[calc(90vh-160px)]">
+
+        
+
+        <!-- TAB 1: PRIVACY POLICY -->
+
+        <div id="lpanel-privacy" class="legal-panel space-y-4">
+
+          <div class="border-b border-slate-200 pb-3">
+
+            <div class="text-[11px] font-black uppercase tracking-wider text-[#1565C0]">Digital Personal Data Protection (DPDP) Act, 2023 &amp; IT Act, 2000 Compliance</div>
+
+            <h4 class="text-lg font-black text-slate-900 mt-1 font-heading">Privacy Policy &amp; Borrower Data Protection Charter</h4>
+
+            <div class="text-[11px] text-slate-400 mt-0.5">Effective Date: 1st January 2026 | Last Updated: October 2026</div>
+
+          </div>
+
+
+
+          <p>
+
+            At <strong>ProLoan India</strong> (referred to as "we", "our", "us"), respecting and guarding the privacy of your personal and financial information is our highest priority. This Privacy Policy governs the collection, processing, storage, and sharing of personal data obtained through our website, mobile interfaces, doorstep consultations, and customer care touchpoints.
+
+          </p>
+
+
+
+          <div class="space-y-3">
+
+            <h5 class="font-black text-slate-900 text-sm">1. Information We Collect</h5>
+
+            <p>To evaluate your eligibility across 50+ Scheduled Commercial Banks and NBFCs, we collect:</p>
+
+            <ul class="list-disc pl-5 space-y-1">
+
+              <li><strong>Identity &amp; Demographic Data:</strong> Full Name, Date of Birth, Gender, Father's/Spouse's Name, PAN, and Aadhaar (masked).</li>
+
+              <li><strong>Contact Coordinates:</strong> Current and Permanent Residential Address, Mobile Number, and Email Address.</li>
+
+              <li><strong>Financial &amp; Employment Details:</strong> Salary slips, Form 16, ITR acknowledgments, business P&amp;L accounts, bank account statements, employer name, business vintage, and registered GSTIN.</li>
+
+              <li><strong>Credit History Information:</strong> Credit scores and bureau reports retrieved with your explicit consent from authorized credit information companies (CIBIL, Experian, CRIF High Mark, Equifax).</li>
+
+              <li><strong>Property Documents:</strong> Title deeds, chain agreements, and sanction maps solely for valuation in Home Loans and LAP.</li>
+
+            </ul>
+
+          </div>
+
+
+
+          <div class="space-y-3">
+
+            <h5 class="font-black text-slate-900 text-sm">2. Purpose of Data Processing</h5>
+
+            <p>Your data is processed strictly for legitimate loan facilitation activities:</p>
+
+            <ul class="list-disc pl-5 space-y-1">
+
+              <li>Assessing loan eligibility and matching your profile with partner banks offering lowest interest rates.</li>
+
+              <li>Facilitating doorstep document collection, preliminary underwriting verification, and multi-bank file logins.</li>
+
+              <li>Communicating milestone progress, sanction letters, and disbursal updates via SMS, Phone, and WhatsApp.</li>
+
+              <li>Preventing fraud, identity theft, and ensuring compliance with Know Your Customer (KYC) guidelines.</li>
+
+            </ul>
+
+          </div>
+
+
+
+          <div class="space-y-3">
+
+            <h5 class="font-black text-slate-900 text-sm">3. Zero Data Sale Guarantee &amp; Disclosure to Third Parties</h5>
+
+            <p>
+
+              <strong>We unequivocally guarantee that ProLoan India NEVER sells, rents, leases, or trades your personal information to third-party telemarketers or external advertising networks.</strong> Your documents and details are shared exclusively with:
+
+            </p>
+
+            <ul class="list-disc pl-5 space-y-1">
+
+              <li>Designated underwriting and credit operations teams of RBI-regulated partner banks and NBFCs where your loan file is submitted.</li>
+
+              <li>Licensed Credit Information Companies (CIBIL/Experian) upon your authorization for score retrieval.</li>
+
+              <li>Statutory, regulatory, or law enforcement authorities only when mandated under applicable Indian law.</li>
+
+            </ul>
+
+          </div>
+
+
+
+          <div class="space-y-3">
+
+            <h5 class="font-black text-slate-900 text-sm">4. Data Security &amp; Storage Protocols</h5>
+
+            <p>
+
+              We implement industry-standard 256-bit SSL encryption for data transmission. Hardcopy photocopies collected during doorstep pickup are secured under dual-custody controls and dispatched directly to the evaluating lender. We never retain original property or identity documents.
+
+            </p>
+
+          </div>
+
+
+
+          <div class="space-y-3">
+
+            <h5 class="font-black text-slate-900 text-sm">5. Your Data Rights &amp; Consent Withdrawal</h5>
+
+            <p>
+
+              As a data principal under the DPDP Act, you possess the right to access, review, correct, or request the purging of your stored personal data after conclusion of your loan process. You may revoke consent by emailing our Data Protection Officer at <a href="mailto:privacy@proloanindia.com" class="text-[#1565C0] font-bold hover:underline">privacy@proloanindia.com</a>.
+
+            </p>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- TAB 2: TERMS & CONDITIONS -->
+
+        <div id="lpanel-terms" class="legal-panel space-y-4 hidden">
+
+          <div class="border-b border-slate-200 pb-3">
+
+            <div class="text-[11px] font-black uppercase tracking-wider text-[#F26522]">DSA Service Agreement &amp; Platform Terms</div>
+
+            <h4 class="text-lg font-black text-slate-900 mt-1 font-heading">Terms &amp; Conditions of Credit Facilitation</h4>
+
+            <div class="text-[11px] text-slate-400 mt-0.5">Please read these terms carefully before submitting your loan inquiry.</div>
+
+          </div>
+
+
+
+          <p>
+
+            By accessing the ProLoan India portal, scheduling doorstep document pickup, or requesting loan evaluation, you ("Borrower", "User", "Applicant") accept and agree to be bound by the following Terms &amp; Conditions.
+
+          </p>
+
+
+
+          <div class="space-y-3">
+
+            <h5 class="font-black text-slate-900 text-sm">1. Intermediary Status &amp; Scope of Services</h5>
+
+            <p>
+
+              ProLoan India is an independent financial services consultancy operating as an authorized Direct Selling Associate (DSA). We act solely as a facilitator and matchmaker between borrowers and Scheduled Commercial Banks / NBFCs. ProLoan India does not grant, approve, or disburse credit from its own accounts.
+
+            </p>
+
+          </div>
+
+
+
+          <div class="space-y-3">
+
+            <h5 class="font-black text-slate-900 text-sm">2. Sole Discretion of Lending Institutions</h5>
+
+            <p>
+
+              The decision to sanction, condition, modify, or reject any loan application lies solely and exclusively within the underwriting authority of the respective lending bank or NBFC. ProLoan India does not guarantee loan approval or specific interest rates, as terms are decided by lenders based on borrower CIBIL score, income stability, and debt-to-income ratios.
+
+            </p>
+
+          </div>
+
+
+
+          <div class="space-y-3">
+
+            <h5 class="font-black text-slate-900 text-sm">3. Zero Upfront Cash Brokerage Policy</h5>
+
+            <p>
+
+              <strong>ProLoan India does not charge any upfront service fees, cash consultation charges, or private commissions from the borrower.</strong> Our doorstep advisory is 100% free. Any loan processing fees, property valuation charges, legal scrutiny fees, or stamp duty must be remitted directly to the designated bank's official account against a valid receipt or sanction letter.
+
+            </p>
+
+          </div>
+
+
+
+          <div class="space-y-3">
+
+            <h5 class="font-black text-slate-900 text-sm">4. Applicant Representations &amp; Warranties</h5>
+
+            <p>
+
+              The applicant warrants that all information, declarations, KYC documents, financial statements, and business profiles furnished to ProLoan India are true, correct, authentic, and complete. Submission of falsified, forged, or altered documents will result in immediate disqualification and reporting to law enforcement authorities.
+
+            </p>
+
+          </div>
+
+
+
+          <div class="space-y-3">
+
+            <h5 class="font-black text-slate-900 text-sm">5. Limitation of Liability</h5>
+
+            <p>
+
+              ProLoan India and its representatives shall not be held liable for any delay in bank processing, rejection of loan applications, alteration in lender interest rate benchmarks (MCLR/EBLR/Repo rates), or consequential losses arising from bank underwriting determinations.
+
+            </p>
+
+          </div>
+
+
+
+          <div class="space-y-3">
+
+            <h5 class="font-black text-slate-900 text-sm">6. Jurisdiction &amp; Dispute Resolution</h5>
+
+            <p>
+
+              These terms are governed by the laws of India. Any legal dispute or controversy arising in connection with our services shall be subject to the exclusive jurisdiction of the competent civil courts at Ghaziabad, Uttar Pradesh.
+
+            </p>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- TAB 3: LENDING DISCLAIMERS & APR -->
+
+        <div id="lpanel-disclaimers" class="legal-panel space-y-4 hidden">
+
+          <div class="border-b border-slate-200 pb-3">
+
+            <div class="text-[11px] font-black uppercase tracking-wider text-emerald-600">RBI Master Directions &amp; Consumer Protection Disclosures</div>
+
+            <h4 class="text-lg font-black text-slate-900 mt-1 font-heading">Statutory Lending Disclaimers, APR &amp; Cost Transparency</h4>
+
+            <div class="text-[11px] text-slate-400 mt-0.5">Transparent interest ranges, processing charges, and representative repayment models.</div>
+
+          </div>
+
+
+
+          <div class="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 space-y-1">
+
+            <div class="font-black text-amber-900 flex items-center gap-1.5">
+
+              <span class="material-symbols-outlined text-base">warning</span>
+
+              <span>Important Borrower Advisory</span>
+
+            </div>
+
+            <p class="text-[11px] text-amber-800 leading-normal">
+
+              Loan terms, interest rates, and loan-to-value (LTV) limits vary based on lender policies, credit score (750+ preferred), property location, and borrower profile.
+
+            </p>
+
+          </div>
+
+
+
+          <div class="space-y-3">
+
+            <h5 class="font-black text-slate-900 text-sm">Annual Percentage Rate (APR) Disclosures</h5>
+
+            <p>
+
+              Across our portfolio of 50+ banking partners, typical Annual Percentage Rates (APR) and tenure ranges are outlined below:
+
+            </p>
+
+            <div class="overflow-x-auto">
+
+              <table class="w-full text-[11px] text-left border-collapse border border-slate-200">
+
+                <thead class="bg-slate-100 text-slate-800 font-bold">
+
+                  <tr>
+
+                    <th class="p-2 border border-slate-200">Loan Product</th>
+
+                    <th class="p-2 border border-slate-200">Indicative ROI (p.a.)</th>
+
+                    <th class="p-2 border border-slate-200">Repayment Tenure</th>
+
+                    <th class="p-2 border border-slate-200">Processing Fees</th>
+
+                  </tr>
+
+                </thead>
+
+                <tbody class="divide-y divide-slate-200">
+
+                  <tr>
+
+                    <td class="p-2 border border-slate-200 font-semibold">Home Loan</td>
+
+                    <td class="p-2 border border-slate-200 text-[#1565C0] font-bold">7.00% – 8.85%</td>
+
+                    <td class="p-2 border border-slate-200">Up to 30 Years (360 Mo)</td>
+
+                    <td class="p-2 border border-slate-200">0.25% to 0.50% or Flat Fee</td>
+
+                  </tr>
+
+                  <tr>
+
+                    <td class="p-2 border border-slate-200 font-semibold">Personal Loan</td>
+
+                    <td class="p-2 border border-slate-200 text-[#1565C0] font-bold">9.99% – 14.50%</td>
+
+                    <td class="p-2 border border-slate-200">1 to 5 Years</td>
+
+                    <td class="p-2 border border-slate-200">1.00% to 2.50%</td>
+
+                  </tr>
+
+                  <tr>
+
+                    <td class="p-2 border border-slate-200 font-semibold">Business Loan</td>
+
+                    <td class="p-2 border border-slate-200 text-[#1565C0] font-bold">10.45% – 15.50%</td>
+
+                    <td class="p-2 border border-slate-200">1 to 5 Years</td>
+
+                    <td class="p-2 border border-slate-200">1.00% to 2.00%</td>
+
+                  </tr>
+
+                  <tr>
+
+                    <td class="p-2 border border-slate-200 font-semibold">Car Loan</td>
+
+                    <td class="p-2 border border-slate-200 text-[#1565C0] font-bold">7.45% – 8.90%</td>
+
+                    <td class="p-2 border border-slate-200">1 to 8 Years</td>
+
+                    <td class="p-2 border border-slate-200">Zero to 0.50%</td>
+
+                  </tr>
+
+                  <tr>
+
+                    <td class="p-2 border border-slate-200 font-semibold">Education Loan</td>
+
+                    <td class="p-2 border border-slate-200 text-[#1565C0] font-bold">7.50% – 9.85%</td>
+
+                    <td class="p-2 border border-slate-200">Up to 15 Years</td>
+
+                    <td class="p-2 border border-slate-200">Zero to 1.00%</td>
+
+                  </tr>
+
+                  <tr>
+
+                    <td class="p-2 border border-slate-200 font-semibold">Professional Loan (Doctor/CA)</td>
+
+                    <td class="p-2 border border-slate-200 text-[#1565C0] font-bold">9.00% – 12.00%</td>
+
+                    <td class="p-2 border border-slate-200">1 to 7 Years</td>
+
+                    <td class="p-2 border border-slate-200">0.50% to 1.00%</td>
+
+                  </tr>
+
+                  <tr>
+
+                    <td class="p-2 border border-slate-200 font-semibold">Loan Against Property (LAP)</td>
+
+                    <td class="p-2 border border-slate-200 text-[#1565C0] font-bold">8.40% – 10.50%</td>
+
+                    <td class="p-2 border border-slate-200">Up to 15-20 Years</td>
+
+                    <td class="p-2 border border-slate-200">0.50% to 1.00%</td>
+
+                  </tr>
+
+                  <tr>
+
+                    <td class="p-2 border border-slate-200 font-semibold">Working Capital (OD/CC)</td>
+
+                    <td class="p-2 border border-slate-200 text-[#1565C0] font-bold">9.00% – 12.50%</td>
+
+                    <td class="p-2 border border-slate-200">1 Year (Renewable)</td>
+
+                    <td class="p-2 border border-slate-200">0.35% to 0.50%</td>
+
+                  </tr>
+
+                  <tr>
+
+                    <td class="p-2 border border-slate-200 font-semibold">Equipment / Machinery Loan</td>
+
+                    <td class="p-2 border border-slate-200 text-[#1565C0] font-bold">8.75% – 12.50%</td>
+
+                    <td class="p-2 border border-slate-200">1 to 7 Years</td>
+
+                    <td class="p-2 border border-slate-200">0.50% to 1.00%</td>
+
+                  </tr>
+
+                  <tr>
+
+                    <td class="p-2 border border-slate-200 font-semibold">CGT / MSME Loan</td>
+
+                    <td class="p-2 border border-slate-200 text-[#1565C0] font-bold">9.50% – 13.50%</td>
+
+                    <td class="p-2 border border-slate-200">1 to 7 Years</td>
+
+                    <td class="p-2 border border-slate-200">0.50% to 1.50%</td>
+
+                  </tr>
+
+                </tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+
+
+          <div class="space-y-2">
+
+            <h5 class="font-black text-slate-900 text-sm">Representative Example (Total Cost Breakdown)</h5>
+
+            <p>
+
+              For a sanction of <strong>₹10,00,000</strong> at an annual rate of <strong>9.50%</strong> for <strong>60 months (5 years)</strong>:
+
+            </p>
+
+            <ul class="list-disc pl-5 space-y-1">
+
+              <li>Monthly Equated Installment (EMI): <strong>₹21,002</strong></li>
+
+              <li>Total Interest Charged over 60 Months: <strong>₹2,60,113</strong></li>
+
+              <li>Total Repayment Amount (Principal + Interest): <strong>₹12,60,113</strong></li>
+
+              <li>Bank Processing Fee (e.g. 0.5% + GST): ₹5,900 (paid directly to the lending institution)</li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- TAB 4: GRIEVANCE REDRESSAL & FAIR PRACTICES -->
+
+        <div id="lpanel-grievance" class="legal-panel space-y-4 hidden">
+
+          <div class="border-b border-slate-200 pb-3">
+
+            <div class="text-[11px] font-black uppercase tracking-wider text-purple-600">Customer Charter &amp; Escalation Mechanism</div>
+
+            <h4 class="text-lg font-black text-slate-900 mt-1 font-heading">Grievance Redressal &amp; Fair Practices Code</h4>
+
+            <div class="text-[11px] text-slate-400 mt-0.5">Commitment to transparent, ethical and responsive consumer grievance handling.</div>
+
+          </div>
+
+
+
+          <p>
+
+            ProLoan India is committed to the highest standards of fair, dignified, and ethical treatment of all loan applicants. We have instituted a transparent 3-tier escalation framework to address any consumer inquiries or complaints promptly.
+
+          </p>
+
+
+
+          <div class="space-y-3">
+
+            <h5 class="font-black text-slate-900 text-sm">Level 1: Dedicated Support Desk</h5>
+
+            <p>
+
+              For any concerns regarding document pickup, application status, or relationship executive conduct, contact our Head Office Support Desk:
+
+            </p>
+
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+
+              <div>Phone Hotline: <a href="tel:+918368426125" class="text-[#1565C0] font-bold">+91 8368426125</a> | Landline: <strong>0120-4549738</strong></div>
+
+              <div>Email: <a href="mailto:support@proloanindia.com" class="text-[#1565C0] font-bold">support@proloanindia.com</a></div>
+
+              <div>Turnaround Time: Acknowledgement within 4 hours; resolution within 48 hours.</div>
+
+            </div>
+
+          </div>
+
+
+
+          <div class="space-y-3">
+
+            <h5 class="font-black text-slate-900 text-sm">Level 2: Principal Grievance Officer</h5>
+
+            <p>
+
+              If your grievance is not resolved satisfactorily at Level 1, you may escalate to our designated Principal Grievance Officer:
+
+            </p>
+
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+
+              <div><strong>Name:</strong> Compliance &amp; Grievance Officer, ProLoan India</div>
+
+              <div><strong>Address:</strong> Himalaya Legend, Makanpur, Nyay Khand 2, Indirapuram, Ghaziabad, UP - 201014</div>
+
+              <div><strong>Email:</strong> <a href="mailto:grievance@proloanindia.com" class="text-[#1565C0] font-bold">grievance@proloanindia.com</a></div>
+
+              <div><strong>Turnaround:</strong> Comprehensive response and resolution within 7 working days.</div>
+
+            </div>
+
+          </div>
+
+
+
+          <div class="space-y-3">
+
+            <h5 class="font-black text-slate-900 text-sm">Level 3: Banking Ombudsman Escalation</h5>
+
+            <p>
+
+              In the unlikely event that an issue regarding your final loan sanction, debit mandate, or disbursal with a specific partner bank remains unresolved, borrowers have the right to approach the RBI Integrated Ombudsman Scheme (<a href="https://cms.rbi.org.in" target="_blank" rel="noopener noreferrer" class="text-[#1565C0] font-bold hover:underline">cms.rbi.org.in</a>).
+
+            </p>
+
+          </div>
+
+        </div>
+
+
+
+      </div>
+
+
+
+      <!-- Modal Footer -->
+
+      <div class="p-4 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs shrink-0">
+
+        <div class="text-slate-400 text-[11px] flex items-center gap-1.5">
+
+          <span class="material-symbols-outlined text-sm text-emerald-600">verified</span>
+
+          <span>ProLoan India • Reg. Multi-Bank DSA Intermediary</span>
+
+        </div>
+
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+
+          <button type="button" onclick="closeLegalModal()" class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold transition-all cursor-pointer">
+
+            Close
+
+          </button>
+
+          <button type="button" onclick="closeLegalModal(); openApplyModal('Consultation');" class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-[#F26522] hover:bg-[#D94E0E] text-white font-bold transition-all cursor-pointer">
+
+            Apply for Loan
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div id="apply-modal" class="fixed inset-0 z-50 items-center justify-center p-3 sm:p-6 bg-slate-900/70 backdrop-blur-xs hidden" style="z-index: 9999;">
+
+    <div class="relative bg-white w-full max-w-lg rounded-3xl shadow-2xl animate-scale-up border border-slate-200" style="max-height:92vh;overflow-y:auto;overscroll-behavior:contain;">
+
+      
+
+      <!-- Modal Header -->
+
+      <div class="p-6 bg-gradient-to-r from-[#0F2942] to-[#1565C0] text-white flex items-center justify-between">
+
+        <div>
+
+          <span id="modal-service-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-orange-500/20 text-[#F26522] border border-orange-400/30">Priority Consultation</span>
+
+          <h3 class="text-xl font-black text-white mt-1 font-heading">Apply for Fast-Track Sanction</h3>
+
+          <p class="text-xs text-blue-100">Guaranteed personal callback within 30 minutes • 100% Free</p>
+
+        </div>
+
+        <button type="button" onclick="closeApplyModal()" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all cursor-pointer">
+
+          <span class="material-symbols-outlined text-lg">close</span>
+
+        </button>
+
+      </div>
+
+
+
+      <!-- Modal Form -->
+
+      <form onsubmit="handleModalSubmit(event)" class="p-6 space-y-4 text-xs">
+
+        <div>
+
+          <label class="block font-bold text-slate-700 mb-1">Select Loan Product</label>
+
+          <select id="modal-product-select" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-slate-800 font-semibold focus:outline-none focus:ring-2 focus:ring-[#1565C0]" aria-label="modal product select">
+
+            <option value="Professional Loan">Professional Loan (Doctors, CAs, Architects)</option>
+
+            <option value="Home Loan">Home Loan (Purchase / Resale / Construction)</option>
+
+            <option value="Personal Loan">Personal Loan</option>
+
+            <option value="Business Loan">MSME / Business Loan</option>
+
+            <option value="Loan Against Property">Loan Against Property (LAP)</option>
+
+            <option value="Working Capital">Working Capital (CC / Limit)</option>
+
+            <option value="CGT/MSME Loan">CGT/MSME Loan</option>
+
+            <option value="Car Loan">Car Loan</option>
+
+            <option value="Education Loan">Education Loan</option>
+
+            <option value="Machinery Loan">Machinery Loan</option>
+
+            <option value="Balance Transfer">Home Loan Balance Transfer</option>
+
+          </select>
+
+        </div>
+
+
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
+          <div>
+
+            <label class="block font-bold text-slate-700 mb-1">Your Full Name *</label>
+
+            <input id="modal-name" type="text" placeholder="e.g. Rahul Sharma" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#1565C0]">
+
+          </div>
+
+          <div>
+
+            <label class="block font-bold text-slate-700 mb-1">10-Digit Mobile *</label>
+
+            <input id="modal-phone" type="tel" maxlength="10" placeholder="Mobile Number" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#1565C0]">
+
+          </div>
+
+        </div>
+
+
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="block font-bold text-slate-700 text-xs sm:text-sm">Desired Loan Amount (₹) *</label>
+              <span class="text-[11px] font-bold text-[#1565C0]">Type any amount</span>
+            </div>
+            <div class="relative">
+              <span class="absolute left-3.5 top-3 text-slate-400 font-bold text-base select-none">₹</span>
+              <input id="modal-amount-select" type="text" required placeholder="Enter amount (e.g. 25 Lakhs or 25,00,000)" value="₹25 Lakhs" class="w-full bg-white border border-slate-300 rounded-xl pl-8 pr-3 py-2.5 text-slate-900 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-[#1565C0] focus:border-[#1565C0] shadow-2xs transition-all">
+            </div>
+            <!-- Quick 1-Tap Preset Amount Chips -->
+            <div class="flex flex-wrap gap-1.5 mt-2">
+              <button type="button" onclick="setModalAmount('₹10 Lakhs')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-100 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 text-slate-700 transition-all border border-slate-200 cursor-pointer">₹10 Lakhs</button>
+              <button type="button" onclick="setModalAmount('₹25 Lakhs')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-100 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 text-slate-700 transition-all border border-slate-200 cursor-pointer">₹25 Lakhs</button>
+              <button type="button" onclick="setModalAmount('₹50 Lakhs')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-100 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 text-slate-700 transition-all border border-slate-200 cursor-pointer">₹50 Lakhs</button>
+              <button type="button" onclick="setModalAmount('₹1 Crore')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-100 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 text-slate-700 transition-all border border-slate-200 cursor-pointer">₹1 Crore</button>
+              <button type="button" onclick="setModalAmount('₹2+ Crores')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-100 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 text-slate-700 transition-all border border-slate-200 cursor-pointer">₹2+ Crores</button>
+            </div>
+          </div>
+
+          <div>
+
+            <label class="block font-bold text-slate-700 mb-1">City / NCR Area *</label>
+
+            <select id="modal-city-select" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#1565C0]" aria-label="select option">
+
+              <option value="Ghaziabad">Ghaziabad (Indirapuram / Vaishali / RNE)</option>
+
+              <option value="Noida">Noida (Central / Expressway)</option>
+
+              <option value="Greater Noida">Greater Noida / Noida Ext</option>
+
+              <option value="Delhi">Delhi (East / South / Central)</option>
+
+              <option value="Gurugram">Gurugram / Manesar</option>
+
+              <option value="Faridabad">Faridabad</option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CIBIL Credit Bureau Score & PAN for Direct Admin Classification -->
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
+          <div>
+
+            <label class="block font-bold text-slate-700 mb-1 flex items-center justify-between">
+
+              <span>Estimated CIBIL Score *</span>
+
+              <span class="text-[10px] text-blue-600 font-bold uppercase tracking-wider">Credit Bureau</span>
+
+            </label>
+
+            <select id="modal-cibil-select" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-slate-800 font-semibold focus:outline-none focus:ring-2 focus:ring-[#1565C0]" aria-label="select estimated cibil score">
+
+              <option value="780" selected>750+ (Prime - Lowest ROI 8.40%)</option>
+
+              <option value="720">700 - 749 (Good - Top NBFC Approval)</option>
+
+              <option value="675">650 - 699 (Fair - Standard Approval)</option>
+
+              <option value="620">Below 650 (Rebuilding / Co-Borrower)</option>
+
+              <option value="-1">New to Credit (First Time Borrower)</option>
+
+            </select>
+
+          </div>
+
+          <div>
+
+            <label class="block font-bold text-slate-700 mb-1 flex items-center justify-between">
+
+              <span>PAN Card Number</span>
+
+              <span class="text-[10px] text-slate-400">Optional for fast track</span>
+
+            </label>
+
+            <input id="modal-pan" type="text" maxlength="10" placeholder="e.g. ABCDE1234F" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 uppercase font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#1565C0]">
+
+          </div>
+
+        </div>
+
+
+
+        <div class="flex items-start gap-2 pt-1 text-[11px] text-slate-400">
+
+          <input type="checkbox" checked required class="mt-0.5 rounded text-[#1565C0]" aria-label="I agree to terms and conditions">
+
+          <span>I authorize Proloan India advisors to contact me via phone & WhatsApp. I agree to the <button type="button" onclick="openLegalModal('privacy')" class="text-[#1565C0] font-bold hover:underline bg-transparent border-0 p-0 inline cursor-pointer">Privacy Policy</button> and <button type="button" onclick="openLegalModal('terms')" class="text-[#1565C0] font-bold hover:underline bg-transparent border-0 p-0 inline cursor-pointer">Terms &amp; Conditions</button>.</span>
+
+        </div>
+
+
+
+        <div class="pt-2 flex items-center gap-3">
+
+          <button type="button" onclick="closeApplyModal()" class="w-1/3 py-3 rounded-xl border border-slate-300 hover:bg-slate-100 text-slate-700 font-bold transition-all cursor-pointer">
+
+            Cancel
+
+          </button>
+
+          <button type="submit" class="w-2/3 py-3 bg-[#F26522] hover:bg-[#D94E0E] text-white font-black rounded-xl uppercase tracking-wider shadow-md hover:shadow-lg transition-all cursor-pointer">
+
+            Submit Application
+
+          </button>
+
+        </div>
+
+      </form>
+
+
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+  <!-- ========================================================================= -->
+
+  <!-- JAVASCRIPT: CAROUSEL, ROUTING, CALCULATOR & CREDIT SCORE ENGINE -->
+
+  <!-- ========================================================================= -->
+
+  <script src="assets/main.min.js?v=20261021_slider_v4" defer></script>
+
+
+
+  <!-- SANCTION LETTER PREVIEW MODAL -->
+
+  <div id="sanction-modal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm hidden items-center justify-center p-4">
+
+    <div class="bg-white rounded-3xl w-full max-w-2xl shadow-2xl border border-slate-200 overflow-hidden transform transition-all">
+
+      <div class="bg-[#0F2942] text-white px-6 py-4 flex items-center justify-between">
+
+        <div class="flex items-center gap-2">
+
+          <span class="material-symbols-outlined text-[#F26522] text-2xl">verified</span>
+
+          <div>
+
+            <h3 class="font-black text-base font-heading">In-Principle Credit Sanction Letter</h3>
+
+            <span class="text-[11px] text-slate-300">Multi-Bank DSA Allocation Slip</span>
+
+          </div>
+
+        </div>
+
+        <button onclick="closeSanctionModal()" class="w-8 h-8 rounded-full hover:bg-white/10 text-slate-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer">
+
+          <span class="material-symbols-outlined text-xl">close</span>
+
+        </button>
+
+      </div>
+
+
+
+      <div class="p-6 sm:p-8 space-y-6 text-slate-700 text-xs sm:text-sm">
+
+        <div class="flex justify-between items-start border-b border-slate-100 pb-4">
+
+          <div>
+
+            <span class="text-xs font-bold text-slate-400 block uppercase">Reference ID</span>
+
+            <span id="sanction-doc-id" class="text-lg font-black text-[#0F2942]">#PL-4920</span>
+
+          </div>
+
+          <div class="text-right">
+
+            <span class="text-xs font-bold text-slate-400 block uppercase">Processing Bank</span>
+
+            <span id="sanction-doc-bank" class="text-lg font-black text-[#1565C0]">HDFC Bank</span>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="space-y-3 leading-relaxed">
+
+          <p>
+
+            Dear <strong id="sanction-doc-name" class="text-slate-900">Rahul Sharma</strong>,
+
+          </p>
+
+          <p>
+
+            We are pleased to inform you that your application for a <strong id="sanction-doc-loan" class="text-slate-900">Home Loan</strong> has been sanctioned in-principle through Proloan India's direct zonal credit channel.
+
+          </p>
+
+
+
+          <div class="p-4 rounded-xl bg-blue-50 border border-blue-200 text-[#0F2942] space-y-2">
+
+            <div class="flex justify-between">
+
+              <span>Sanctioned Loan Amount:</span>
+
+              <strong id="sanction-doc-amount" class="text-base text-[#1565C0] font-black">₹45,00,000</strong>
+
+            </div>
+
+            <div class="flex justify-between">
+
+              <span>Benchmark Interest Rate:</span>
+
+              <strong class="font-bold">8.40% p.a. (Floating / EBLR Linked)</strong>
+
+            </div>
+
+            <div class="flex justify-between">
+
+              <span>Approved Tenor:</span>
+
+              <strong class="font-bold">240 Months (20 Years)</strong>
+
+            </div>
+
+            <div class="flex justify-between">
+
+              <span>Estimated EMI:</span>
+
+              <strong class="font-bold">₹38,767 / month</strong>
+
+            </div>
+
+          </div>
+
+
+
+          <p class="text-xs text-slate-400">
+
+            * Final disbursal is subject to execution of loan agreement documentation and original title deed deposit.
+
+          </p>
+
+        </div>
+
+
+
+        <div class="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+
+          <span class="text-[11px] text-slate-400">Authorized by Proloan Multi-Bank Credit Committee</span>
+
+          <button onclick="window.print()" class="px-5 py-2.5 rounded-xl bg-[#1565C0] hover:bg-[#0D47A1] text-white font-extrabold text-xs uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer">
+
+            <span class="material-symbols-outlined text-sm">print</span>
+
+            <span>Print / Save as PDF</span>
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+      <!-- ========================================================================= -->
+
+  <!-- PREMIUM APP-GRADE MOBILE NAVIGATION DRAWER (FINTECH STYLE) -->
+
+  <!-- ========================================================================= -->
+
+  <div id="mobile-drawer" class="fixed inset-0 z-[9999] bg-slate-900/60 backdrop-blur-md hidden flex-col justify-end transition-all duration-300 w-full max-w-full overflow-hidden" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
+
+    <!-- Click backdrop to close -->
+
+    <div class="absolute inset-0 bg-transparent cursor-pointer" onclick="toggleMobileNav()" role="button" aria-label="Close Menu Overlay" tabindex="0"></div>
+
+
+
+    <!-- Sheet Container -->
+
+    <div class="relative bg-white w-full max-w-lg mx-auto max-h-[92vh] rounded-t-[28px] sm:rounded-t-[32px] shadow-2xl flex flex-col border-t border-slate-200/80 z-10 overflow-hidden transform transition-transform duration-300 ease-out">
+
+      
+
+      <!-- Top Grab Bar (Native App Bottom-Sheet Handle) -->
+
+      <div class="w-full pt-2.5 pb-1 flex justify-center items-center bg-white shrink-0 cursor-pointer" onclick="toggleMobileNav()">
+
+        <div class="w-10 h-1.5 rounded-full bg-slate-300/80"></div>
+
+      </div>
+
+
+
+      <!-- Drawer Header Bar -->
+
+      <div class="px-4 py-2.5 border-b border-slate-100 flex items-center justify-between sticky top-0 bg-white/95 backdrop-blur-sm z-30 shrink-0">
+
+        <div class="flex items-center gap-2.5 min-w-0">
+
+          <img src="assets/proloan-logo-transparent.webp" alt="Proloan India" class="h-7 w-auto object-contain shrink-0" width="112" height="28" loading="lazy" decoding="async">
+
+          <div class="min-w-0">
+
+            <div class="font-black text-[#0F2942] text-sm font-heading leading-tight flex items-center gap-1 truncate">
+
+              <span>PROLOAN</span><span class="text-[#F26522]">INDIA</span>
+
+              <span class="material-symbols-outlined text-emerald-500 text-sm shrink-0" title="Verified DSA">verified</span>
+
+            </div>
+
+            <div class="flex items-center gap-1.5 mt-0.5">
+
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+
+              <span class="text-[10px] text-slate-400 font-semibold tracking-tight truncate">40+ Partner Banks • Pan-India</span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <button onclick="toggleMobileNav()" aria-label="Close navigation" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 active:scale-90 text-slate-300 flex items-center justify-center transition-all cursor-pointer shrink-0 ml-2">
+
+          <span class="material-symbols-outlined text-lg">close</span>
+
+        </button>
+
+      </div>
+
+
+
+      <!-- Scrollable Drawer Body -->
+
+      <div class="flex-1 overflow-y-auto overscroll-contain px-3.5 py-3.5 space-y-3.5 pb-28">
+
+        <!-- 0. Core Website Navigation Pages (Direct 1-Tap Access to All Pages) -->
+
+        <div class="space-y-1.5">
+
+          <div class="flex items-center justify-between px-1">
+
+            <span class="text-[11px] font-black uppercase tracking-wider text-slate-400">Website Pages</span>
+
+            <span class="text-[9.5px] font-bold text-[#C84000] bg-orange-50 px-2 py-0.5 rounded-full border border-orange-100">All Sections</span>
+
+          </div>
+
+          <div class="grid grid-cols-3 gap-2">
+
+            <button onclick="switchPage('home'); toggleMobileNav();" class="p-2.5 rounded-xl bg-slate-50/90 hover:bg-blue-50 active:scale-95 border border-slate-200/80 text-center flex flex-col items-center justify-center transition-all cursor-pointer">
+
+              <span class="material-symbols-outlined text-blue-600 text-xl mb-0.5">home</span>
+
+              <span class="text-[11px] font-black text-slate-800 leading-tight">Home</span>
+
+            </button>
+
+            <button onclick="switchPage('about'); toggleMobileNav();" class="p-2.5 rounded-xl bg-slate-50/90 hover:bg-blue-50 active:scale-95 border border-slate-200/80 text-center flex flex-col items-center justify-center transition-all cursor-pointer">
+
+              <span class="material-symbols-outlined text-[#1565C0] text-xl mb-0.5">info</span>
+
+              <span class="text-[11px] font-black text-slate-800 leading-tight">About Us</span>
+
+            </button>
+
+            <button onclick="switchPage('careers'); toggleMobileNav();" class="p-2.5 rounded-xl bg-slate-50/90 hover:bg-orange-50 active:scale-95 border border-slate-200/80 text-center flex flex-col items-center justify-center transition-all cursor-pointer">
+
+              <span class="material-symbols-outlined text-[#F26522] text-xl mb-0.5">work</span>
+
+              <span class="text-[11px] font-black text-slate-800 leading-tight">Careers</span>
+
+            </button>
+
+            <button onclick="switchPage('track'); toggleMobileNav();" class="p-2.5 rounded-xl bg-slate-50/90 hover:bg-orange-50 active:scale-95 border border-slate-200/80 text-center flex flex-col items-center justify-center transition-all cursor-pointer">
+
+              <span class="material-symbols-outlined text-[#F26522] text-xl mb-0.5">radar</span>
+
+              <span class="text-[11px] font-black text-slate-800 leading-tight">Track Status</span>
+
+            </button>
+
+            <button onclick="switchPage('blog'); toggleMobileNav();" class="p-2.5 rounded-xl bg-slate-50/90 hover:bg-amber-50 active:scale-95 border border-slate-200/80 text-center flex flex-col items-center justify-center transition-all cursor-pointer">
+
+              <span class="material-symbols-outlined text-amber-600 text-xl mb-0.5">article</span>
+
+              <span class="text-[11px] font-black text-slate-800 leading-tight">Blogs</span>
+
+            </button>
+
+            <button onclick="switchPage('contact'); toggleMobileNav();" class="p-2.5 rounded-xl bg-slate-50/90 hover:bg-purple-50 active:scale-95 border border-slate-200/80 text-center flex flex-col items-center justify-center transition-all cursor-pointer">
+
+              <span class="material-symbols-outlined text-purple-600 text-xl mb-0.5">contact_phone</span>
+
+              <span class="text-[11px] font-black text-slate-800 leading-tight">Contact Us</span>
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+
+
+
+        <!-- 1. Executive Status Card: Track Loan Application (Fintech Card Style) -->
+
+        <button onclick="switchPage('track'); toggleMobileNav();" class="w-full text-left relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#0F2942] via-[#123962] to-[#1565C0] p-3.5 text-white shadow-md shadow-blue-900/20 border border-white/10 active:scale-[0.99] transition-all group cursor-pointer">
+
+          <div class="absolute -right-3 -bottom-3 w-20 h-20 bg-blue-400/10 rounded-full blur-lg pointer-events-none"></div>
+
+          <div class="relative z-10 flex items-center justify-between gap-2.5">
+
+            <div class="flex items-center gap-3 min-w-0">
+
+              <div class="w-10 h-10 rounded-xl bg-white/15 backdrop-blur-md flex items-center justify-center text-white shrink-0 border border-white/20 group-hover:scale-105 transition-transform">
+
+                <span class="material-symbols-outlined text-xl text-blue-200">radar</span>
+
+              </div>
+
+              <div class="min-w-0">
+
+                <div class="flex items-center gap-1.5">
+
+                  <span class="text-xs font-black tracking-tight text-white block truncate">Track Application</span>
+
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+
+                </div>
+
+                <span class="text-[10px] text-blue-200 block truncate font-medium">Real-time status &amp; updates</span>
+
+              </div>
+
+            </div>
+
+            <span class="material-symbols-outlined text-white/70 group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+
+          </div>
+
+        </button>
+
+
+
+        <!-- Loan Products Grid (2 columns) -->
+
+        <div>
+
+          <div class="text-[11px] font-black uppercase tracking-wider text-slate-400 mb-2 px-1">Loan Products</div>
+
+          <div class="grid grid-cols-2 gap-2">
+
+            <!-- PRIORITY ORDER: 1.Professional > 2.Home > 3.Personal > 4.Business > 5.Car > 6.Education > 7.Machinery > 8.Loan Against Property > 9.Working Capital > 10.CGT/MSME -->
+
+
+
+            <!-- 1. Professional Loan — FIRST -->
+
+            <button onclick="switchPage('professional-loan'); toggleMobileNav();" class="group p-2.5 rounded-xl bg-white hover:bg-teal-50/50 active:scale-[0.98] border border-slate-200/80 hover:border-teal-300 text-left transition-all shadow-2xs flex flex-col justify-between">
+
+              <div class="flex items-center justify-between w-full mb-1.5">
+
+                <span class="w-8 h-8 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center group-hover:scale-105 transition-transform">
+
+                  <span class="material-symbols-outlined text-lg">medical_services</span>
+
+                </span>
+
+                <span class="text-[9px] font-extrabold text-teal-600 bg-teal-50 px-1.5 py-0.5 rounded">Special</span>
+
+              </div>
+
+              <div class="min-w-0 w-full">
+
+                <span class="text-xs font-black text-slate-800 group-hover:text-teal-700 block truncate leading-tight">Professional Loan</span>
+
+                <span class="text-[10px] text-slate-400 font-medium block truncate mt-0.5">Doctors &amp; CAs</span>
+
+              </div>
+
+            </button>
+
+
+
+            <!-- 2. Home Loan -->
+
+            <button onclick="switchPage('home-loan'); toggleMobileNav();" class="group p-2.5 rounded-xl bg-white hover:bg-blue-50/50 active:scale-[0.98] border border-slate-200/80 hover:border-blue-300 text-left transition-all shadow-2xs flex flex-col justify-between">
+
+              <div class="flex items-center justify-between w-full mb-1.5">
+
+                <span class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center group-hover:scale-105 transition-transform">
+
+                  <span class="material-symbols-outlined text-lg">home</span>
+
+                </span>
+
+                <span class="text-[9px] font-extrabold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded">8.40%*</span>
+
+              </div>
+
+              <div class="min-w-0 w-full">
+
+                <span class="text-xs font-black text-slate-800 group-hover:text-blue-700 block truncate leading-tight">Home Loan</span>
+
+                <span class="text-[10px] text-slate-400 font-medium block truncate mt-0.5">Lowest EMI rates</span>
+
+              </div>
+
+            </button>
+
+
+
+            <!-- 3. Personal Loan -->
+
+            <button onclick="switchPage('personal-loan'); toggleMobileNav();" class="group p-2.5 rounded-xl bg-white hover:bg-purple-50/50 active:scale-[0.98] border border-slate-200/80 hover:border-purple-300 text-left transition-all shadow-2xs flex flex-col justify-between">
+
+              <div class="flex items-center justify-between w-full mb-1.5">
+
+                <span class="w-8 h-8 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center group-hover:scale-105 transition-transform">
+
+                  <span class="material-symbols-outlined text-lg">person</span>
+
+                </span>
+
+                <span class="text-[9px] font-extrabold text-purple-600 bg-purple-50 px-1.5 py-0.5 rounded">24 Hrs</span>
+
+              </div>
+
+              <div class="min-w-0 w-full">
+
+                <span class="text-xs font-black text-slate-800 group-hover:text-purple-700 block truncate leading-tight">Personal Loan</span>
+
+                <span class="text-[10px] text-slate-400 font-medium block truncate mt-0.5">Zero paperwork</span>
+
+              </div>
+
+            </button>
+
+
+
+            <!-- 4. Business Loan -->
+
+            <button onclick="switchPage('business-loan'); toggleMobileNav();" class="group p-2.5 rounded-xl bg-white hover:bg-orange-50/50 active:scale-[0.98] border border-slate-200/80 hover:border-orange-300 text-left transition-all shadow-2xs flex flex-col justify-between">
+
+              <div class="flex items-center justify-between w-full mb-1.5">
+
+                <span class="w-8 h-8 rounded-lg bg-orange-50 text-[#F26522] flex items-center justify-center group-hover:scale-105 transition-transform">
+
+                  <span class="material-symbols-outlined text-lg">store</span>
+
+                </span>
+
+                <span class="text-[9px] font-extrabold text-orange-600 bg-orange-50 px-1.5 py-0.5 rounded">Fast</span>
+
+              </div>
+
+              <div class="min-w-0 w-full">
+
+                <span class="text-xs font-black text-slate-800 group-hover:text-[#F26522] block truncate leading-tight">Business Loan</span>
+
+                <span class="text-[10px] text-slate-400 font-medium block truncate mt-0.5">Up to ₹75 Lakh</span>
+
+              </div>
+
+            </button>
+
+
+
+            <!-- 5. Car Loan -->
+
+            <button onclick="switchPage('car-loan'); toggleMobileNav();" class="group p-2.5 rounded-xl bg-white hover:bg-rose-50/50 active:scale-[0.98] border border-slate-200/80 hover:border-rose-300 text-left transition-all shadow-2xs flex flex-col justify-between">
+
+              <div class="flex items-center justify-between w-full mb-1.5">
+
+                <span class="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center group-hover:scale-105 transition-transform">
+
+                  <span class="material-symbols-outlined text-lg">directions_car</span>
+
+                </span>
+
+                <span class="text-[9px] font-extrabold text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded">New &amp; Used</span>
+
+              </div>
+
+              <div class="min-w-0 w-full">
+
+                <span class="text-xs font-black text-slate-800 group-hover:text-rose-700 block truncate leading-tight">Car Loan</span>
+
+                <span class="text-[10px] text-slate-400 font-medium block truncate mt-0.5">Up to 100% on-road</span>
+
+              </div>
+
+            </button>
+
+
+
+            <!-- 6. Education Loan -->
+
+            <button onclick="switchPage('education-loan'); toggleMobileNav();" class="group p-2.5 rounded-xl bg-white hover:bg-amber-50/50 active:scale-[0.98] border border-slate-200/80 hover:border-amber-300 text-left transition-all shadow-2xs flex flex-col justify-between">
+
+              <div class="flex items-center justify-between w-full mb-1.5">
+
+                <span class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center group-hover:scale-105 transition-transform">
+
+                  <span class="material-symbols-outlined text-lg">school</span>
+
+                </span>
+
+                <span class="text-[9px] font-extrabold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded">Global</span>
+
+              </div>
+
+              <div class="min-w-0 w-full">
+
+                <span class="text-xs font-black text-slate-800 group-hover:text-amber-700 block truncate leading-tight">Education Loan</span>
+
+                <span class="text-[10px] text-slate-400 font-medium block truncate mt-0.5">India &amp; Abroad</span>
+
+              </div>
+
+            </button>
+
+
+
+            <!-- 7. Machinery Loan -->
+
+            <button onclick="switchPage('machinery-loan'); toggleMobileNav();" class="group p-2.5 rounded-xl bg-white hover:bg-cyan-50/50 active:scale-[0.98] border border-slate-200/80 hover:border-cyan-300 text-left transition-all shadow-2xs flex flex-col justify-between">
+
+              <div class="flex items-center justify-between w-full mb-1.5">
+
+                <span class="w-8 h-8 rounded-lg bg-cyan-50 text-cyan-600 flex items-center justify-center group-hover:scale-105 transition-transform">
+
+                  <span class="material-symbols-outlined text-lg">precision_manufacturing</span>
+
+                </span>
+
+                <span class="text-[9px] font-extrabold text-cyan-600 bg-cyan-50 px-1.5 py-0.5 rounded">Capex</span>
+
+              </div>
+
+              <div class="min-w-0 w-full">
+
+                <span class="text-xs font-black text-slate-800 group-hover:text-cyan-700 block truncate leading-tight">Machinery Loan</span>
+
+                <span class="text-[10px] text-slate-400 font-medium block truncate mt-0.5">Plant &amp; equipment</span>
+
+              </div>
+
+            </button>
+
+
+
+            <!-- 8. Property Loan (LAP) -->
+
+            <button onclick="switchPage('lap-loan'); toggleMobileNav();" class="group p-2.5 rounded-xl bg-white hover:bg-emerald-50/50 active:scale-[0.98] border border-slate-200/80 hover:border-emerald-300 text-left transition-all shadow-2xs flex flex-col justify-between">
+
+              <div class="flex items-center justify-between w-full mb-1.5">
+
+                <span class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:scale-105 transition-transform">
+
+                  <span class="material-symbols-outlined text-lg">apartment</span>
+
+                </span>
+
+                <span class="text-[9px] font-extrabold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">High Value</span>
+
+              </div>
+
+              <div class="min-w-0 w-full">
+
+                <span class="text-xs font-black text-slate-800 group-hover:text-emerald-700 block truncate leading-tight">Property (LAP)</span>
+
+                <span class="text-[10px] text-slate-400 font-medium block truncate mt-0.5">Up to ₹25 Crore</span>
+
+              </div>
+
+            </button>
+
+
+
+            <!-- 9. Working Capital -->
+
+            <button onclick="switchPage('working-capital'); toggleMobileNav();" class="group p-2.5 rounded-xl bg-white hover:bg-indigo-50/50 active:scale-[0.98] border border-slate-200/80 hover:border-indigo-300 text-left transition-all shadow-2xs flex flex-col justify-between">
+
+              <div class="flex items-center justify-between w-full mb-1.5">
+
+                <span class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:scale-105 transition-transform">
+
+                  <span class="material-symbols-outlined text-lg">account_balance_wallet</span>
+
+                </span>
+
+                <span class="text-[9px] font-extrabold text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded">OD / CC</span>
+
+              </div>
+
+              <div class="min-w-0 w-full">
+
+                <span class="text-xs font-black text-slate-800 group-hover:text-indigo-700 block truncate leading-tight">Working Capital</span>
+
+                <span class="text-[10px] text-slate-400 font-medium block truncate mt-0.5">Business cashflow</span>
+
+              </div>
+
+            </button>
+
+
+
+            <!-- 10. CGT/MSME Loan -->
+
+            <button onclick="switchPage('od-facility'); toggleMobileNav();" class="group p-2.5 rounded-xl bg-white hover:bg-sky-50/50 active:scale-[0.98] border border-slate-200/80 hover:border-sky-300 text-left transition-all shadow-2xs flex flex-col justify-between">
+
+              <div class="flex items-center justify-between w-full mb-1.5">
+
+                <span class="w-8 h-8 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center group-hover:scale-105 transition-transform">
+
+                  <span class="material-symbols-outlined text-lg">assured_workload</span>
+
+                </span>
+
+                <span class="text-[9px] font-extrabold text-sky-600 bg-sky-50 px-1.5 py-0.5 rounded">Govt Scheme</span>
+
+              </div>
+
+              <div class="min-w-0 w-full">
+
+                <span class="text-xs font-black text-slate-800 group-hover:text-sky-700 block truncate leading-tight">CGT/MSME Loan</span>
+
+                <span class="text-[10px] text-slate-400 font-medium block truncate mt-0.5">Collateral-free credit</span>
+
+              </div>
+
+            </button>
+
+
+
+            <!-- Balance Transfer & Top-Up -->
+
+            <button onclick="openApplyModal('Balance Transfer &amp; Top-Up'); toggleMobileNav();" class="group p-2.5 rounded-xl bg-white hover:bg-emerald-50/50 active:scale-[0.98] border border-slate-200/80 hover:border-emerald-300 text-left transition-all shadow-2xs flex flex-col justify-between" style="display:none;">
+
+              <div class="flex items-center justify-between w-full mb-1.5">
+
+                <span class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:scale-105 transition-transform">
+
+                  <span class="material-symbols-outlined text-lg">currency_exchange</span>
+
+                </span>
+
+                <span class="text-[9px] font-extrabold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">Save EMI</span>
+
+              </div>
+
+              <div class="min-w-0 w-full">
+
+                <span class="text-xs font-black text-slate-800 group-hover:text-emerald-700 block truncate leading-tight">Balance Transfer</span>
+
+                <span class="text-[10px] text-slate-400 font-medium block truncate mt-0.5">Top-up &amp; low rate</span>
+
+              </div>
+
+            </button>
+
+
+
+          </div>
+
+        </div>
+
+
+
+        <!-- 3. Smart Financial Tools (Fintech Utilities) -->
+
+        <div class="space-y-2 pt-1">
+
+          <span class="text-[11px] font-black uppercase tracking-wider text-slate-400 px-1 block">Smart Financial Tools</span>
+
+          <div class="grid grid-cols-2 gap-2">
+
+            
+
+            <!-- Careers -->
+
+            <button onclick="switchPage('careers'); toggleMobileNav();" class="p-2.5 rounded-xl bg-slate-50/90 hover:bg-orange-50/70 border border-slate-200/70 text-left flex items-center gap-2 active:scale-98 transition-all">
+
+              <span class="w-7 h-7 rounded-lg bg-[#1565C0] text-white font-bold flex items-center justify-center shrink-0">
+
+                <span class="material-symbols-outlined text-base">work</span>
+
+              </span>
+
+              <div class="min-w-0">
+
+                <span class="text-xs font-bold text-slate-800 block truncate leading-tight">Careers</span>
+
+                <span class="text-[9px] text-slate-400 font-medium block truncate">Join our team</span>
+
+              </div>
+
+            </button>
+
+
+
+            <!-- EMI Calculator -->
+
+            <button onclick="switchPage('home'); toggleMobileNav(); setTimeout(function(){ var el = document.getElementById('calculator-section') || document.querySelector('[data-calculator]') || document.getElementById('emi-calculator'); if(el) el.scrollIntoView({behavior:'smooth'}); }, 250);" class="p-2.5 rounded-xl bg-slate-50/90 hover:bg-blue-50/70 border border-slate-200/70 text-left flex items-center gap-2 active:scale-98 transition-all">
+
+              <span class="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
+
+                <span class="material-symbols-outlined text-base">calculate</span>
+
+              </span>
+
+              <div class="min-w-0">
+
+                <span class="text-xs font-bold text-slate-800 block truncate leading-tight">EMI Calculator</span>
+
+                <span class="text-[9px] text-slate-400 font-medium block truncate">Plan monthly EMI</span>
+
+              </div>
+
+            </button>
+
+
+
+            <!-- Partner Banks -->
+
+            <button onclick="switchPage('partners'); toggleMobileNav();" class="p-2.5 rounded-xl bg-slate-50/90 hover:bg-indigo-50/70 border border-slate-200/70 text-left flex items-center gap-2 active:scale-98 transition-all">
+
+              <span class="w-7 h-7 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center shrink-0">
+
+                <span class="material-symbols-outlined text-base">account_balance</span>
+
+              </span>
+
+              <div class="min-w-0">
+
+                <span class="text-xs font-bold text-slate-800 block truncate leading-tight">Partner Banks</span>
+
+                <span class="text-[9px] text-slate-400 font-medium block truncate">40+ Multi-banks</span>
+
+              </div>
+
+            </button>
+
+
+
+            <!-- Blogs & Guides -->
+
+            <button onclick="switchPage('blog'); toggleMobileNav();" class="p-2.5 rounded-xl bg-slate-50/90 hover:bg-amber-50/70 border border-slate-200/70 text-left flex items-center gap-2 active:scale-98 transition-all">
+
+              <span class="w-7 h-7 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+
+                <span class="material-symbols-outlined text-base">article</span>
+
+              </span>
+
+              <div class="min-w-0">
+
+                <span class="text-xs font-bold text-slate-800 block truncate leading-tight">Blogs &amp; News</span>
+
+                <span class="text-[9px] text-slate-400 font-medium block truncate">Interest guides</span>
+
+              </div>
+
+            </button>
+
+
+
+          </div>
+
+        </div>
+
+
+
+        <!-- 4. Company & Advisory Desk Card -->
+
+        <div class="rounded-2xl bg-gradient-to-r from-slate-50 to-blue-50/50 border border-blue-100/80 p-3 space-y-2">
+
+          <div class="flex items-center justify-between gap-2">
+
+            <div class="flex items-center gap-2 min-w-0">
+
+              <span class="w-7 h-7 rounded-lg bg-[#1565C0] text-white flex items-center justify-center text-sm shrink-0">
+
+                <span class="material-symbols-outlined text-base">support_agent</span>
+
+              </span>
+
+              <div class="min-w-0">
+
+                <span class="text-xs font-black text-[#0F2942] block truncate">Doorstep Advisory Desk</span>
+
+                <span class="text-[10px] text-slate-400 font-medium block truncate">Free multi-bank comparison &amp; doc pickup</span>
+
+              </div>
+
+            </div>
+
+            <button onclick="switchPage('about'); toggleMobileNav();" class="text-[11px] font-bold text-[#1565C0] hover:underline flex items-center gap-0.5 shrink-0">
+
+              <span>About</span>
+
+              <span class="material-symbols-outlined text-xs">chevron_right</span>
+
+            </button>
+
+          </div>
+
+
+
+          <div class="flex items-center justify-between text-[10px] text-slate-400 border-t border-slate-200/60 pt-2 font-medium">
+
+            <span class="flex items-center gap-1">
+
+              <span class="material-symbols-outlined text-xs text-emerald-600">schedule</span>
+
+              <span>Mon-Sat: 9:30 AM - 7:30 PM</span>
+
+            </span>
+
+            <span class="text-[#1565C0] font-bold">100% Free Service</span>
+
+          </div>
+
+          <div class="text-[10px] text-slate-300 pt-1 flex items-center justify-between">
+
+            <span>Primary: <a href="tel:+918368426125" class="font-bold text-[#1565C0]">+91 8368426125</a></span>
+
+            <span>Secondary: <a href="tel:01204549738" class="font-semibold text-slate-700">0120-4549738</a></span>
+
+          </div>
+
+          <div class="text-[10px] text-slate-400 border-t border-slate-200/60 pt-1.5 flex items-start gap-1">
+
+            <span class="material-symbols-outlined text-xs text-[#F26522] shrink-0 mt-0.5">location_on</span>
+
+            <a href="https://share.google/o6X5RzaqFwG7mkJar" target="_blank" rel="noopener noreferrer" class="hover:underline text-slate-700 leading-tight">
+
+              Himalaya Legend, Nyay Khand 2, Indirapuram, Ghaziabad 201014
+
+            </a>
+
+          </div>
+
+        </div>
+
+
+
+      </div>
+
+
+
+      <!-- Drawer Fixed Bottom CTA Bar (High-Conversion Action Zone) -->
+
+      <div class="p-3 bg-white border-t border-slate-200/90 shadow-lg flex items-center gap-2 absolute bottom-0 left-0 right-0 z-30">
+
+        <!-- Call Button -->
+
+        <a href="tel:+918368426125" class="flex-1 py-2.5 px-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 text-xs font-black text-center flex items-center justify-center gap-1.5 active:scale-95 transition-all shadow-2xs" title="Call Primary: +91 8368426125">
+
+          <span class="material-symbols-outlined text-emerald-600 text-base">phone_in_talk</span>
+
+          <span>+91 8368426125</span>
+
+        </a>
+
+        
+
+        <!-- WhatsApp Button -->
+
+        <a href="https://wa.me/918368426125?text=Hi%20Proloan%20India,%20I%20need%20expert%20loan%20assistance." target="_blank" class="flex-1 py-2.5 px-2 rounded-xl bg-[#16A34A] hover:bg-[#15803D] text-white text-xs font-black text-center flex items-center justify-center gap-1.5 active:scale-95 transition-all shadow-sm shadow-emerald-600/20" rel="noopener noreferrer">
+
+          <span class="material-symbols-outlined text-base">chat</span>
+
+          <span>WhatsApp</span>
+
+        </a>
+
+
+
+        <!-- Fast Apply Now Button -->
+
+        <button onclick="openApplyModal('Mobile Drawer Apply'); toggleMobileNav();" class="py-2.5 px-3 rounded-xl bg-[#F26522] hover:bg-[#D94E0E] text-white text-xs font-black text-center flex items-center justify-center gap-1 active:scale-95 transition-all shadow-sm shadow-orange-500/25 uppercase tracking-wide cursor-pointer whitespace-nowrap shrink-0">
+
+          <span>Apply</span>
+
+          <span class="material-symbols-outlined text-sm font-bold">bolt</span>
+
+        </button>
+
+      </div>
+
+
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- INLINE FOOLPROOF ADMIN PORTAL NAVIGATOR (Zero-dependency & un-hijackable) -->
+
+  
+
+  
   <!-- Scripts -->
   <script src="assets/proloan-analytics.js" defer></script>
-  <script src="assets/main.min.js?v=20261021_slider_v4" defer></script>
+  <script src="assets/main.min.js?v=20261127_amount_sync" defer></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Ensure current page is displayed
       document.querySelectorAll('.page-section').forEach(function(el) {
         el.classList.add('active-page');
         el.style.display = 'block';
       });
-      // Initialize inline calculator if function available
       if (typeof initAllSliders === 'function') initAllSliders();
     });
   </script>
