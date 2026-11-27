@@ -224,6 +224,16 @@ app.get('/googlee203887cef7ea8fd.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'googlee203887cef7ea8fd.html'));
 });
 
+// Canonical Host Enforcement: 301 Redirect www.proloansindia.com to proloansindia.com
+app.use((req, res, next) => {
+  const host = (req.headers.host || '').toLowerCase();
+  if (host.startsWith('www.')) {
+    const nonWwwHost = host.replace(/^www\./, '');
+    return res.redirect(301, `https://${nonWwwHost}${req.originalUrl}`);
+  }
+  next();
+});
+
 // Clean Product Page URLs & 301 Redirects for Legacy Query Parameters
 const PRODUCT_ROUTES = {
   'professional-loan': '/doctor-loan.html',
