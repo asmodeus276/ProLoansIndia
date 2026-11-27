@@ -2323,11 +2323,15 @@ function handleModalSubmit(e) {
     function updateLoanCardEmi(loanId, roi) {
       const slider = document.getElementById('loan-amt-slider-' + loanId);
       const disp = document.getElementById('loan-amt-disp-' + loanId);
+      const inp = document.getElementById('loan-amt-input-' + loanId);
       const emiDisp = document.getElementById('loan-emi-disp-' + loanId);
       if (!slider) return;
       const P = parseFloat(slider.value);
       if (disp) {
         disp.innerText = '₹' + P.toLocaleString('en-IN');
+      }
+      if (inp) {
+        inp.value = P.toLocaleString('en-IN');
       }
       const r = (roi / 12) / 100;
       const n = 60; // 5-year default quick quote
@@ -2336,6 +2340,40 @@ function handleModalSubmit(e) {
         emiDisp.innerHTML = '₹' + emi.toLocaleString('en-IN') + '<span class="text-[10px] text-slate-500 font-normal"> /mo</span>';
       }
     }
+    window.updateLoanCardEmi = updateLoanCardEmi;
+
+    window.setQuickCardAmount = function(slug, val, roi) {
+      const slider = document.getElementById('loan-amt-slider-' + slug);
+      const inp = document.getElementById('loan-amt-input-' + slug);
+      const disp = document.getElementById('loan-amt-disp-' + slug);
+      if (slider) slider.value = val;
+      if (inp) inp.value = Number(val).toLocaleString('en-IN');
+      if (disp) disp.innerText = '₹' + Number(val).toLocaleString('en-IN');
+      updateLoanCardEmi(slug, roi);
+    };
+
+    window.onCustomLoanAmountInput = function(slug, roi) {
+      const inp = document.getElementById('loan-amt-input-' + slug);
+      const slider = document.getElementById('loan-amt-slider-' + slug);
+      const disp = document.getElementById('loan-amt-disp-' + slug);
+      const emiDisp = document.getElementById('loan-emi-disp-' + slug);
+      if (!inp) return;
+      let raw = inp.value.replace(/[^0-9]/g, '');
+      if (!raw) return;
+      let val = parseInt(raw, 10);
+      if (slider) {
+        const min = parseFloat(slider.min) || 100000;
+        const max = parseFloat(slider.max) || 100000000;
+        slider.value = Math.min(Math.max(val, min), max);
+      }
+      if (disp) disp.innerText = '₹' + val.toLocaleString('en-IN');
+      const r = (roi / 12) / 100;
+      const n = 60;
+      const emi = Math.round((val * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1));
+      if (emiDisp) {
+        emiDisp.innerHTML = '₹' + emi.toLocaleString('en-IN') + '<span class="text-[10px] text-slate-500 font-normal"> /mo</span>';
+      }
+    };
 
     function runInlineLoanCalc(loanId) {
       const amtInput = document.getElementById('calc-amt-' + loanId);

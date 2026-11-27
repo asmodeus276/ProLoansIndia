@@ -4032,7 +4032,7 @@
                       <label class="text-xs font-bold uppercase tracking-wider text-slate-700">Required Loan Amount</label>
                       <span id="loan-amt-disp-professional-loan" class="text-base font-bold text-[#1565C0] whitespace-nowrap">₹25,00,000</span>
                     </div>
-                    <input type="range" id="loan-amt-slider-professional-loan" min="100000" max="7500000" step="50000" value="2500000" oninput="updateLoanCardEmi('professional-loan', 11.99)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#1565C0]">
+                    <input type="range" id="loan-amt-slider-professional-loan" min="100000" max="7500000" step="50000" value="2500000" oninput="updateLoanCardEmi('professional-loan', 11.99); var el=document.getElementById('loan-amt-input-professional-loan'); if(el) el.value=Number(this.value).toLocaleString('en-IN');" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#1565C0]">
                     <div class="flex justify-between text-[11px] text-slate-400 font-medium mt-1">
                       <span>₹1 Lakh</span>
                       <span>Up to ₹75 Lakhs</span>
@@ -4794,7 +4794,7 @@
                       <label class="text-xs font-bold uppercase tracking-wider text-slate-700">Required Loan Amount</label>
                       <span id="loan-amt-disp-business-loan" class="text-base font-bold text-[#1565C0] whitespace-nowrap">₹25,00,000</span>
                     </div>
-                    <input type="range" id="loan-amt-slider-business-loan" min="100000" max="50000000" step="50000" value="2500000" oninput="updateLoanCardEmi('business-loan', 14.0)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#1565C0]">
+                    <input type="range" id="loan-amt-slider-business-loan" min="100000" max="50000000" step="50000" value="2500000" oninput="updateLoanCardEmi('business-loan', 14.0); var el=document.getElementById('loan-amt-input-business-loan'); if(el) el.value=Number(this.value).toLocaleString('en-IN');" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#1565C0]">
                     <div class="flex justify-between text-[11px] text-slate-400 font-medium mt-1">
                       <span>₹1 Lakh</span>
                       <span>Up to ₹5 Crores</span>
@@ -5556,7 +5556,7 @@
                       <label class="text-xs font-bold uppercase tracking-wider text-slate-700">Required Loan Amount</label>
                       <span id="loan-amt-disp-home-loan" class="text-base font-bold text-[#1565C0] whitespace-nowrap">₹25,00,000</span>
                     </div>
-                    <input type="range" id="loan-amt-slider-home-loan" min="100000" max="50000000" step="50000" value="2500000" oninput="updateLoanCardEmi('home-loan', 7.25)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#1565C0]">
+                    <input type="range" id="loan-amt-slider-home-loan" min="100000" max="50000000" step="50000" value="2500000" oninput="updateLoanCardEmi('home-loan', 7.25); var el=document.getElementById('loan-amt-input-home-loan'); if(el) el.value=Number(this.value).toLocaleString('en-IN');" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#1565C0]">
                     <div class="flex justify-between text-[11px] text-slate-400 font-medium mt-1">
                       <span>₹1 Lakh</span>
                       <span>Up to ₹5 Crores (90% LTV)</span>
@@ -6318,7 +6318,7 @@
                       <label class="text-xs font-bold uppercase tracking-wider text-slate-700">Required Loan Amount</label>
                       <span id="loan-amt-disp-lap-loan" class="text-base font-bold text-[#1565C0] whitespace-nowrap">₹25,00,000</span>
                     </div>
-                    <input type="range" id="loan-amt-slider-lap-loan" min="100000" max="100000000" step="50000" value="2500000" oninput="updateLoanCardEmi('lap-loan', 9.0)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#1565C0]">
+                    <input type="range" id="loan-amt-slider-lap-loan" min="100000" max="100000000" step="50000" value="2500000" oninput="updateLoanCardEmi('lap-loan', 9.0); var el=document.getElementById('loan-amt-input-lap-loan'); if(el) el.value=Number(this.value).toLocaleString('en-IN');" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#1565C0]">
                     <div class="flex justify-between text-[11px] text-slate-400 font-medium mt-1">
                       <span>₹1 Lakh</span>
                       <span>Up to ₹10 Crores (75% LTV)</span>
@@ -7080,7 +7080,7 @@
                       <label class="text-xs font-bold uppercase tracking-wider text-slate-700">Required Loan Amount</label>
                       <span id="loan-amt-disp-personal-loan" class="text-base font-bold text-[#1565C0] whitespace-nowrap">₹25,00,000</span>
                     </div>
-                    <input type="range" id="loan-amt-slider-personal-loan" min="100000" max="5000000" step="50000" value="2500000" oninput="updateLoanCardEmi('personal-loan', 10.5)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#1565C0]">
+                    <input type="range" id="loan-amt-slider-personal-loan" min="100000" max="5000000" step="50000" value="2500000" oninput="updateLoanCardEmi('personal-loan', 10.5); var el=document.getElementById('loan-amt-input-personal-loan'); if(el) el.value=Number(this.value).toLocaleString('en-IN');" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#1565C0]">
                     <div class="flex justify-between text-[11px] text-slate-400 font-medium mt-1">
                       <span>₹1 Lakh</span>
                       <span>Up to ₹50 Lakhs</span>
@@ -7842,7 +7842,7 @@
                       <label class="text-xs font-bold uppercase tracking-wider text-slate-700">Required Loan Amount</label>
                       <span id="loan-amt-disp-working-capital" class="text-base font-bold text-[#1565C0] whitespace-nowrap">₹25,00,000</span>
                     </div>
-                    <input type="range" id="loan-amt-slider-working-capital" min="100000" max="50000000" step="50000" value="2500000" oninput="updateLoanCardEmi('working-capital', 10.85)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#1565C0]">
+                    <input type="range" id="loan-amt-slider-working-capital" min="100000" max="50000000" step="50000" value="2500000" oninput="updateLoanCardEmi('working-capital', 10.85); var el=document.getElementById('loan-amt-input-working-capital'); if(el) el.value=Number(this.value).toLocaleString('en-IN');" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#1565C0]">
                     <div class="flex justify-between text-[11px] text-slate-400 font-medium mt-1">
                       <span>₹1 Lakh</span>
                       <span>Up to ₹5 Crores</span>
@@ -8569,7 +8569,7 @@
                     <label class="text-xs font-bold uppercase tracking-wider text-slate-700">Required Loan Amount</label>
                     <span id="loan-amt-disp-od-facility" class="text-base font-bold text-[#1565C0] whitespace-nowrap">₹25,00,000</span>
                   </div>
-                  <input type="range" id="loan-amt-slider-od-facility" min="100000" max="50000000" step="50000" value="2500000" oninput="updateLoanCardEmi('od-facility', 9.5)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#1565C0]">
+                  <input type="range" id="loan-amt-slider-od-facility" min="100000" max="50000000" step="50000" value="2500000" oninput="updateLoanCardEmi('od-facility', 9.5); var el=document.getElementById('loan-amt-input-od-facility'); if(el) el.value=Number(this.value).toLocaleString('en-IN');" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#1565C0]">
                   <div class="flex justify-between text-[11px] text-slate-400 font-medium mt-1">
                     <span>₹1 Lakh</span>
                     <span>Up to ₹5 Crores</span>
@@ -9314,7 +9314,7 @@
                       <label class="text-xs font-bold uppercase tracking-wider text-slate-700">Required Loan Amount</label>
                       <span id="loan-amt-disp-car-loan" class="text-base font-bold text-[#1565C0] whitespace-nowrap">₹25,00,000</span>
                     </div>
-                    <input type="range" id="loan-amt-slider-car-loan" min="100000" max="10000000" step="50000" value="2500000" oninput="updateLoanCardEmi('car-loan', 7.5)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#1565C0]">
+                    <input type="range" id="loan-amt-slider-car-loan" min="100000" max="10000000" step="50000" value="2500000" oninput="updateLoanCardEmi('car-loan', 7.5); var el=document.getElementById('loan-amt-input-car-loan'); if(el) el.value=Number(this.value).toLocaleString('en-IN');" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#1565C0]">
                     <div class="flex justify-between text-[11px] text-slate-400 font-medium mt-1">
                       <span>₹1 Lakh</span>
                       <span>Up to 80% On-Road / 200% Used</span>
@@ -10076,7 +10076,7 @@
                       <label class="text-xs font-bold uppercase tracking-wider text-slate-700">Required Loan Amount</label>
                       <span id="loan-amt-disp-education-loan" class="text-base font-bold text-[#1565C0] whitespace-nowrap">₹25,00,000</span>
                     </div>
-                    <input type="range" id="loan-amt-slider-education-loan" min="100000" max="15000000" step="50000" value="2500000" oninput="updateLoanCardEmi('education-loan', 8.5)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#1565C0]">
+                    <input type="range" id="loan-amt-slider-education-loan" min="100000" max="15000000" step="50000" value="2500000" oninput="updateLoanCardEmi('education-loan', 8.5); var el=document.getElementById('loan-amt-input-education-loan'); if(el) el.value=Number(this.value).toLocaleString('en-IN');" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#1565C0]">
                     <div class="flex justify-between text-[11px] text-slate-400 font-medium mt-1">
                       <span>₹1 Lakh</span>
                       <span>Up to 100% Course & Living</span>
@@ -10838,7 +10838,7 @@
                       <label class="text-xs font-bold uppercase tracking-wider text-slate-700">Required Loan Amount</label>
                       <span id="loan-amt-disp-machinery-loan" class="text-base font-bold text-[#1565C0] whitespace-nowrap">₹25,00,000</span>
                     </div>
-                    <input type="range" id="loan-amt-slider-machinery-loan" min="100000" max="50000000" step="50000" value="2500000" oninput="updateLoanCardEmi('machinery-loan', 9.75)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#1565C0]">
+                    <input type="range" id="loan-amt-slider-machinery-loan" min="100000" max="50000000" step="50000" value="2500000" oninput="updateLoanCardEmi('machinery-loan', 9.75); var el=document.getElementById('loan-amt-input-machinery-loan'); if(el) el.value=Number(this.value).toLocaleString('en-IN');" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#1565C0]">
                     <div class="flex justify-between text-[11px] text-slate-400 font-medium mt-1">
                       <span>₹1 Lakh</span>
                       <span>Up to ₹5 Crores</span>

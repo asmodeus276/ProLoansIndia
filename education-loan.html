@@ -1261,16 +1261,16 @@
                       <label class="text-xs font-bold uppercase tracking-wider text-slate-700">Required Loan Amount</label>
                       <div class="relative flex items-center">
                         <span class="text-xs font-bold text-[#1565C0] mr-1">₹</span>
-                        <input type="text" id="loan-amt-input-education-loan" name="loan_amount" value="25,00,000" oninput="onCustomLoanAmountInput('education-loan', 8.5)" class="w-32 bg-white border border-blue-200 rounded-lg px-2 py-0.5 text-right text-sm font-bold text-[#1565C0] focus:outline-none focus:ring-1 focus:ring-[#1565C0] shadow-2xs" placeholder="25,00,000">
+                        <input type="text" id="loan-amt-input-education-loan" name="loan_amount" value="25,00,000" oninput="onCustomLoanAmountInput('education-loan', 8.5); var sl=document.getElementById('loan-amt-slider-education-loan'); var num=parseInt(this.value.replace(/[^0-9]/g,''),10); if(sl&&!isNaN(num)) sl.value=num;" onblur="var num=parseInt(this.value.replace(/[^0-9]/g,''),10); if(!isNaN(num)) this.value=num.toLocaleString('en-IN');" class="w-32 bg-white border border-blue-200 rounded-lg px-2 py-0.5 text-right text-sm font-bold text-[#1565C0] focus:outline-none focus:ring-1 focus:ring-[#1565C0] shadow-2xs" placeholder="25,00,000">
                       </div>
                     </div>
-                    <input type="range" id="loan-amt-slider-education-loan" min="100000" max="100000000" step="50000" value="2500000" oninput="updateLoanCardEmi('education-loan', 8.5)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#1565C0]" aria-label="loan amt slider education-loan">
+                    <input type="range" id="loan-amt-slider-education-loan" min="100000" max="100000000" step="50000" value="2500000" oninput="updateLoanCardEmi('education-loan', 8.5); var el=document.getElementById('loan-amt-input-education-loan'); if(el) el.value=Number(this.value).toLocaleString('en-IN');" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#1565C0]" aria-label="loan amt slider education-loan">
                     <!-- Quick 1-Tap Amount Chips -->
                     <div class="flex flex-wrap gap-1.5 mt-2">
-                      <button type="button" onclick="setQuickCardAmount('education-loan', 1000000, 8.5)" class="px-2 py-0.5 rounded text-[10.5px] font-bold bg-white hover:bg-blue-50 text-slate-700 hover:text-[#1565C0] border border-slate-200 transition-colors cursor-pointer">₹10 Lakhs</button>
-                      <button type="button" onclick="setQuickCardAmount('education-loan', 2500000, 8.5)" class="px-2 py-0.5 rounded text-[10.5px] font-bold bg-white hover:bg-blue-50 text-slate-700 hover:text-[#1565C0] border border-slate-200 transition-colors cursor-pointer">₹25 Lakhs</button>
-                      <button type="button" onclick="setQuickCardAmount('education-loan', 5000000, 8.5)" class="px-2 py-0.5 rounded text-[10.5px] font-bold bg-white hover:bg-blue-50 text-slate-700 hover:text-[#1565C0] border border-slate-200 transition-colors cursor-pointer">₹50 Lakhs</button>
-                      <button type="button" onclick="setQuickCardAmount('education-loan', 10000000, 8.5)" class="px-2 py-0.5 rounded text-[10.5px] font-bold bg-white hover:bg-blue-50 text-slate-700 hover:text-[#1565C0] border border-slate-200 transition-colors cursor-pointer">₹1 Crore</button>
+                      <button type="button" onclick="setQuickCardAmount('education-loan', 1000000, 8.5); var sl=document.getElementById('loan-amt-slider-education-loan'); if(sl) sl.value=1000000; var el=document.getElementById('loan-amt-input-education-loan'); if(el) el.value=Number(1000000).toLocaleString('en-IN');" class="px-2 py-0.5 rounded text-[10.5px] font-bold bg-white hover:bg-blue-50 text-slate-700 hover:text-[#1565C0] border border-slate-200 transition-colors cursor-pointer">₹10 Lakhs</button>
+                      <button type="button" onclick="setQuickCardAmount('education-loan', 2500000, 8.5); var sl=document.getElementById('loan-amt-slider-education-loan'); if(sl) sl.value=2500000; var el=document.getElementById('loan-amt-input-education-loan'); if(el) el.value=Number(2500000).toLocaleString('en-IN');" class="px-2 py-0.5 rounded text-[10.5px] font-bold bg-white hover:bg-blue-50 text-slate-700 hover:text-[#1565C0] border border-slate-200 transition-colors cursor-pointer">₹25 Lakhs</button>
+                      <button type="button" onclick="setQuickCardAmount('education-loan', 5000000, 8.5); var sl=document.getElementById('loan-amt-slider-education-loan'); if(sl) sl.value=5000000; var el=document.getElementById('loan-amt-input-education-loan'); if(el) el.value=Number(5000000).toLocaleString('en-IN');" class="px-2 py-0.5 rounded text-[10.5px] font-bold bg-white hover:bg-blue-50 text-slate-700 hover:text-[#1565C0] border border-slate-200 transition-colors cursor-pointer">₹50 Lakhs</button>
+                      <button type="button" onclick="setQuickCardAmount('education-loan', 10000000, 8.5); var sl=document.getElementById('loan-amt-slider-education-loan'); if(sl) sl.value=10000000; var el=document.getElementById('loan-amt-input-education-loan'); if(el) el.value=Number(10000000).toLocaleString('en-IN');" class="px-2 py-0.5 rounded text-[10.5px] font-bold bg-white hover:bg-blue-50 text-slate-700 hover:text-[#1565C0] border border-slate-200 transition-colors cursor-pointer">₹1 Crore</button>
                     </div>
 
                     <div class="flex justify-between text-[11px] text-slate-400 font-medium mt-1">
@@ -3900,7 +3900,7 @@
 
   <!-- ========================================================================= -->
 
-  <script src="assets/main.min.js?v=20261021_slider_v4" defer></script>
+  
 
 
 
@@ -4819,7 +4819,7 @@
   
   <!-- Scripts -->
   <script src="assets/proloan-analytics.js" defer></script>
-  <script src="assets/main.min.js?v=20261127_amount_sync" defer></script>
+  
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       document.querySelectorAll('.page-section').forEach(function(el) {
@@ -4831,5 +4831,6 @@
   </script>
 
 
+  <script src="assets/main.min.js?v=20261127_amount_sync_v6" defer></script>
 </body>
 </html>
