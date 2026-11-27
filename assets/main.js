@@ -558,12 +558,40 @@
       }
       setTimeout(syncMainHeaderHeight, 40);
       console.log('Switching to page:', pageId);
+      const target = document.getElementById('page-' + pageId);
+      if (!target) {
+        const standaloneMap = {
+          'home': '/',
+          'professional-loan': '/doctor-loan.html',
+          'business-loan': '/business-loan.html',
+          'home-loan': '/home-loan.html',
+          'lap-loan': '/lap-loan.html',
+          'personal-loan': '/personal-loan.html',
+          'working-capital': '/working-capital.html',
+          'od-facility': '/cgtmse-loan.html',
+          'car-loan': '/car-loan.html',
+          'education-loan': '/education-loan.html',
+          'machinery-loan': '/machinery-loan.html'
+        };
+        const knownSubpages = ['about', 'careers', 'track', 'blog', 'contact', 'credit-score', 'calculator', 'partners'];
+        if (standaloneMap[pageId]) {
+          window.location.href = standaloneMap[pageId];
+          return;
+        }
+        if (knownSubpages.includes(pageId)) {
+          window.location.href = '/?page=' + encodeURIComponent(pageId);
+          return;
+        }
+        if (document.querySelectorAll('.page-section').length === 1) {
+          return;
+        }
+      }
+
       const pages = document.querySelectorAll('.page-section');
       pages.forEach(p => {
         p.classList.remove('active-page');
       });
 
-      const target = document.getElementById('page-' + pageId);
       if (target) {
         target.classList.add('active-page');
         window.scrollTo({ top: 0, behavior: 'smooth' });
