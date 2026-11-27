@@ -7836,7 +7836,7 @@
           <!-- Header Tag & Title -->
           <div class="text-center max-w-3xl mx-auto mb-10">
             <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-[11px] font-black uppercase tracking-wider mb-2.5 shadow-2xs" style="color: #1565C0;">
-              <span class="material-symbols-outlined text-[15px]" style="color: #F26522;">auto_awesome</span>
+              <svg class="w-4 h-4 text-orange-500 shrink-0 inline-block mr-1" style="color:#F26522;" fill="currentColor" viewBox="0 0 24 24"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/></svg>
               <span>AI &amp; Voice Search Knowledge Hub • Direct Fact Guide</span>
             </div>
             <h2 class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight font-heading" style="color: #0F2942;">
@@ -34900,21 +34900,15 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
 
           <div>
-            <div class="flex items-center justify-between mb-1">
-              <label class="block font-bold text-slate-700 text-xs sm:text-sm">Desired Loan Amount (₹) *</label>
-              <span class="text-[11px] font-bold text-[#1565C0]">Type any amount</span>
-            </div>
-            <div class="relative">
-              <span class="absolute left-3.5 top-3 text-slate-400 font-bold text-base select-none">₹</span>
-              <input id="modal-amount-select" type="text" required placeholder="Enter amount (e.g. 25 Lakhs or 25,00,000)" value="₹25 Lakhs" class="w-full bg-white border border-slate-300 rounded-xl pl-8 pr-3 py-2.5 text-slate-900 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-[#1565C0] focus:border-[#1565C0] shadow-2xs transition-all">
-            </div>
+            <label class="block font-bold text-slate-700 text-xs sm:text-sm mb-1.5">Desired Loan Amount (₹) <span class="text-red-500">*</span></label>
+            <input id="modal-amount-select" type="text" required placeholder="Type amount (e.g. 15 Lakhs, 1.3 Crore, 50,00,000)" class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 text-slate-900 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-[#1565C0] focus:border-[#1565C0] shadow-2xs transition-all">
             <!-- Quick 1-Tap Preset Amount Chips -->
             <div class="flex flex-wrap gap-1.5 mt-2">
-              <button type="button" onclick="setModalAmount('₹10 Lakhs')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-100 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 text-slate-700 transition-all border border-slate-200 cursor-pointer">₹10 Lakhs</button>
-              <button type="button" onclick="setModalAmount('₹25 Lakhs')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-100 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 text-slate-700 transition-all border border-slate-200 cursor-pointer">₹25 Lakhs</button>
-              <button type="button" onclick="setModalAmount('₹50 Lakhs')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-100 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 text-slate-700 transition-all border border-slate-200 cursor-pointer">₹50 Lakhs</button>
-              <button type="button" onclick="setModalAmount('₹1 Crore')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-100 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 text-slate-700 transition-all border border-slate-200 cursor-pointer">₹1 Crore</button>
-              <button type="button" onclick="setModalAmount('₹2+ Crores')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-100 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 text-slate-700 transition-all border border-slate-200 cursor-pointer">₹2+ Crores</button>
+              <button type="button" onclick="setModalAmount('10 Lakhs')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-100 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 text-slate-700 transition-all border border-slate-200 cursor-pointer">₹10 Lakhs</button>
+              <button type="button" onclick="setModalAmount('25 Lakhs')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-100 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 text-slate-700 transition-all border border-slate-200 cursor-pointer">₹25 Lakhs</button>
+              <button type="button" onclick="setModalAmount('50 Lakhs')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-100 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 text-slate-700 transition-all border border-slate-200 cursor-pointer">₹50 Lakhs</button>
+              <button type="button" onclick="setModalAmount('1 Crore')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-100 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 text-slate-700 transition-all border border-slate-200 cursor-pointer">₹1 Crore</button>
+              <button type="button" onclick="setModalAmount('2+ Crores')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-100 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 text-slate-700 transition-all border border-slate-200 cursor-pointer">₹2+ Crores</button>
             </div>
           </div>
 
